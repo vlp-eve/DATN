@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cập Nhật Sản Phẩm</title>
+  <link rel="stylesheet" href="/css/styles.css">
+  <script src="/js/effects.js"></script>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(120deg, #a1c4fd, #c2e9fb);
+      margin: 0;
+      padding: 20px;
+      animation: gradientShift 5s ease infinite;
+    }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .form-container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: white;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+      border-radius: 10px;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .form-field {
+      margin-bottom: 20px;
+    }
+
+    .form-field label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+      color: #333;
+      font-size: 1.2em;
+    }
+
+    .form-field input, .form-field textarea, select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
+      transition: box-shadow 0.3s ease;
+    }
+
+    .form-field input:focus, .form-field textarea:focus, select:focus {
+      box-shadow: 0 0 8px rgba(60, 132, 255, 0.7);
+    }
+
+    .form-button {
+      background-color: #28a745;
+      color: white;
+      border: none;
+      padding: 15px 30px;
+      cursor: pointer;
+      border-radius: 50px;
+      font-size: 1.1em;
+      transition: transform 0.3s ease, background-color 0.3s ease;
+    }
+
+    .form-button:hover {
+      background-color: #218838;
+      transform: scale(1.05);
+      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .success-message {
+      color: green;
+      margin-top: 20px;
+      text-align: center;
+      animation: bounceIn 0.6s ease-in-out;
+    }
+
+    @keyframes bounceIn {
+      0% { transform: scale(0.8); opacity: 0; }
+      60% { transform: scale(1.2); opacity: 1; }
+      100% { transform: scale(1); }
+    }
+
+  </style>
+</head>
+<body>
+
+<div class="form-container">
+  <h2 style="text-align:center; color:#333; font-size: 2em;">Cập Nhật Sản Phẩm</h2>
+  <form th:action="@{'/product11/update/' + ${product.productId}}" method="POST" enctype="multipart/form-data">
+    <div class="form-field">
+      <label for="name">Tên Sản Phẩm:</label>
+      <input type="text" id="name" name="name" th:value="${product.name}" required>
+    </div>
+    <div class="form-field">
+      <label for="description">Mô Tả:</label>
+      <textarea id="description" name="description" required th:text="${product.description}"></textarea>
+    </div>
+    <div class="form-field">
+      <label for="price">Giá:</label>
+      <input type="number" id="price" name="price" th:value="${product.price}" required>
+    </div>
+    <div class="form-field">
+      <label for="expiryDate">Ngày Hết Hạn:</label>
+      <input type="date" id="expiryDate" name="expiryDate" th:value="${product.expiryDate}" required>
+    </div>
+    <div class="form-field">
+      <label for="imageFile">Tải ảnh sản phẩm:</label>
+      <img th:src="@{${product.imgBannerPath}}" alt="Ảnh sản phẩm hiện tại" id="currentImage" width="300">
+      <input type="file" id="imageFile" name="file" accept="image/*" onchange="previewImage(event)">
+    </div>
+    <div class="form-field">
+      <label for="stockQuantity">Số Lượng Tồn Kho:</label>
+      <input type="number" id="stockQuantity" name="stockQuantity" th:value="${product.stockQuantity}" required>
+    </div>
+    <div class="form-field">
+      <label for="available">Có sẵn:</label>
+      <input type="checkbox" id="available" name="available" th:checked="${product.available}">
+    </div>
+    <div class="form-field">
+      <label for="category">Danh mục sản phẩm:</label>
+      <select id="category" name="category">
+        <option value="" disabled selected>Chọn danh mục</option>
+        <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}" th:selected="${category.id == product.category.id}"></option>
+      </select>
+    </div>
+    <div class="form-field">
+      <label for="unit">Đơn vị tính:</label>
+      <select id="unit" name="unit">
+        <option value="" disabled selected>Chọn đơn vị tính</option>
+        <option th:each="unit : ${units}" th:value="${unit.id}" th:text="${unit.name}" th:selected="${unit.id == product.unit.id}"></option>
+      </select>
+    </div>
+    <button type="submit" class="form-button">Cập Nhật Sản Phẩm</button>
+    <button type="submit" th:acton class="form-button">Cập Nhật Sản Phẩm</button>
+  </form>
+  <div th:if="${success}" class="success-message">
+    <p th:text="${success}"></p>
+  </div>
+</div>
+
+</body>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const formButton = document.querySelector('.form-button');
+    formButton.addEventListener('click', function() {
+        formButton.classList.add('clicked');
+    });
+  });
+
+  function previewImage(event) {
+      var reader = new FileReader();
+      reader.onload = function() {
+          var output = document.getElementById('currentImage');
+          output.src = reader.result;
+      };
+      reader.readAsDataURL(event.target.files[0]);
+  }
+</script>
+</html>

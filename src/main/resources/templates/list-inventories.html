@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Danh sách kho hàng</title>
+</head>
+<body>
+<h1>Danh sách kho hàng</h1>
+
+<table>
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Sản phẩm</th>
+    <th>Số lượng</th>
+    <th>Ngày hết hạn</th>
+    <th>Trạng thái</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="inventory : ${inventories}">
+    <td th:text="${inventory.inventoryId}"></td>
+    <td th:text="${inventory.product.name}"></td>
+    <td th:text="${inventory.quantity}"></td>
+    <td th:text="${inventory.expiryDate}"></td>
+    <td th:text="${inventory.status.status}"></td>
+  </tr>
+  </tbody>
+</table>
+
+<a href="/inventory/add">Thêm kho hàng</a>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Sửa Sản Phẩm</title>
+</head>
+<body>
+<h1>Sửa Sản Phẩm</h1>
+<form th:action="@{/products/edit/{id}(id=${product.productId})}" method="post" enctype="multipart/form-data">
+    <label for="name">Tên:</label>
+    <input type="text" name="name" th:value="${product.name}" required>
+    <br>
+    <label for="description">Chi tiết:</label>
+    <input type="text" name="description" th:value="${product.description}" required>
+    <br>
+    <label for="category">Danh Mục:</label>
+    <select name="category" required>
+        <option value="">-- Chọn Danh Mục --</option>
+        <option th:each="category : ${categories}" th:value="${category.id}"
+                th:text="${category.name}" th:selected="${category.id == product.category.id}">
+        </option>
+    </select>
+    <br>
+
+    <label for="unit">Đơn Vị:</label>
+    <select name="unit" required>
+        <option value="">-- Chọn Đơn Vị --</option>
+        <option th:each="unit : ${units}" th:value="${unit.id}"
+                th:text="${unit.name}" th:selected="${unit.id == product.unit.id}">
+        </option>
+    </select>
+    <br>
+
+    <label for="price">Giá:</label>
+    <input type="number" name="price" th:value="${product.price}" required>
+    <br>
+
+    <label for="file">Hình ảnh:</label>
+    <input type="file" name="file">
+    <br>
+    <div>
+        <label for="available">Available:</label>
+        <input type="checkbox" id="available" name="available" th:checked="${product.available}" />
+    </div>
+    <button type="submit">Cập nhật</button>
+</form>
+<a href="/products">Trở lại</a>
+</body>
+</html>

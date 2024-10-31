@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thêm Ảnh Sản Phẩm</title>
+</head>
+<body>
+
+<h2>Thêm Ảnh cho Sản Phẩm: <span th:text="${product.name}"></span></h2>
+
+<form th:action="@{/productImg/{productId}/addImages(productId=${product.productId})}" method="post" enctype="multipart/form-data">
+  <div>
+    <label >Chọn ảnh:</label>
+    <input type="file" name="files" multiple required>
+  </div>
+  <button type="submit">Thêm Ảnh</button>
+</form>
+
+<div th:if="${success}">
+  <p th:text="${success}"></p>
+</div>
+
+<h3>Ảnh đã thêm:</h3>
+<ul>
+  <li th:each="image : ${images}">
+    <img th:src="@{${image.img}}" alt="Ảnh sản phẩm" width="100">
+  </li>
+</ul>
+
+</body>
+</html>
