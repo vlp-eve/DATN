@@ -1,6 +1,7 @@
 package com.poly.datn.Entity.Cart;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.poly.datn.Entity.Product.Store;
 import com.poly.datn.Entity.Product.Unit;
 import jakarta.persistence.*;
@@ -28,6 +29,7 @@ public class CartDetail {
 
     @ManyToOne
     @JoinColumn(name = "store_id", nullable = false, referencedColumnName = "id")
+    @JsonIgnore
     private Store store;
 
     @ManyToOne

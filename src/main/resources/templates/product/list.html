@@ -5,14 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Danh Sách Sản Phẩm</title>
 
-    <!-- CSS cơ bản -->
+
     <style>
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
             margin: 0;
             padding: 0;
-            transition: margin-left 0.3s ease; /* Thêm hiệu ứng chuyển đổi */
+            transition: margin-left 0.3s ease;
         }
 
         /* Menu Sidebar */
@@ -63,17 +63,17 @@
             border: none;
             padding: 10px 20px;
             cursor: pointer;
-            z-index: 999; /* Đảm bảo nút toggle nằm trên cùng */
+            z-index: 999;
         }
 
-        /* Nội dung chính sẽ được đẩy vào khi menu mở */
+
         #main-content {
             margin-left: 0;
             transition: margin-left 0.3s ease;
         }
 
         #main-content.active {
-            margin-left: 250px; /* Khoảng cách bằng với chiều rộng của sidebar */
+            margin-left: 250px;
         }
 
         /* Bảng sản phẩm */
@@ -99,13 +99,12 @@
             background-color: #f5f5f5;
         }
 
-        /* Hình ảnh trong bảng */
         img {
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
-        /* Liên kết thêm sản phẩm */
+
         a.add-product {
             display: inline-block;
             margin: 20px auto;
@@ -121,7 +120,6 @@
             background-color: #218838;
         }
 
-        /* Nút hành động (Sửa, Xóa) */
         td a {
             color: #007bff;
             text-decoration: none;
@@ -134,10 +132,8 @@
 </head>
 <body>
 
-<!-- Nút bật/tắt menu -->
 <button id="toggle-btn">☰ Menu</button>
 
-<!-- Sidebar Menu -->
 <div id="sidebar">
     <ul>
         <li><a href="#">Trang chủ</a></li>
@@ -147,14 +143,12 @@
     </ul>
 </div>
 
-<!-- Nội dung chính -->
+
 <div id="main-content">
     <h1 style="text-align: center;">Danh Sách Sản Phẩm</h1>
 
-    <!-- Link thêm sản phẩm -->
     <a href="/products/add" class="add-product">Thêm Sản Phẩm</a>
 
-    <!-- Bảng sản phẩm -->
     <table>
         <thead>
         <tr>
@@ -184,7 +178,7 @@
     </table>
 </div>
 
-<!-- JavaScript điều khiển menu -->
+
 <script>
         const toggleBtn = document.getElementById('toggle-btn');
         const sidebar = document.getElementById('sidebar');

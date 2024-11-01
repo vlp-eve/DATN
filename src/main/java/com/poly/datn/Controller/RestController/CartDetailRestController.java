@@ -24,14 +24,12 @@ public class CartDetailRestController {
     public ResponseEntity<CartDetail> addProductToCart(
 
             @RequestParam Long userId,
-            @RequestParam Long productId,
-
+            @RequestParam Long storeId,
             @RequestParam int quantity
             ) {
 
-
         // Gọi service để thêm sản phẩm vào giỏ hàng
-        CartDetail cartDetail = cartDetailService.addProductToCart( userId,  productId,  quantity);
+        CartDetail cartDetail = cartDetailService.addProductToCart(  userId,  storeId,  quantity);
 
         return ResponseEntity.ok(cartDetail);
     }

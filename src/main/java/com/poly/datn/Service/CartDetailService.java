@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface CartDetailService {
     public CartDetail updateCartDetail(Long id, CartDetail cartDetailDetails);
-    public CartDetail addProductToCart(Long userId, Long productId, int quantity);
+    public CartDetail addProductToCart(Long userId, Long storeId,  int quantity);
 
 //    void deleteById(Long cartDetailId);
     public List<CartDetail> getAllCartDetailsForCart(Long cartId);

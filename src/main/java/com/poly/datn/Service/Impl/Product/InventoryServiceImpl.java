@@ -76,12 +76,8 @@ public class InventoryServiceImpl implements InventoryService {
         // Tạo và thiết lập Store
         Store store = new Store();
 
-        // Tạo StoreId và thiết lập cho Store
-
         store.setProduct(product1);
         store.setInventory(savedInventory);
-
-        // Thiết lập các thuộc tính khác
 
         store.setDiscount(null);
 
@@ -134,7 +130,6 @@ public class InventoryServiceImpl implements InventoryService {
     public void updateInventoryStatusAndDiscount() {
         List<Inventory> inventories = inventoryRepository.findAll();
         LocalDate currentDate = LocalDate.now();
-
         // Đặt lại totalQuantity về 0 trước khi tính toán lại
         Map<Long, Integer> productQuantityMap = new HashMap<>();
 
@@ -143,8 +138,6 @@ public class InventoryServiceImpl implements InventoryService {
             product.setTotalQuantity(0);
             product1Repository.save(product);
         }
-
-
         for (Inventory inventory : inventories) {
             // Tính toán số ngày còn lại đến ngày hết hạn
             long daysToExpiry = inventory.getExpiryDate().toEpochDay() - currentDate.toEpochDay();
@@ -161,8 +154,6 @@ public class InventoryServiceImpl implements InventoryService {
             } else {
                 inventory.setStatus(statusRepository.getReferenceById(4L));
             }
-
-
             // Tính toán lại totalQuantity cho từng sản phẩm
             if (inventory.getStatus().getId() != 1 && inventory.getIsDeleted()== IsDelete.ACTIVE.getValue() ) {
                 Long productId = inventory.getProduct().getId();
@@ -184,36 +175,7 @@ public class InventoryServiceImpl implements InventoryService {
 
 
 
-    //  xử lý buôn bán
-//    public void processNearestExpiryInventory(Long productId, int quantity) {
-//        List<Inventory> availableInventories = inventoryRepository.findAvailableInventories(productId, LocalDate.now());
-//        int totalAvailableQuantity = availableInventories.stream()
-//                .mapToInt(Inventory::getQuantity)
-//                .sum();
-//
-//
-//        int remainingQuantity = quantity;
-//
-//        for (Inventory inventory : availableInventories) {
-//            if (totalAvailableQuantity < quantity) {
-//                System.out.println("Không đủ hàng trong tất cả các lô hàng gần hết hạn.");
-//                return;
-//            }
-//            if (inventory.getQuantity() >= remainingQuantity) {
-//                inventory.setQuantity(inventory.getQuantity() - remainingQuantity);
-//                inventoryRepository.save(inventory);
-//                System.out.println("Đã xử lý " + quantity + " sản phẩm từ lô hàng gần hết hạn.");
-//                Product1 product1 = product1Repository.findProductById(inventory.getProduct().getProductId());
-//                product1.setTotalQuantity(inventory.getQuantity()+ product1.getTotalQuantity() );
-//                product1Repository.save(product1);
-//                return;
-//            } else {
-//                remainingQuantity -= inventory.getQuantity();
-//                inventory.setQuantity(0);
-//                inventoryRepository.save(inventory);
-//            }
-//        }
-//    }
+
 }
 
 

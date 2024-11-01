@@ -11,7 +11,7 @@ public interface InventoryService {
     public void updateInventoryStatusAndDiscount();
     public List<Inventory> getAllInventories();
     public Inventory getInventoryById(Long inventoryId);
-//    public void processNearestExpiryInventory(Long productId, int quantity);
+
     public void deleteInventory(Long inventoryId);
     public void updateInvetory(Inventory inventory);
 }
