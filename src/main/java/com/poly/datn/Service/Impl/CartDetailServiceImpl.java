@@ -71,7 +71,7 @@ public class CartDetailServiceImpl implements CartDetailService {
 //    Thêm sản phẩm vào giỏ hàng
 
     @Override
-    public CartDetail addProductToCart( Long userId, Long productId, int quantity) {
+    public CartDetail addProductToCart( Long userId, Long storeId,  int quantity) {
         LocalDate today = LocalDate.now();
         // Tìm sản phẩm trong cửa hàng
 
@@ -88,48 +88,43 @@ public class CartDetailServiceImpl implements CartDetailService {
             cart = cartRepository.save(cart1);
         }
 
-        List<Inventory> inventories = inventoryRepository.findByProduct_Id(productId);
-        Store store = null;
+       Store store = storeRepository.getReferenceById(storeId);
+        if (store == null) {
+            throw new RuntimeException("Không tìm thấy sản phẩm");
+        } else {
+            if (store.getInventory().getQuantity() < quantity) {
+                throw new RuntimeException("Không đủ số lượng");
+            } else {
+                // Kiểm tra xem sản phẩm đã có trong giỏ hàng chưa
+                Optional<CartDetail> existingCartDetail = cartDetailRepository.findByCart_IdAndStore_Id(cart.getId(), store.getId());
+                
+                Double price = product1Repository.findProductById(store.getProduct().getId()).getPrice();
+                CartDetail cartDetail;
+                if (existingCartDetail.isPresent()) {
+                    // Nếu sản phẩm đã có, cập nhật số lượng và giá
+                    cartDetail = existingCartDetail.get();
+                    cartDetail.setQuantity(cartDetail.getQuantity() + quantity);
+                    cartDetail.setUnit(store.getProduct().getUnit());
+                    cartDetail.setPrice(cartDetail.getPrice() + price);
+                } else {
+                    // Nếu sản phẩm chưa có, thêm sản phẩm mới vào giỏ hàng
+                    cartDetail = new CartDetail();
+                    cartDetail.setCart(cart);
+                    cartDetail.setStore(store);
+                    cartDetail.setQuantity(quantity);
+                    cartDetail.setUnit(store.getProduct().getUnit());
+                    cartDetail.setPrice(price);
+                }
 
-        for (Inventory inventory : inventories) {
-            if (inventory.getQuantity() >= quantity) {
-                store = storeRepository.findByProduct_IdAndInventory_Id(productId, inventory.getId());
-                break;
+                // Cập nhật lại tổng giá trong giỏ hàng
+                cart.setTotalPrice(cart.getTotalPrice() + price * quantity);
+                cartRepository.save(cart);
+
+                return cartDetailRepository.save(cartDetail);
             }
         }
 
-        if (store == null) {
-            System.out.println("Không đủ số lượng");
-            return null;
-        }
 
-        // Kiểm tra xem sản phẩm đã có trong giỏ hàng chưa
-        Optional<CartDetail> existingCartDetail = cartDetailRepository.findByCart_IdAndStore_Id(cart.getId(), store.getId());
-
-
-        Double price = product1Repository.findProductById(productId).getPrice();
-        CartDetail cartDetail;
-        if (existingCartDetail.isPresent()) {
-            // Nếu sản phẩm đã có, cập nhật số lượng và giá
-            cartDetail = existingCartDetail.get();
-            cartDetail.setQuantity(cartDetail.getQuantity() + quantity);
-            cartDetail.setUnit(store.getProduct().getUnit());
-            cartDetail.setPrice(cartDetail.getPrice() + price);
-        } else {
-            // Nếu sản phẩm chưa có, thêm sản phẩm mới vào giỏ hàng
-            cartDetail = new CartDetail();
-            cartDetail.setCart(cart);
-            cartDetail.setStore(store);
-            cartDetail.setQuantity(quantity);
-            cartDetail.setUnit(store.getProduct().getUnit());
-            cartDetail.setPrice(price);
-        }
-
-        // Cập nhật lại tổng giá trong giỏ hàng
-        cart.setTotalPrice(cart.getTotalPrice() + price * quantity);
-        cartRepository.save(cart);
-
-        return cartDetailRepository.save(cartDetail);
     }
 
 }

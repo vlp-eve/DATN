@@ -127,19 +127,5 @@ public class ProductServiceImpl implements Product1Service {
 
 
 
-//    public List<Product1> getProductsNearExpiry() {
-//        LocalDate today = LocalDate.now();
-//        List<Inventory> inventories = inventoryRepository.findProduct(today);
-//
-//
-//        // Lọc sản phẩm từ các lô hàng gần hết hạn
-//        return inventories.stream()
-//                .filter(inventory -> inventory.getQuantity() > 0)
-//                .map(Inventory::getProduct)
-//                .distinct() // Loại bỏ sản phẩm trùng lặp
-//                .collect(Collectors.toList());
-//    }
-//    public Product1 getProductById(Long id){
-//        return product1Repository.findProductById(id);
-//    }
+
 }
