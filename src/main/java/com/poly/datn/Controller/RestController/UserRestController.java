@@ -2,7 +2,8 @@ package com.poly.datn.Controller.RestController;
 
 
 
-import com.poly.datn.Entity.Product.User;
+
+import com.poly.datn.Entity.User.User;
 import com.poly.datn.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

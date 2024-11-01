@@ -1,8 +1,7 @@
-package com.poly.datn.Service.Impl;
+package com.poly.datn.Service.Impl.Product;
 
 import com.poly.datn.Entity.Product.Discount;
-import com.poly.datn.Entity.Product.Inventory;
-import com.poly.datn.Entity.Product.Product1;
+
 import com.poly.datn.Repository.DiscountRepository;
 import com.poly.datn.Repository.Product1Repository;
 import com.poly.datn.Repository.StatusRepository;

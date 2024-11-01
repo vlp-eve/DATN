@@ -1,4 +1,4 @@
-package com.poly.datn.Service.Impl;
+package com.poly.datn.Service.Impl.Product;
 
 import com.poly.datn.Entity.Product.ProductImg;
 
@@ -19,6 +19,6 @@ public class ProductImgServiceImpl {
         productImgRepository.saveAll(productImages);
     }
     public List<ProductImg> getALlProductImgById(Long id) {
-        return productImgRepository.findAllByProduct1_ProductId(id);
+        return productImgRepository.findAllByProduct1_Id(id);
     }
 }

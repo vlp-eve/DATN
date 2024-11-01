@@ -29,13 +29,13 @@ public class Inventory {
     private Integer quantity;
 
     @Column(name = "is_deleted")
-    private int isDeleted = IsDelete.ACTIVE.ordinal();
+    private int isDeleted = IsDelete.ACTIVE.getValue();
 
     @Column(name = "receivedDate", nullable = false)
     private LocalDate receivedDate;  // Ngày nhập kho
 
     @Column(name = "expiryDate", nullable = false)
-    private LocalDate expiryDate;  // Ngày hết hạn
+    private LocalDate expiryDate;
 
     @ManyToOne
     @JoinColumn(name = "status_id", referencedColumnName = "id")

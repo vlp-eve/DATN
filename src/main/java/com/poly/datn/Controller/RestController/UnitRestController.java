@@ -1,7 +1,8 @@
 package com.poly.datn.Controller.RestController;
 
-import com.poly.datn.Entity.Unit; // Thay bằng package thực tế của Entity Unit
-import com.poly.datn.Service.UnitService; // Thay bằng package thực tế của UnitService
+import com.poly.datn.Entity.Product.Unit;
+
+import com.poly.datn.Service.UnitService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

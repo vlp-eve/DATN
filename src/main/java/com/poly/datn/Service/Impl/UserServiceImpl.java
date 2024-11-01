@@ -1,8 +1,9 @@
 package com.poly.datn.Service.Impl;
 
-import com.poly.datn.Entity.Product.Account;
-import com.poly.datn.Entity.Product.Role;
-import com.poly.datn.Entity.Product.User;
+
+import com.poly.datn.Entity.User.Account;
+import com.poly.datn.Entity.User.Role;
+import com.poly.datn.Entity.User.User;
 import com.poly.datn.Repository.AccountRepository;
 import com.poly.datn.Repository.RoleRepository;
 import com.poly.datn.Repository.UserRepository;

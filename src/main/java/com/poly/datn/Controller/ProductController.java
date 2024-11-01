@@ -2,10 +2,10 @@ package com.poly.datn.Controller;
 
 import com.poly.datn.Entity.Product.Category;
 import com.poly.datn.Entity.Product.Product;
-import com.poly.datn.Entity.Product.Product1;
+
 
 import com.poly.datn.Entity.Product.Unit;
-import com.poly.datn.Entity.Unit;
+
 import com.poly.datn.Service.CategoryService;
 import com.poly.datn.Service.Product1Service;
 import com.poly.datn.Service.UnitService;
@@ -32,14 +32,14 @@ public class ProductController {
 
     @GetMapping
     public String listProducts(Model model) {
-        List<Product1> products = product1Service.getAllProducts();
+        List<Product> products = product1Service.getAllProducts();
         model.addAttribute("products", products);
         return "product/list";
     }
 
     @GetMapping("/add")
     public String showAddProductForm(Model model) {
-        model.addAttribute("product", new Product1());
+        model.addAttribute("product", new Product());
 
         // Lấy danh sách Category và Unit để hiển thị trong form
         List<Category> categories = categoryService.getAllCategories();
@@ -51,7 +51,7 @@ public class ProductController {
     }
 
     @PostMapping("/add")
-    public String addProduct(@ModelAttribute Product1 product, @RequestParam("file") MultipartFile file) {
+    public String addProduct(@ModelAttribute Product product, @RequestParam("file") MultipartFile file) {
         product1Service.addProduct(product, file);
         return "redirect:/products";
     }

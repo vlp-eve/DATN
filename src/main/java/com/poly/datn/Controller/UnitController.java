@@ -1,6 +1,7 @@
 package com.poly.datn.Controller;
 
-import com.poly.datn.Entity.Unit;
+import com.poly.datn.Entity.Product.Unit;
+
 import com.poly.datn.Service.UnitService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

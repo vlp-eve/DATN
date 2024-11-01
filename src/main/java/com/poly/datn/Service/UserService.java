@@ -1,6 +1,7 @@
 package com.poly.datn.Service;
 
-import com.poly.datn.Entity.Product.User;
+
+import com.poly.datn.Entity.User.User;
 
 import java.util.List;
 import java.util.Optional;

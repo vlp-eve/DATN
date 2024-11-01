@@ -1,8 +1,9 @@
 package com.poly.datn.Controller;
 
-import com.poly.datn.Entity.Product.Product1;
+import com.poly.datn.Entity.Product.Product;
+
 import com.poly.datn.Entity.Product.ProductImg;
-import com.poly.datn.Service.Impl.ProductImgServiceImpl;
+import com.poly.datn.Service.Impl.Product.ProductImgServiceImpl;
 
 
 import com.poly.datn.Service.Product1Service;
@@ -22,7 +23,6 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/productImg")
@@ -36,7 +36,7 @@ public class ProductImgController {
 
     @GetMapping("/{productId}")
     public String showAddImagesPage(@PathVariable Long productId, Model model) {
-        Product1 product = product1Service.getById(productId);
+        Product product = product1Service.getById(productId);
         List<ProductImg> productImg = productImgService.getALlProductImgById(productId);
 
         model.addAttribute("product", product);
@@ -49,7 +49,7 @@ public class ProductImgController {
     public String addImages(@PathVariable Long productId,
                             @RequestParam("files") MultipartFile[] files,
                             Model model, RedirectAttributes redirectAttributes) {
-        Product1 product = product1Service.getById(productId);
+        Product product = product1Service.getById(productId);
         List<ProductImg> productImages = new ArrayList<>();
 
 

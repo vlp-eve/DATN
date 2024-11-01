@@ -1,6 +1,8 @@
-package com.poly.datn.Service.Impl;
+package com.poly.datn.Service.Impl.Product;
 
-import com.poly.datn.Entity.Unit;
+import com.poly.datn.Entity.IsDelete;
+import com.poly.datn.Entity.Product.Unit;
+
 import com.poly.datn.Repository.UnitRepository;
 import com.poly.datn.Service.UnitService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +17,7 @@ public class UnitServiceImpl implements UnitService {
 
     @Override
     public List<Unit> getAllUnit() {
-        return unitRepository.findByIsDeleteFalse();
+        return unitRepository.findByIsDeletedFalse();
     }
 
     @Override
@@ -33,7 +35,7 @@ public class UnitServiceImpl implements UnitService {
     @Override
     public void deleteUnit(Long id) {
         Unit unit = unitRepository.findUnitById(id);
-        unit.setIsDelete(true);
+        unit.setIsDeleted(IsDelete.DELETED.getValue());
         unitRepository.save(unit);
 
     }
@@ -45,6 +47,6 @@ public class UnitServiceImpl implements UnitService {
 
     @Override
     public List<Unit> getNonDeletedUnit() {
-        return unitRepository.findByIsDeleteFalse();
+        return unitRepository.findByIsDeletedFalse();
     }
 }

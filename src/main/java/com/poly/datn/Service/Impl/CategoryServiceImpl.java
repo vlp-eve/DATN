@@ -1,7 +1,8 @@
 package com.poly.datn.Service.Impl;
 
+import com.poly.datn.Entity.IsDelete;
 import com.poly.datn.Entity.Product.Category;
-import com.poly.datn.Entity.Product.Product1;
+
 import com.poly.datn.Repository.CategoryRepository;
 import com.poly.datn.Service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,7 @@ public class CategoryServiceImpl implements CategoryService {
 
 
     public List<Category> getNonDeleteCategory() {
-        return categoryRepository.findByIsDeleteFalse();
+        return categoryRepository.findByIsDeletedFalse();
     }
 
     public Category addCategory(Category category) {
@@ -38,7 +39,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     public void deleteCategory(Long id) {
         Category category = categoryRepository.findCategoryById(id);
-        category.setDelete(true);
+        category.setIsDeleted(IsDelete.DELETED.getValue());
         categoryRepository.save(category);
     }
 
@@ -49,6 +50,6 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public List<Category> getNonDeletedCategory() {
-        return categoryRepository.findByIsDeleteFalse();
+        return categoryRepository.findByIsDeletedFalse();
     }
 }

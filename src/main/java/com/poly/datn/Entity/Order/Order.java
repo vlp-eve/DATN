@@ -1,6 +1,7 @@
 package com.poly.datn.Entity.Order;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.poly.datn.Entity.StatusOrder;
 import com.poly.datn.Entity.User.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -27,8 +28,10 @@ public class Order {
     @Column(name = "create_date")
     private LocalDate createDate;
 
+
+    @Enumerated(EnumType.STRING)
     @Column(name = "status")
-    private String status;
+    private StatusOrder status;
 
     @Column(name = "address")
     private String address;

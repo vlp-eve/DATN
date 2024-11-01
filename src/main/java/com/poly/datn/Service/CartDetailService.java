@@ -7,8 +7,12 @@ import java.util.Optional;
 
 public interface CartDetailService {
     public CartDetail updateCartDetail(Long id, CartDetail cartDetailDetails);
-    public CartDetail addProductToCart(Long cartId, Long userId, Long productId, Long inventoryId, int quantity, Double price);
+    public CartDetail addProductToCart(Long userId, Long productId, int quantity);
 
 //    void deleteById(Long cartDetailId);
     public List<CartDetail> getAllCartDetailsForCart(Long cartId);
+
+    //    Thêm sản phẩm vào giỏ hàng
+    //    đang lỗi khi chưa xong cart và user ( chưa lấy được 2 id )
+
 }

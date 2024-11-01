@@ -2,7 +2,8 @@ package com.poly.datn.Controller.RestController;
 
 import com.poly.datn.Entity.Cart.Cart;
 import com.poly.datn.Entity.Cart.CartDetail;
-import com.poly.datn.Entity.Product.Product1;
+import com.poly.datn.Entity.Product.Product;
+
 import com.poly.datn.Service.CartService;
 import com.poly.datn.Service.CartDetailService;
 import com.poly.datn.Service.Product1Service;
@@ -88,20 +89,20 @@ public class CartRestController {
 //        CartDetail cartDetail = cartDetailService.addProductToCart(cartId, userId, productId, inventoryId, quantity, price  );
 //        return ResponseEntity.ok(cartDetail);
 //    }
-    @PostMapping("/{cartId}/add-product")
-    public ResponseEntity<CartDetail> addProductToCart(
-            @PathVariable Long cartId,
-            @RequestParam Long productId,
-            @RequestParam Long inventoryId,
-            @RequestParam Long unitId,
-            @RequestParam int quantity
-           ) {
-        Long userId = Long.valueOf(1);
-        Product1 product1 = product1Service.getById(productId);
-        Double price1 = product1.getPrice();
-        CartDetail cartDetail = cartDetailService.addProductToCart(cartId, productId, inventoryId, unitId, quantity, price1);
-        return ResponseEntity.ok(cartDetail);
-    }
+//    @PostMapping("/{cartId}/add-product")
+//    public ResponseEntity<CartDetail> addProductToCart(
+//            @PathVariable Long cartId,
+//            @RequestParam Long productId,
+//            @RequestParam Long inventoryId,
+//            @RequestParam Long unitId,
+//            @RequestParam int quantity
+//           ) {
+//        Long userId = Long.valueOf(1);
+//        Product product1 = product1Service.getById(productId);
+//        Double price1 = product1.getPrice();
+//        CartDetail cartDetail = cartDetailService.addProductToCart(cartId, productId, inventoryId, unitId, quantity, price1);
+//        return ResponseEntity.ok(cartDetail);
+//    }
 
 
 }

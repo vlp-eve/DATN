@@ -1,6 +1,5 @@
 package com.poly.datn;
 
-import com.poly.datn.Service.Impl.InventoryServiceImpl;
 import com.poly.datn.Service.InventoryService;
 import com.poly.datn.Service.StoreService;
 import org.springframework.beans.factory.annotation.Autowired;

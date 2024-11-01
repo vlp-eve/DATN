@@ -1,4 +1,4 @@
-package com.poly.datn.Service.Impl;
+package com.poly.datn.Service.Impl.Product;
 
 import com.poly.datn.Entity.IsDelete;
 import com.poly.datn.Entity.Product.Product;
@@ -74,11 +74,11 @@ public class ProductServiceImpl implements Product1Service {
 
 
     public void updateProducts(Long id, Product product, MultipartFile file){
-        Product product = product1Repository.findProductById(id);
-        product.setUpdateAt(today);
-        product.setName(product.getName());
-        product.setDescription(product1.getDescription());
-        product.setPrice(product1.getPrice());
+        Product product1 = product1Repository.findProductById(id);
+        product1.setUpdateAt(today);
+        product1.setName(product.getName());
+        product1.setDescription(product.getDescription());
+        product1.setPrice(product.getPrice());
         //  xử lý việc lưu trữ file
         if (!file.isEmpty()) {
             String fileName = StringUtils.cleanPath(file.getOriginalFilename());
@@ -95,7 +95,7 @@ public class ProductServiceImpl implements Product1Service {
                 Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
 
                 // Lưu đường dẫn tương đối vào cơ sở dữ liệu
-                product.setImgBannerPath("/img/img_product/" + fileName);
+                product1.setImgBannerPath("/img/img_product/" + fileName);
             } catch (IOException e) {
                 throw new RuntimeException("Error saving file", e);
             }
@@ -103,11 +103,11 @@ public class ProductServiceImpl implements Product1Service {
             System.out.println("Không thay đổi ảnh");
         }
 //        product.setAvailable(product1.isAvailable());
-        product1Repository.save(product);
+        product1Repository.save(product1);
     }
 
 
-    public Product1 getById(long id){
+    public Product getById(long id){
         return product1Repository.findProductById(id);
     }
 
@@ -122,7 +122,7 @@ public class ProductServiceImpl implements Product1Service {
 
     // lấy danh sách chưa bị xóa mềm
     public List<Product> getNonDeletedProducts() {
-        return product1Repository.findByIsDeleteFalse();
+        return product1Repository.findByIsDeletedFalse();
     }
 
 

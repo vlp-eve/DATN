@@ -1,9 +1,11 @@
-package com.poly.datn.Service.Impl;
+package com.poly.datn.Service.Impl.Product;
 
-import com.poly.datn.Entity.DTO.Product1Dto;
+import com.poly.datn.Entity.DTO.StoreDTO;
+import com.poly.datn.Entity.IsDelete;
 import com.poly.datn.Entity.Product.Discount;
 import com.poly.datn.Entity.Product.Inventory;
-import com.poly.datn.Entity.Product.Product1;
+import com.poly.datn.Entity.Product.Product;
+
 import com.poly.datn.Entity.Product.Store;
 import com.poly.datn.Repository.DiscountRepository;
 import com.poly.datn.Repository.InventoryRepository;
@@ -13,10 +15,8 @@ import com.poly.datn.Service.StoreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.math.BigInteger;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class StoreServiceImpl implements StoreService {
@@ -35,23 +35,23 @@ public class StoreServiceImpl implements StoreService {
     public List<Store> findAllStore(){
        return storeRepository.findAll();
     }
-    @Override
-    public List<Product1Dto> findAvailableProductsFromStore() {
-//        return storeRepository.findAvailableProductsFromStore();
-        List<Object[]> results = storeRepository.findAvailableProductsFromStore();
-        return storeRepository.mapToProduct1Dtos(results);
-    }
+//    @Override
+//    public List<Product1Dto> findAvailableProductsFromStore() {
+////        return storeRepository.findAvailableProductsFromStore();
+//        List<Object[]> results = storeRepository.findAvailableProductsFromStore();
+//        return storeRepository.mapToProduct1Dtos(results);
+//    }
 
 
     public void setDiscount() {
-        List<Product1> product1List = product1Repository.findByIsDeleteFalse();
-        for (Product1 product1 : product1List) {
-            List<Inventory> inventories = inventoryRepository.findByProduct_ProductId(product1.getProductId());
+        List<Product> product1List = product1Repository.findByIsDeletedFalse();
+        for (Product product1 : product1List) {
+            List<Inventory> inventories = inventoryRepository.findByProduct_Id(product1.getId());
             for (Inventory inventory : inventories) {
                 Discount discount = null;
 
                 // Xác định discount dựa trên status của inventory
-                if (inventory.getStatus().getId() == 1 || inventory.getStatus().getId() == 4 || inventory.getStatus().getId() == 5|| inventory.isDelete()==true) {
+                if (inventory.getStatus().getId() == 1 || inventory.getStatus().getId() == 4 || inventory.getStatus().getId() == 5|| inventory.getIsDeleted()== IsDelete.DELETED.getValue()) {
                     discount = null;
                 } else if (inventory.getStatus().getId() == 2) {
                     discount = discountRepository.getReferenceById(1L);
@@ -62,26 +62,25 @@ public class StoreServiceImpl implements StoreService {
                 }
 
                 // Tìm kiếm store
-                Store store = storeRepository.findByProduct_ProductIdAndInventory_InventoryId(
-                        product1.getProductId(), inventory.getInventoryId());
+                Store store = storeRepository.findByProduct_IdAndInventory_Id(
+                        product1.getId(), inventory.getId());
 
                 // Kiểm tra store có null không
                 if (store != null) {
                     store.setDiscount(discount);
                     storeRepository.save(store);
                 } else {
-                    System.out.println("Không tìm thấy store cho productId: " + product1.getProductId() +
-                            " và inventoryId: " + inventory.getInventoryId());
+                    System.out.println("Không tìm thấy store cho productId: " + product1.getId() +
+                            " và inventoryId: " + inventory.getId());
                 }
             }
         }
     }
 
 
-    @Override
-    public List<Store> getProductsWithUpcomingExpiry() {
+    public List<Object[]> getProductsWithUpcomingExpiry() {
         LocalDate currentDate = LocalDate.now();
-        return storeRepository.findTopByEachProductAndUpcomingExpiry(currentDate);
+        return storeRepository.findStoresWithValidInventory(currentDate);
     }
 
 //    public void test (){

@@ -1,9 +1,11 @@
-package com.poly.datn.Service.Impl;
+package com.poly.datn.Service.Impl.Product;
 
+import com.poly.datn.Entity.IsDelete;
 import com.poly.datn.Entity.Product.Inventory;
-import com.poly.datn.Entity.Product.Product1;
+import com.poly.datn.Entity.Product.Product;
+
 import com.poly.datn.Entity.Product.Store;
-import com.poly.datn.Entity.StoreId;
+
 import com.poly.datn.Repository.InventoryRepository;
 import com.poly.datn.Repository.Product1Repository;
 import com.poly.datn.Repository.StatusRepository;
@@ -36,7 +38,7 @@ public class InventoryServiceImpl implements InventoryService {
 
         // lấy tất cả lô hàng chưa bị xóa
         public List<Inventory> getAllInventories() {
-            return inventoryRepository.findByIsDeleteFalse();
+            return inventoryRepository.findByIsDeletedFalse();
         }
         // lấy lô hàng theo id
         public Inventory getInventoryById(Long inventoryId) {
@@ -64,7 +66,7 @@ public class InventoryServiceImpl implements InventoryService {
         inventory.setReceivedDate(today);
 
         // Lưu tổng sản phẩm
-        Product1 product1 = product1Repository.findProductById(inventory.getProduct().getProductId());
+        Product product1 = product1Repository.findProductById(inventory.getProduct().getId());
         product1.setTotalQuantity(inventory.getQuantity() + product1.getTotalQuantity());
         product1Repository.save(product1);
 
@@ -75,14 +77,12 @@ public class InventoryServiceImpl implements InventoryService {
         Store store = new Store();
 
         // Tạo StoreId và thiết lập cho Store
-        StoreId storeId = new StoreId();
-        storeId.setProductId(product1.getProductId());
-        storeId.setInventoryId(savedInventory.getInventoryId());
-        store.setId(storeId);
+
+        store.setProduct(product1);
+        store.setInventory(savedInventory);
 
         // Thiết lập các thuộc tính khác
-        store.setInventory(savedInventory);
-        store.setProduct(product1);
+
         store.setDiscount(null);
 
         // Lưu Store
@@ -107,7 +107,7 @@ public class InventoryServiceImpl implements InventoryService {
             else {
                 inventory.setStatus(statusRepository.getReferenceById(4L));
             }
-            Product1 product1 = product1Repository.findProductById(inventory.getProduct().getProductId());
+            Product product1 = product1Repository.findProductById(inventory.getProduct().getId());
             product1.setTotalQuantity(inventory.getQuantity()+ product1.getTotalQuantity() );
             product1Repository.save(product1);
             inventoryRepository.save(inventory);
@@ -117,16 +117,16 @@ public class InventoryServiceImpl implements InventoryService {
 
         public void deleteInventory(Long inventoryId) {
           Inventory inventory = inventoryRepository.findInventoryById(inventoryId);
-          if(inventory.isDelete() == false){
-          inventory.setDelete(true);
-          Product1 product1 = product1Repository.findProductById(inventory.getProduct().getProductId());
+          if(inventory.getIsDeleted() == IsDelete.DELETED.getValue()){
+          inventory.setIsDeleted(IsDelete.DELETED.getValue());
+          Product product1 = product1Repository.findProductById(inventory.getProduct().getId());
           product1.setTotalQuantity( product1.getTotalQuantity()- inventory.getQuantity() );
           product1Repository.save(product1);
           inventoryRepository.save(inventory);
           }else {
               System.out.println("Có lỗi xảy ra");
           }
-        };
+        }
 
 
 
@@ -138,8 +138,8 @@ public class InventoryServiceImpl implements InventoryService {
         // Đặt lại totalQuantity về 0 trước khi tính toán lại
         Map<Long, Integer> productQuantityMap = new HashMap<>();
 
-        List<Product1> products = product1Repository.findAll();
-        for (Product1 product : products) {
+        List<Product> products = product1Repository.findAll();
+        for (Product product : products) {
             product.setTotalQuantity(0);
             product1Repository.save(product);
         }
@@ -164,8 +164,8 @@ public class InventoryServiceImpl implements InventoryService {
 
 
             // Tính toán lại totalQuantity cho từng sản phẩm
-            if (inventory.getStatus().getId() != 1 && inventory.isDelete()== false ) {
-                Long productId = inventory.getProduct().getProductId();
+            if (inventory.getStatus().getId() != 1 && inventory.getIsDeleted()== IsDelete.ACTIVE.getValue() ) {
+                Long productId = inventory.getProduct().getId();
                 productQuantityMap.put(productId,
                         productQuantityMap.getOrDefault(productId, 0) + inventory.getQuantity());
             }
@@ -175,7 +175,7 @@ public class InventoryServiceImpl implements InventoryService {
 
         // Cập nhật totalQuantity cho các sản phẩm
         for (Map.Entry<Long, Integer> entry : productQuantityMap.entrySet()) {
-            Product1 product1 = product1Repository.findProductById(entry.getKey());
+            Product product1 = product1Repository.findProductById(entry.getKey());
             product1.setTotalQuantity(entry.getValue());
             product1Repository.save(product1);
         }

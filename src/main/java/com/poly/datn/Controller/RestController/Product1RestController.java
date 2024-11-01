@@ -62,7 +62,7 @@
 ////    @PutMapping("/{productId}")
 ////    public ResponseEntity<Product1> updateProduct(@PathVariable Long productId, @RequestBody Product1 productDetails) {
 ////        Product1 updatedProduct = product1Service.updateProduct(productId, productDetails);
-////        return ResponseEntity.ok(updatedProduct);
+//        return ResponseEntity.ok(updatedProduct);
 ////    }
 ////    @GetMapping("/{id}")
 ////    public ResponseEntity<Product1> getProductById(@PathVariable Long id) {

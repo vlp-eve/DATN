@@ -1,7 +1,8 @@
 package com.poly.datn.Service;
 
 import com.poly.datn.Entity.DTO.Product1Dto;
-import com.poly.datn.Entity.Product.Product1;
+
+import com.poly.datn.Entity.DTO.StoreDTO;
 import com.poly.datn.Entity.Product.Store;
 import org.springframework.stereotype.Service;
 
@@ -12,9 +13,9 @@ public interface StoreService   {
     public List<Store> findAllStore();
 
     public void setDiscount();
-    public List<Product1Dto> findAvailableProductsFromStore() ;
+    public List<Object[]> getProductsWithUpcomingExpiry() ;
 
-        List<Store> getProductsWithUpcomingExpiry();
+
 
 
 }

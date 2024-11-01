@@ -2,16 +2,15 @@ package com.poly.datn.Service.Impl;
 
 import com.poly.datn.Entity.Cart.Cart;
 import com.poly.datn.Entity.Cart.CartDetail;
+import com.poly.datn.Entity.Product.Inventory;
 import com.poly.datn.Entity.Product.Store;
-import com.poly.datn.Entity.StoreId;
-import com.poly.datn.Repository.CartDetailRepository;
-import com.poly.datn.Repository.CartRepository;
-import com.poly.datn.Repository.StoreRepository;
+import com.poly.datn.Repository.*;
 import com.poly.datn.Service.CartDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,6 +24,15 @@ public class CartDetailServiceImpl implements CartDetailService {
 
     @Autowired
     private CartRepository cartRepository;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private InventoryRepository inventoryRepository;
+
+    @Autowired
+    private  Product1Repository product1Repository;
 
     public List<CartDetail> getAllCartDetail() {
         return cartDetailRepository.findAll();
@@ -61,26 +69,45 @@ public class CartDetailServiceImpl implements CartDetailService {
 
 
 //    Thêm sản phẩm vào giỏ hàng
-//    đang lỗi khi chưa xong cart và user ( chưa lấy được 2 id )
+
     @Override
-    public CartDetail addProductToCart(Long cartId, Long userId, Long productId, Long inventoryId, int quantity, Double price) {
+    public CartDetail addProductToCart( Long userId, Long productId, int quantity) {
         LocalDate today = LocalDate.now();
+        // Tìm sản phẩm trong cửa hàng
+
+
         // Tìm giỏ hàng
-        Cart cart = cartRepository.findByIdAndUser_UserId(cartId, userId).orElseThrow(() -> new RuntimeException("Cart not found"));
+        Cart cart = cartRepository.getByUser_Id(userId);
 
         // nếu giỏ hàng chưa có sẽ tự tạo cho người dùng
         if (cart == null){
             Cart cart1 = new Cart();
             cart1.setCreateDate(today);
-//            cart1.setUser(); đang làm
+            cart1.setUser(userRepository.getById(userId));
             cart1.setTotalPrice(0.0);
+            cart = cartRepository.save(cart1);
         }
-        // Tìm sản phẩm trong cửa hàng
-        Store store =  storeRepository.findByProduct_ProductIdAndInventory_InventoryId(productId, inventoryId);
+
+        List<Inventory> inventories = inventoryRepository.findByProduct_Id(productId);
+        Store store = null;
+
+        for (Inventory inventory : inventories) {
+            if (inventory.getQuantity() >= quantity) {
+                store = storeRepository.findByProduct_IdAndInventory_Id(productId, inventory.getId());
+                break;
+            }
+        }
+
+        if (store == null) {
+            System.out.println("Không đủ số lượng");
+            return null;
+        }
 
         // Kiểm tra xem sản phẩm đã có trong giỏ hàng chưa
-        Optional<CartDetail> existingCartDetail = cartDetailRepository.findByCartIdAndStoreId(cartId, store.getId());
+        Optional<CartDetail> existingCartDetail = cartDetailRepository.findByCart_IdAndStore_Id(cart.getId(), store.getId());
 
+
+        Double price = product1Repository.findProductById(productId).getPrice();
         CartDetail cartDetail;
         if (existingCartDetail.isPresent()) {
             // Nếu sản phẩm đã có, cập nhật số lượng và giá
@@ -105,5 +132,7 @@ public class CartDetailServiceImpl implements CartDetailService {
         return cartDetailRepository.save(cartDetail);
     }
 
-
 }
+
+
+

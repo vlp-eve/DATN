@@ -50,9 +50,12 @@ public class CartServiceImpl implements CartService {
     @Override
     public void removeProductFromCart(Long cartId, Long cartDetailId) {
         Optional<CartDetail> cartDetail = cartDetailRepository.findByCart_IdAndId(cartId, cartDetailId);
-
-
         // Xóa sản phẩm khỏi giỏ hàng
         cartRepository.deleteById(cartDetailId);
     }
+
+//    public void removeAllProductFromCart(Long cartId){
+//        List<CartDetail> carts = cartDetailRepository.findByCartId(cartId);
+//        cartDetailRepository.deleteAllById(carts);
+//    }
 }
