@@ -6,9 +6,11 @@ import com.poly.datn.Entity.Product.Unit;
 import com.poly.datn.Repository.UnitRepository;
 import com.poly.datn.Service.UnitService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class UnitServiceImpl implements UnitService {
@@ -27,18 +29,39 @@ public class UnitServiceImpl implements UnitService {
 
     @Override
     public Unit updateUnit(Long id, Unit unitDetails) {
-        Unit unit = unitRepository.findById(id).orElseThrow(()-> new RuntimeException("Không tìm thấy"));
-        unit.setName(unitDetails.getName());
-        return unitRepository.save(unit);
+        try {
+            Unit unit = unitRepository.findUnitById(id);
+            if (unit == null) {
+                throw new NoSuchElementException("Không tìm thấy Unit với ID: " + id);
+            }unit.setName(unitDetails.getName());
+            return unitRepository.save(unit);
+        }catch (NoSuchElementException e) {
+            throw new RuntimeException("Lỗi: " + e.getMessage(), e);
+        } catch (DataAccessException e) {
+            throw new RuntimeException("Lỗi truy xuất cơ sở dữ liệu", e);
+        } catch (Exception e) {
+            throw new RuntimeException("Đã xảy ra lỗi không xác định", e);
+        }
     }
 
-    @Override
+
     public void deleteUnit(Long id) {
-        Unit unit = unitRepository.findUnitById(id);
-        unit.setIsDeleted(IsDelete.DELETED.getValue());
-        unitRepository.save(unit);
-
+        try {
+            Unit unit = unitRepository.findUnitById(id);
+            if (unit == null) {
+                throw new NoSuchElementException("Không tìm thấy Unit với ID: " + id);
+            }
+            unit.setIsDeleted(IsDelete.DELETED.getValue());
+            unitRepository.save(unit);
+        } catch (NoSuchElementException e) {
+            throw new RuntimeException("Lỗi: " + e.getMessage(), e);
+        } catch (DataAccessException e) {
+            throw new RuntimeException("Lỗi truy xuất cơ sở dữ liệu", e);
+        } catch (Exception e) {
+            throw new RuntimeException("Đã xảy ra lỗi không xác định", e);
+        }
     }
+
 
     @Override
     public Unit findUnitById(Long id) {

@@ -35,12 +35,7 @@ public class StoreServiceImpl implements StoreService {
     public List<Store> findAllStore(){
        return storeRepository.findAll();
     }
-//    @Override
-//    public List<Product1Dto> findAvailableProductsFromStore() {
-////        return storeRepository.findAvailableProductsFromStore();
-//        List<Object[]> results = storeRepository.findAvailableProductsFromStore();
-//        return storeRepository.mapToProduct1Dtos(results);
-//    }
+
 
 
     public void setDiscount() {
@@ -83,11 +78,4 @@ public class StoreServiceImpl implements StoreService {
         return storeRepository.findStoresWithValidInventory(currentDate);
     }
 
-//    public void test (){
-//        List<Store> stores = findAllStore();
-//        for (Store st : stores){
-//            System.out.println(st.getInventory());
-//            System.out.println(st.getProduct());
-//        }
-//    }
 }

@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class OrderDetailServiceImpl implements OrderDetailService {
@@ -107,9 +108,20 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 
 
 //     tìm orderdetail dựa vào orderid
-    public List<OrderDetail> getOrderDetailByOrderId(Long orderId){
-        return orderDetailRepository.findByOrder_Id(orderId);
+    public List<OrderDetail> getOrderDetailByOrderId(Long orderId) {
+        try {
+            List<OrderDetail> orderDetailList = orderDetailRepository.findByOrder_Id(orderId);
+            if (orderDetailList == null || orderDetailList.isEmpty()) {
+                throw new NoSuchElementException("Không tìm thấy chi tiết đơn hàng cho Order ID: " + orderId);
+            }
+            return orderDetailList;
+        } catch (NoSuchElementException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new RuntimeException("Đã xảy ra lỗi khi truy xuất chi tiết đơn hàng", e);
+        }
     }
+
 
     public void deleteQuantityWhenOrder(CartDetail cartDetail){
         try {

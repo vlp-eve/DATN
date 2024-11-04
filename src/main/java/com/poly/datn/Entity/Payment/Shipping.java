@@ -1,8 +1,7 @@
 package com.poly.datn.Entity.Payment;
 
 import com.poly.datn.Entity.Order.Order;
-import com.poly.datn.Entity.Product.Store;
-import com.poly.datn.Entity.Product.Unit;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

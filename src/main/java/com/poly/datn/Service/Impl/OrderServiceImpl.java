@@ -28,7 +28,12 @@ public class OrderServiceImpl implements OrderService {
 
 
     public Order getOrderById(Long orderId){
-        return orderRepository.getOrderById(orderId);
+        try {
+            return orderRepository.getOrderById(orderId);
+        }catch (Exception e){
+            throw  new RuntimeException("lỗi khi tìm đơn hàng bằng id");
+        }
+
     }
 
 //    Lấy đơn hàng của người dùng
@@ -63,7 +68,7 @@ public class OrderServiceImpl implements OrderService {
             }else {
                 order.setAddress(orderOld.getAddress());
             }
-            order.setStatus(orderOld.getStatus());
+            order.setStatus(StatusOrder.PENDING);
             order.setCreateDate(LocalDate.now());
 
             List<OrderDetail> orderDetailList = orderDetailRepository.findByOrder_Id(orderId);
@@ -106,7 +111,7 @@ public void canceledOrder(Long orderId) {
 }
 
 
-// Xác nhận đơn hàng
+    // Xác nhận đơn hàng
     public void confirmedOrder(Long orderId) {
         try {
             Order order = getOrderById(orderId);

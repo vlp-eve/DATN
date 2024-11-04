@@ -1,0 +1,114 @@
+/* CSS Tổng quát */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-image: url('/product/image/bgtraicay.jpg'); /* Thay bằng URL ảnh nền */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        /* Phần container chính của form */
+        .register-container {
+            background-color: rgba(255, 255, 255, 0.9); /* Màu trắng với độ trong suốt nhẹ */
+            width: 350px;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .register-container h2 {
+            margin-bottom: 20px;
+            color: #FF6347; /* Màu cam đỏ nhẹ, đại diện cho trái cây tươi */
+        }
+
+        /* Ô nhập liệu */
+        .register-container input[type="text"],
+        .register-container input[type="email"],
+        .register-container input[type="password"],
+        .register-container input[type="tel"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        /* Nút đăng ký */
+        .register-container button {
+            width: 100%;
+            padding: 12px;
+            background-color: #32CD32; /* Màu xanh lá tươi */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .register-container button:hover {
+            background-color: #2E8B57; /* Màu xanh đậm hơn khi hover */
+        }
+
+        /* Liên kết quay lại đăng nhập */
+        .register-container a {
+            color: #FF6347;
+            display: block;
+            margin-top: 15px;
+            text-decoration: none;
+        }
+
+        .register-container a:hover {
+            text-decoration: underline;
+        }
+
+        /* Style logo trái cây */
+        .logo {
+            margin-bottom: 20px;
+        }
+
+        .logo img {
+            width: 100px;
+            height: auto;
+        }
+
+        /* Phần mời đăng nhập nếu đã có tài khoản */
+        .login {
+            margin-top: 20px;
+            font-size: 14px;
+        }
+
+        .login p,
+        .login a {
+            display: inline-block; /* Đặt chúng trên cùng một hàng */
+            margin: 0;
+        }
+
+        .login a {
+            color: #32CD32; /* Màu xanh lá tươi */
+            text-decoration: none;
+            font-weight: bold;
+            margin-left: 5px; /* Tạo khoảng cách nhỏ giữa chữ */
+        }
+
+        .login a:hover {
+            text-decoration: underline;
+        }
+
+        /* Phần giới tính */
+        .gender-container {
+            display: flex;
+            justify-content: left;
+            margin: 10px 0;
+        }
+
+        .gender-container label {
+            margin-right: 10px; /* Tạo khoảng cách giữa các label */
+        }

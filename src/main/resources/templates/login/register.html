@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{user/base::layout(~{::div})}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng ký - Cửa hàng trái cây</title>
+
+
+</head>
+<body>
+<div class="register-container">
+    <div class="logo">
+        <img src="/product/image/logotraicay.jpg" alt="Logo Cửa hàng trái cây">
+    </div>
+    <h2>Đăng ký</h2>
+    <form action="/submit-register" method="post">
+        <input type="text" name="hoten" placeholder="Họ và tên" required>
+        <input type="text" name="username" placeholder="Tên đăng nhập" required>
+        <input type="email" name="email" placeholder="Email" required>
+        <input type="tel" name="sdt" placeholder="Số điện thoại" required>
+        <input type="password" name="password" placeholder="Mật khẩu" required>
+        <input type="password" name="confirm_password" placeholder="Xác nhận mật khẩu" required>
+        <div class="gender-container">
+
+            <label><input type="radio" name="gioitinh" value="Nam" required> Nam</label>
+            <label><input type="radio" name="gioitinh" value="Nữ"> Nữ</label>
+        </div>
+        <button type="submit">Đăng ký</button>
+    </form>
+    <a href="/product/qmk.html">Quên mật khẩu?</a>
+    <div class="login">
+        <p>Đã có tài khoản?</p>
+        <a href="/product/dn.html">Đăng nhập ngay</a>
+    </div>
+</div>
+</body>
+</html>

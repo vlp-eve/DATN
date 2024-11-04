@@ -9,6 +9,7 @@ import com.poly.datn.Repository.Product1Repository;
 import com.poly.datn.Repository.StatusRepository;
 import com.poly.datn.Service.Product1Service;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -37,32 +38,42 @@ public class ProductServiceImpl implements Product1Service {
 
     private LocalDate today = LocalDate.now();
     public void addProduct(Product product, MultipartFile file) {
-
-        product.setCreatedAt(today);
-        product.setUpdateAt(today);
-        product.setTotalQuantity(0);
-        // Xử lý file ảnh và lưu đường dẫn file
-        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-        if (fileName.contains("..")) {
-            System.out.println("Not a valid file");
-            return;
-        }
-
-        // Đường dẫn thư mục lưu file
-//        String uploadDir = new File("src/main/resources/static/img/img_product/").getAbsolutePath(); // tạo thằng 1 file mới
-        ClassLoader classLoader = getClass().getClassLoader();
-        File uploadDir = new File(classLoader.getResource("static/img/img_product/").getFile()); // lấy ở target
-        Path filePath = Paths.get(String.valueOf(uploadDir), fileName);
         try {
-            Files.createDirectories(filePath.getParent());
-            Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
-            product.setImgBannerPath("/img/img_product/" + fileName);
-            System.out.println(filePath);
-        } catch (IOException e) {
-            throw new RuntimeException("Error saving file", e);
+            product.setCreatedAt(today);
+            product.setUpdateAt(today);
+            product.setTotalQuantity(0);
+
+            // Xử lý file ảnh và lưu đường dẫn file
+            String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+            if (fileName.contains("..")) {
+                throw new IllegalArgumentException("Tên file không hợp lệ: " + fileName);
+            }
+
+            // Đường dẫn thư mục lưu file
+            ClassLoader classLoader = getClass().getClassLoader();
+            File uploadDir = new File(classLoader.getResource("static/img/img_product/").getFile()); // lấy từ thư mục trong target
+            Path filePath = Paths.get(String.valueOf(uploadDir), fileName);
+
+            // Tạo thư mục nếu chưa tồn tại và sao chép file
+            try {
+                Files.createDirectories(filePath.getParent());
+                Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
+                product.setImgBannerPath("/img/img_product/" + fileName);
+                System.out.println("File đã được lưu tại: " + filePath);
+            } catch (IOException e) {
+                throw new RuntimeException("Lỗi khi lưu file: " + fileName, e);
+            }
+
+            product1Repository.save(product);
+        } catch (IllegalArgumentException e) {
+            throw new RuntimeException("Lỗi đầu vào không hợp lệ: " + e.getMessage(), e);
+        } catch (DataAccessException e) {
+            throw new RuntimeException("Lỗi truy xuất cơ sở dữ liệu", e);
+        } catch (Exception e) {
+            throw new RuntimeException("Đã xảy ra lỗi không xác định", e);
         }
-        product1Repository.save(product);
     }
+
 
 
     // tìm tất cả product cho dù bị xóa mềm
@@ -102,13 +113,12 @@ public class ProductServiceImpl implements Product1Service {
         } else {
             System.out.println("Không thay đổi ảnh");
         }
-//        product.setAvailable(product1.isAvailable());
         product1Repository.save(product1);
     }
 
 
     public Product getById(long id){
-        return product1Repository.findProductById(id);
+        return product1Repository.findProductByIdAndIsDeletedFalse(id);
     }
 
 
