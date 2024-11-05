@@ -94,7 +94,7 @@ public class ProductServiceImpl implements Product1Service {
         if (!file.isEmpty()) {
             String fileName = StringUtils.cleanPath(file.getOriginalFilename());
             if (fileName.contains("..")) {
-                System.out.println("Not a valid file");
+                System.out.println("file không phù hợp");
                 return;
             }
             ClassLoader classLoader = getClass().getClassLoader();
@@ -111,7 +111,7 @@ public class ProductServiceImpl implements Product1Service {
                 throw new RuntimeException("Error saving file", e);
             }
         } else {
-            System.out.println("Không thay đổi ảnh");
+            System.out.println("ảnh không thay đổi");
         }
         product1Repository.save(product1);
     }
@@ -134,6 +134,9 @@ public class ProductServiceImpl implements Product1Service {
     public List<Product> getNonDeletedProducts() {
         return product1Repository.findByIsDeletedFalse();
     }
+
+
+
 
 
 

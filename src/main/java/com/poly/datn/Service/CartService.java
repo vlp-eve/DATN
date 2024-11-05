@@ -10,4 +10,6 @@ public interface CartService {
     public Cart updateCart(Long id, Cart cartDetails);
     public List<Cart> getAllCarts();
     public Optional<Cart> getCartById(Long id);
+
+    public void removeAllProductFromCart(Long cartId);
 }

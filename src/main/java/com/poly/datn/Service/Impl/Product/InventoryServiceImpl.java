@@ -17,10 +17,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.NoSuchElementException;
+import java.util.*;
 
 @Service
 public class InventoryServiceImpl implements InventoryService {
@@ -229,6 +226,19 @@ public class InventoryServiceImpl implements InventoryService {
     }
 
 
+//    tìm kiếm các lô hàng sắp hết hạn
+    public List<Inventory> searchInventoryExpireDateASC() {
+        try {
+            // Lấy danh sách sản phẩm sắp hết hạn trong 10 ngày
+            LocalDate startDate = today;
+            LocalDate endDate = startDate.plusDays(10);
+            List<Inventory> inventoryList = inventoryRepository.findProductsExpiringWithinDateRange(startDate, endDate);
+            return inventoryList;
+        } catch (Exception e) {
+            System.err.println("Lỗi khi tìm kiếm sản phẩm hết hạn: " + e.getMessage());
+            return Collections.emptyList();
+        }
+    }
 
 
 

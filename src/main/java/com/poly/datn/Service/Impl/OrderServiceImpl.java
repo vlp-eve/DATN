@@ -27,6 +27,14 @@ public class OrderServiceImpl implements OrderService {
 
 
 
+    public List<Order> getAllOrder(){
+        try {
+            return orderRepository.findAll();
+        }catch (Exception e){
+            throw  new RuntimeException("lỗi khi tìm tất cả đơn hàng");
+        }
+    }
+
     public Order getOrderById(Long orderId){
         try {
             return orderRepository.getOrderById(orderId);
