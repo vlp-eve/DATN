@@ -26,7 +26,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/productImg")
-public class ProductImgController {
+public class  ProductImgController {
 
     @Autowired
     private Product1Service product1Service;
@@ -58,7 +58,7 @@ public class ProductImgController {
                 // Lưu ảnh vào hệ thống  và lấy đường dẫn
                 String imgPath = saveImage(file);
                 ProductImg productImg = new ProductImg();
-                productImg.setProduct1(product);
+                productImg.setProduct(product);
                 productImg.setImg(imgPath);
                 productImages.add(productImg);
             }

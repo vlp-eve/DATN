@@ -10,6 +10,7 @@ import com.poly.datn.Entity.User.User;
 import com.poly.datn.Repository.*;
 import com.poly.datn.Service.InventoryService;
 import com.poly.datn.Service.OrderDetailService;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -47,7 +48,8 @@ public class OrderDetailServiceImpl implements OrderDetailService {
     private Product1Repository product1Repository;
 
 //    tạo order từ cart
-    public void createOrderFromCart(Long userId, String address) {
+@Transactional
+public void createOrderFromCart(Long userId, String address) {
         try {
             // Tìm người dùng và giỏ hàng của họ
             User user = userRepository.findById(userId)
@@ -75,7 +77,7 @@ public class OrderDetailServiceImpl implements OrderDetailService {
             for (CartDetail cartDetail : cartDetailList) {
                 OrderDetail orderDetail = new OrderDetail();
                 orderDetail.setOrder(order);
-                if(cartDetail.getQuantity()< cartDetail.getStore().getInventory().getQuantity()){
+                if(cartDetail.getQuantity()> cartDetail.getStore().getInventory().getQuantity()){
                     insufficientProduct.add(cartDetail.getStore().getProduct().getName());
                     continue;
                 }else {

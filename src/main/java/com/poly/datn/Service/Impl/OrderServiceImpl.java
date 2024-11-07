@@ -3,10 +3,13 @@ package com.poly.datn.Service.Impl;
 import com.poly.datn.Entity.Order.Order;
 import com.poly.datn.Entity.Order.OrderDetail;
 
+import com.poly.datn.Entity.Product.Inventory;
 import com.poly.datn.Entity.StatusOrder;
+import com.poly.datn.Repository.InventoryRepository;
 import com.poly.datn.Repository.OrderDetailRepository;
 import com.poly.datn.Repository.OrderRepository;
 import com.poly.datn.Service.OrderService;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +27,8 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private OrderDetailRepository orderDetailRepository;
 
+    @Autowired
+    private InventoryRepository inventoryRepository;
 
 
 
@@ -45,6 +50,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
 //    Lấy đơn hàng của người dùng
+
     public List<Order> getOrderByUserId(Long userId) {
         try {
             if (userId == null) {
@@ -61,7 +67,9 @@ public class OrderServiceImpl implements OrderService {
             throw new RuntimeException("Lỗi khi truy xuất đơn hàng: " + e.getMessage(), e);
         }
     }
-// mua lại từ đơn hàng cũ
+//    mua lại từ đơn hàng cũ
+//    thêm xử lí khi các trạng thái
+@Transactional
     public void resetOldOrder(Long orderId, String address){
         try {
             if (orderId == null ){
@@ -82,6 +90,7 @@ public class OrderServiceImpl implements OrderService {
             List<OrderDetail> orderDetailList = orderDetailRepository.findByOrder_Id(orderId);
             for (OrderDetail orderDetail:orderDetailList){
                 OrderDetail orderDetailNew = new OrderDetail();
+                orderDetailNew.setStore(orderDetail.getStore());
                 orderDetailNew.setPrice(orderDetail.getPrice());
                 orderDetailNew.setUnit(orderDetail.getUnit());
                 orderDetailNew.setQuantity(orderDetail.getQuantity());
@@ -96,27 +105,40 @@ public class OrderServiceImpl implements OrderService {
     }
 
 //Hủy đơn hàng
-public void canceledOrder(Long orderId) {
-    try {
-        Order order = getOrderById(orderId);
-        if (order == null) {
-            throw new RuntimeException("Không tìm thấy đơn hàng với ID: " + orderId);
-        }
-        String status = order.getStatus().name();
-        if (status.equals(StatusOrder.PENDING.name()) ||
-                status.equals(StatusOrder.CONFIRMED.name()) ||
-                status.equals(StatusOrder.PICKING.name())) {
+//Thêm cộng lại số lượng
 
-            order.setStatus(StatusOrder.CANCELED);
-            orderRepository.save(order);
-            System.out.println("Đơn hàng đã được hủy thành công.");
-        } else {
-            throw new RuntimeException("Không thể hủy đơn hàng với trạng thái hiện tại: " + status);
+
+    public void canceledOrder(Long orderId) {
+        try {
+            Order order = getOrderById(orderId);
+            if (order == null) {
+                throw new RuntimeException("Không tìm thấy đơn hàng với ID: " + orderId);
+            }
+            String status = order.getStatus().name();
+            if (status.equals(StatusOrder.PENDING.name()) ||
+                    status.equals(StatusOrder.CONFIRMED.name()) ||
+                    status.equals(StatusOrder.PICKING.name())) {
+
+                // Đặt trạng thái đơn hàng là CANCELED
+                order.setStatus(StatusOrder.CANCELED);
+                orderRepository.save(order);
+
+                // Lấy tất cả OrderDetail của đơn hàng để hoàn lại số lượng
+                List<OrderDetail> orderDetails = orderDetailRepository.findByOrder_Id(orderId);
+                for (OrderDetail orderDetail : orderDetails) {
+                    Inventory inventory = orderDetail.getStore().getInventory();
+                    inventory.setQuantity(inventory.getQuantity() + orderDetail.getQuantity());
+                    inventoryRepository.save(inventory); // Cập nhật lại số lượng trong kho
+                    orderDetailRepository.delete(orderDetail);
+                }
+                System.out.println("Đơn hàng đã được hủy và số lượng đã hoàn lại.");
+            } else {
+                throw new RuntimeException("Không thể hủy đơn hàng với trạng thái hiện tại: " + status);
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("Hủy đơn hàng thất bại: " + e.getMessage(), e);
         }
-    } catch (Exception e) {
-        throw new RuntimeException("Hủy đơn hàng thất bại: " + e.getMessage(), e);
     }
-}
 
 
     // Xác nhận đơn hàng

@@ -17,7 +17,7 @@ public class ProductImg {
 
     @ManyToOne
     @JoinColumn(name = "product_id", nullable = false, referencedColumnName = "id")
-    private Product product1;
+    private Product product;
 
     @Column(name = "img", nullable = false)
     private String img;
