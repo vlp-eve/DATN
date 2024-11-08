@@ -2,6 +2,7 @@ package com.poly.datn.Service;
 
 
 import com.poly.datn.Entity.Order.Order;
+import com.poly.datn.Entity.Product.Product;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,4 +24,6 @@ public interface OrderService {
 
     public void unsuccessfulOrder(Long orderId);
 
+    public List<Product> getTop5LowSeller();
+    public List<Product> getTop5BestSeller();
 }

@@ -15,4 +15,7 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
 
     @Query("SELECT od.store.product FROM OrderDetail od GROUP BY od.store.product ORDER BY SUM(od.quantity) DESC LIMIT 5")
     List<Product> findTop5BestSellingProducts();
+
+    @Query("SELECT od.store.product FROM OrderDetail od GROUP BY od.store.product ORDER BY SUM(od.quantity) ASC LIMIT 5")
+    List<Product> findTop5LowSellingProducts();
 }

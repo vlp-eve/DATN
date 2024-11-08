@@ -213,7 +213,6 @@ public class InventoryServiceImpl implements InventoryService {
                 productQuantityMap.put(productId,
                         productQuantityMap.getOrDefault(productId, 0) + inventory.getQuantity());
             }
-
             inventoryRepository.save(inventory);
         }
 
@@ -224,8 +223,6 @@ public class InventoryServiceImpl implements InventoryService {
             product1Repository.save(product1);
         }
     }
-
-
 //    tìm kiếm các lô hàng sắp hết hạn
     public List<Inventory> searchInventoryExpireDateASC() {
         try {
@@ -239,9 +236,6 @@ public class InventoryServiceImpl implements InventoryService {
             return Collections.emptyList();
         }
     }
-
-
-
 }
 
 

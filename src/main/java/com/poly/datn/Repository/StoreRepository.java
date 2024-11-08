@@ -28,7 +28,7 @@ public interface StoreRepository extends JpaRepository<Store, Long> {
             "JOIN s.product p " +
             "LEFT JOIN s.discount d " +
             "WHERE i.isDeleted = 0 " +
-            "AND i.status.id != 1 " +
+            "AND i.status.id != 1 AND i.status.id != 5" +
             "AND i.expiryDate > :currentDate " +
             "AND i.expiryDate = (" +
             "    SELECT MIN(i2.expiryDate) " +
@@ -36,7 +36,7 @@ public interface StoreRepository extends JpaRepository<Store, Long> {
             "    JOIN s2.inventory i2 " +
             "    WHERE s2.product.id = s.product.id " +
             "    AND i2.isDeleted = 0 " +
-            "    AND i2.status.id != 1" +
+            "    AND i2.status.id != 1 AND i.status.id != 5" +
             ") " +
             "ORDER BY s.product.id ASC")
     List<Object[]> findStoresWithValidInventory(@Param("currentDate") LocalDate currentDate);

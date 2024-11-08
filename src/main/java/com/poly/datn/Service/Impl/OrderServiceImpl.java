@@ -150,7 +150,6 @@ public class OrderServiceImpl implements OrderService {
             if (order == null) {
                 throw new RuntimeException("Không tìm thấy đơn hàng với ID: " + orderId);
             }
-            // Kiểm tra trạng thái của đơn hàng
             String status = order.getStatus().name();
             if (status.equals(StatusOrder.PENDING.name())) {
                 order.setStatus(StatusOrder.CONFIRMED);
@@ -171,7 +170,6 @@ public class OrderServiceImpl implements OrderService {
             if (order == null) {
                 throw new RuntimeException("Không tìm thấy đơn hàng với ID: " + orderId);
             }
-            // Kiểm tra trạng thái của đơn hàng
             String status = order.getStatus().name();
             if (status.equals(StatusOrder.CONFIRMED.name())) {
                 order.setStatus(StatusOrder.PICKING);
@@ -193,7 +191,6 @@ public class OrderServiceImpl implements OrderService {
             if (order == null) {
                 throw new RuntimeException("Không tìm thấy đơn hàng với ID: " + orderId);
             }
-            // Kiểm tra trạng thái của đơn hàng
             String status = order.getStatus().name();
             if (status.equals(StatusOrder.PICKING.name())) {
                 order.setStatus(StatusOrder.SHIPPED);
@@ -266,7 +263,16 @@ public class OrderServiceImpl implements OrderService {
         try {
             return orderRepository.findTop5BestSellingProducts();
         }catch (Exception e){
-            throw new RuntimeException("có lỗi: "+e.getMessage(), e);
+            throw new RuntimeException("có lỗi bất ngờ xảy ra: "+e.getMessage(), e);
+        }
+    }
+
+
+    public List<Product> getTop5LowSeller(){
+        try {
+            return orderRepository.findTop5LowSellingProducts();
+        }catch (Exception e){
+            throw new RuntimeException("có lỗi bất ngờ xảy ra: "+e.getMessage(), e);
         }
     }
 }

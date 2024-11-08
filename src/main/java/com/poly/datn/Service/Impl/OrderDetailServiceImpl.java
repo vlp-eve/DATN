@@ -51,6 +51,8 @@ public class OrderDetailServiceImpl implements OrderDetailService {
     private MethodRepository methodRepository;
 
 //    tạo order từ cart
+
+//thêm là nếu như tạo đơn hàng và method chưa có thì sẽ hiện là đang đợi thanh toán và khi chọn thanh toán nó sẽ là đang xử lí
 @Transactional
 public void createOrderFromCart(Long userId, Long methodId) {
         try {
