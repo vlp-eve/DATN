@@ -12,5 +12,5 @@ public interface AccountService {
     public Optional<Account> getAccountById(Long id);
 
     public void deleteAccount(Long id);
-    public Optional<Account> updateAccount(Long accountId, Account accountDetails);
+    public Account updateAccount(Long accountId, Account accountDetails);
 }

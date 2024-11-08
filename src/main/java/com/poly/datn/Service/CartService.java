@@ -8,8 +8,8 @@ import java.util.Optional;
 public interface CartService {
     public void removeProductFromCart(Long cartId, Long cartDetailId);
     public Cart updateCart(Long id, Cart cartDetails);
-    public List<Cart> getAllCarts();
-    public Optional<Cart> getCartById(Long id);
+
+    public Cart getCartById(Long id);
 
     public void removeAllProductFromCart(Long cartId);
 }

@@ -46,7 +46,7 @@ public class UserRestController {
         user.setUsername(userRequest.getUsername());
         user.setPassword(userRequest.getPassword());
         User newUser = userService.addUser(user);
-        return ResponseEntity.ok(newUser); // Trả về người dùng vừa thêm với mã 200 OK
+        return ResponseEntity.ok(newUser);
     }
 
     @PutMapping("/{id}")

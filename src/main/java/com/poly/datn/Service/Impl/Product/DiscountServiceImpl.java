@@ -23,8 +23,6 @@ public class DiscountServiceImpl implements DiscountService {
     private DiscountRepository discountRepository;
 
 
-
-
     public Discount addDiscount(Discount discount) {
         return discountRepository.save(discount);
     }

@@ -37,7 +37,7 @@ public class ProductServiceImpl implements Product1Service {
     private InventoryRepository inventoryRepository;
 
     private LocalDate today = LocalDate.now();
-    public void addProduct(Product product, MultipartFile file) {
+    public Product addProduct(Product product, MultipartFile file) {
         try {
             product.setCreatedAt(today);
             product.setUpdateAt(today);
@@ -72,6 +72,7 @@ public class ProductServiceImpl implements Product1Service {
         } catch (Exception e) {
             throw new RuntimeException("Đã xảy ra lỗi không xác định", e);
         }
+        return product;
     }
 
 

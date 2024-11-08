@@ -3,11 +3,9 @@ package com.poly.datn.Controller.RestController;
 import com.poly.datn.Entity.Product.Discount;
 import com.poly.datn.Service.DiscountService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
 @RestController
 @RequestMapping("/api/discounts")
 public class DiscountRestController {
@@ -44,9 +42,4 @@ public class DiscountRestController {
 //        return ResponseEntity.notFound().build();
 //    }
 
-//    @DeleteMapping("/{id}")
-//    public ResponseEntity<Void> deleteDiscount(@PathVariable Long id) {
-//        discountService.deleteDiscount(id);
-//        return ResponseEntity.noContent().build();
-//    }
 }

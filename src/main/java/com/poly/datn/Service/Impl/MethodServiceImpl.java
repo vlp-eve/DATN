@@ -1,7 +1,6 @@
 package com.poly.datn.Service.Impl;
 
 import com.poly.datn.Entity.Payment.Method;
-import com.poly.datn.Entity.Payment.Shipping;
 import com.poly.datn.Repository.MethodRepository;
 import com.poly.datn.Repository.ShippingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,10 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 
 public class MethodServiceImpl {
-@Autowired
+    @Autowired
     private MethodRepository methodRepository;
 
-@Autowired
+    @Autowired
     private ShippingRepository shippingRepository;
 
     public List<Method> getAllMethod(){

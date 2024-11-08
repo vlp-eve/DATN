@@ -1,6 +1,7 @@
 package com.poly.datn.Entity.Order;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.poly.datn.Entity.Payment.Method;
 import com.poly.datn.Entity.StatusOrder;
 import com.poly.datn.Entity.User.User;
 import jakarta.persistence.*;
@@ -33,9 +34,11 @@ public class Order {
     @Column(name = "status")
     private StatusOrder status;
 
-    @Column(name = "address")
-    private String address;
 
+    @ManyToOne
+    @JoinColumn(name = "method_id", referencedColumnName = "id")
+    @JsonBackReference
+    private Method method;
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     @JsonBackReference

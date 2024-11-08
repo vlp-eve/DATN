@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
+
 
 @Service
 public class ProductImgServiceImpl {
@@ -19,6 +19,6 @@ public class ProductImgServiceImpl {
         productImgRepository.saveAll(productImages);
     }
     public List<ProductImg> getALlProductImgById(Long id) {
-        return productImgRepository.findAllByProduct1_Id(id);
+        return productImgRepository.findAllByProduct_Id(id);
     }
 }

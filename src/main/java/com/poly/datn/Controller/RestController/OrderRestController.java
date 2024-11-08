@@ -45,6 +45,7 @@ public class OrderRestController {
         return new ResponseEntity<>("Mua lại đơn hàng thành công", HttpStatus.CREATED);
     }
 
+    
     // Hủy đơn hàng
     @PutMapping("/cancel/{orderId}")
     public ResponseEntity<String> cancelOrder(@PathVariable Long orderId) {
@@ -58,4 +59,5 @@ public class OrderRestController {
         orderService.confirmedOrder(orderId);
         return new ResponseEntity<>("Đơn hàng đã được xác nhận", HttpStatus.OK);
     }
+
 }

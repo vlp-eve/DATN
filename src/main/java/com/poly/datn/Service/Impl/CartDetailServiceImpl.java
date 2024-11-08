@@ -2,7 +2,7 @@ package com.poly.datn.Service.Impl;
 
 import com.poly.datn.Entity.Cart.Cart;
 import com.poly.datn.Entity.Cart.CartDetail;
-import com.poly.datn.Entity.Product.Inventory;
+
 import com.poly.datn.Entity.Product.Store;
 import com.poly.datn.Repository.*;
 import com.poly.datn.Service.CartDetailService;
@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -34,28 +34,15 @@ public class CartDetailServiceImpl implements CartDetailService {
 
     @Autowired
     private  Product1Repository product1Repository;
-
-    public List<CartDetail> getAllCartDetail() {
-        return cartDetailRepository.findAll();
-    }
-
-    public CartDetail saveCartDetail(CartDetail cartDetail) {
-        return cartDetailRepository.save(cartDetail);
-    }
-
     public List<CartDetail> getAllCartDetailsForCart(Long cartId) {
         return cartDetailRepository.findByCartId(cartId);
     }
 
-    public Optional<CartDetail> getCartDetailById(Long id) {
-        return cartDetailRepository.findById(id);
-    }
 
-    public void deleteCartDetail(Long id) {
-        cartDetailRepository.deleteById(id);
-    }
 
-//    đang chỉnh lại
+
+
+
     public CartDetail updateCartDetail(Long id, CartDetail cartDetailDetails) {
         Optional<CartDetail> optionalCartDetail = cartDetailRepository.findById(id);
         if (optionalCartDetail.isPresent()) {

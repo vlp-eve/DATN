@@ -14,4 +14,13 @@ public interface OrderService {
     public void resetOldOrder(Long orderId, String address);
     public List<Order> getOrderByUserId(Long userId);
     public List<Order> getAllOrder();
+
+    public void pickingOrder(Long orderId);
+
+    public void shippedOrder(Long orderId);
+
+    public void deliveredOrder(Long orderId);
+
+    public void unsuccessfulOrder(Long orderId);
+
 }

@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/accounts")
@@ -39,9 +38,9 @@ public class AccountRestController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Account> updateAccount(@PathVariable Long id, @RequestBody Account accountDetails) {
-        Optional<Account> updatedAccount = accountService.updateAccount(id, accountDetails);
-        return updatedAccount.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    public Account updateAccount(@PathVariable Long id, @RequestBody Account accountDetails) {
+        Account updatedAccount = accountService.updateAccount(id, accountDetails);
+        return updatedAccount;
     }
 
     @DeleteMapping("/{id}")

@@ -2,7 +2,6 @@ package com.poly.datn.Controller.RestController;
 
 import com.poly.datn.Entity.Cart.Cart;
 import com.poly.datn.Entity.Cart.CartDetail;
-import com.poly.datn.Entity.Product.Product;
 
 import com.poly.datn.Service.CartService;
 import com.poly.datn.Service.CartDetailService;
@@ -26,17 +25,14 @@ public class CartRestController {
     @Autowired
     private Product1Service product1Service;
     // Lấy tất cả giỏ hàng
-    @GetMapping
-    public List<Cart> getAllCarts() {
-        return cartService.getAllCarts();
-    }
+
 
     // Lấy giỏ hàng theo ID
     @GetMapping("/{id}")
-    public ResponseEntity<Cart> getCartById(@PathVariable Long id) {
-        return cartService.getCartById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    public Cart getCartById(@PathVariable Long id) {
+        return cartService.getCartById(id);
+
+
     }
 
     // Thêm giỏ hàng mới

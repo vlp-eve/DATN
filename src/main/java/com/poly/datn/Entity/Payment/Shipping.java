@@ -28,9 +28,6 @@ public class Shipping {
     @Column( name="note")
     private String note;
 
-    @ManyToOne
-    @JoinColumn(name = "method_id", nullable = false, referencedColumnName = "id")
-    private Method method;
 
     @ManyToOne
     @JoinColumn(name = "order_id", nullable = false, referencedColumnName = "id")

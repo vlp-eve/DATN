@@ -1,8 +1,10 @@
 package com.poly.datn.Repository;
 
 import com.poly.datn.Entity.Order.Order;
-import org.aspectj.weaver.ast.Or;
+import com.poly.datn.Entity.Product.Product;
+
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
@@ -10,4 +12,7 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
 
     Order getOrderById (Long OrderId);
     List<Order> getOrderByUser_Id(Long userId);
+
+    @Query("SELECT od.store.product FROM OrderDetail od GROUP BY od.store.product ORDER BY SUM(od.quantity) DESC LIMIT 5")
+    List<Product> findTop5BestSellingProducts();
 }

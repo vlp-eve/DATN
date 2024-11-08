@@ -18,12 +18,10 @@ public class CartServiceImpl implements CartService {
     @Autowired
     private CartDetailRepository cartDetailRepository;
 
-    public List<Cart> getAllCarts() {
-        return cartRepository.findAll();
-    }
 
-    public Optional<Cart> getCartById(Long id) {
-        return cartRepository.findById(id);
+
+    public Cart getCartById(Long id) {
+        return cartRepository.getById(id);
     }
 
     public Cart saveCart(Cart cart) {

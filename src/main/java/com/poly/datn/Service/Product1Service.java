@@ -12,7 +12,7 @@ public interface Product1Service {
     public List<Product> getNonDeletedProducts();
 //    public List<Product1> getDeletedProducts();
     public void softDeleteProduct(Long productId);
-    public void addProduct(Product product, MultipartFile file);
+    public Product addProduct(Product product, MultipartFile file);
     public void updateProducts(Long id, Product product1, MultipartFile file);
     public Product getById(long id);
     public List<Product> getAllProducts();

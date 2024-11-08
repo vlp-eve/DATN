@@ -39,12 +39,10 @@ public class AccountServiceImpl implements AccountService {
 
 
 
-    public Optional<Account> updateAccount(Long accountId, Account accountDetails) {
-        return accountRepository.findById(accountId).map(account -> {
-
-            //Chưa chỉnh xong
-            return accountRepository.save(account);
-        });
+    public Account updateAccount(Long accountId, Account accountDetails) {
+        Account account = accountRepository.getReferenceById(accountId);
+        account.setRole(accountDetails.getRole());
+        return account;
     }
 
 

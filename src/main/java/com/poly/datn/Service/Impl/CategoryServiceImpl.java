@@ -5,6 +5,7 @@ import com.poly.datn.Entity.Product.Category;
 
 import com.poly.datn.Repository.CategoryRepository;
 import com.poly.datn.Service.CategoryService;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
@@ -22,9 +23,6 @@ public class CategoryServiceImpl implements CategoryService {
         return categoryRepository.findAll();
     }
 //  Tìm danh mục chưa bị xóa
-    public List<Category> getNonDeleteCategory() {
-        return categoryRepository.findByIsDeletedFalse();
-    }
 
     public Category addCategory(Category category) {
         return categoryRepository.save(category);
@@ -32,9 +30,9 @@ public class CategoryServiceImpl implements CategoryService {
 
     public Category updateCategory(Long id, Category categoryDetails) {
         try {
-        Category category = categoryRepository.findCategoryById(id);
+        Category category = categoryRepository.findCategoryByIdAndIsDeletedFalse(id);
         if (category == null){
-            throw new NoSuchElementException("Không tìm thấy category với ID: " + id);
+            throw new EntityNotFoundException("Không tìm thấy category với ID: " + id);
         }
         category.setName(categoryDetails.getName());
         return categoryRepository.save(category);
@@ -49,16 +47,12 @@ public class CategoryServiceImpl implements CategoryService {
 
     public void deleteCategory(Long id) {
         try {
-            Category category = categoryRepository.findCategoryById(id);
+            Category category = categoryRepository.findCategoryByIdAndIsDeletedFalse(id);
             if (category == null){
-                throw new NoSuchElementException("Không tìm thấy category với ID: " +id);
+                throw new EntityNotFoundException("Không tìm thấy category chưa bị xóa với ID: " +id);
             }
-            if(category.getIsDeleted() == IsDelete.ACTIVE.getValue()) {
                 category.setIsDeleted(IsDelete.DELETED.getValue());
                 categoryRepository.save(category);
-            }else {
-                System.out.println("category đã bị xóa trước đó");
-            }
         }catch (NoSuchElementException e) {
             throw new RuntimeException("Lỗi: " + e.getMessage(), e);
         } catch (DataAccessException e) {

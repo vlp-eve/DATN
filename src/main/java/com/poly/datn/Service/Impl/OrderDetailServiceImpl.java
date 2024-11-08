@@ -47,9 +47,12 @@ public class OrderDetailServiceImpl implements OrderDetailService {
     @Autowired
     private Product1Repository product1Repository;
 
+    @Autowired
+    private MethodRepository methodRepository;
+
 //    tạo order từ cart
 @Transactional
-public void createOrderFromCart(Long userId, String address) {
+public void createOrderFromCart(Long userId, Long methodId) {
         try {
             // Tìm người dùng và giỏ hàng của họ
             User user = userRepository.findById(userId)
@@ -60,13 +63,14 @@ public void createOrderFromCart(Long userId, String address) {
                 throw new RuntimeException("Cart not found for user");
             }
 
+
             // Tạo đối tượng Order mới
             Order order = new Order();
             order.setTotalAmount(cart.getTotalPrice());
             order.setCreateDate(LocalDate.now());
             order.setStatus(StatusOrder.PENDING);
-            order.setAddress(address);
             order.setUser(user);
+            order.setMethod(methodRepository.getReferenceById(methodId));
             order = orderRepository.save(order);
 
     //            Tạo list sản phẩm kh đủ số lượng

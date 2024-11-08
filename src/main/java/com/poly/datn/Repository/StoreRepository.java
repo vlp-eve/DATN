@@ -1,8 +1,8 @@
 package com.poly.datn.Repository;
 
-import com.poly.datn.Entity.DTO.Product1Dto;
 
-import com.poly.datn.Entity.DTO.StoreDTO;
+
+
 import com.poly.datn.Entity.Product.Store;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -12,7 +12,7 @@ import org.springframework.data.repository.query.Param;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
+
 
 public interface StoreRepository extends JpaRepository<Store, Long> {
 

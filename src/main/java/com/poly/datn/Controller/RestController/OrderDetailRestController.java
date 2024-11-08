@@ -16,9 +16,9 @@ public class OrderDetailRestController {
 
     // API tạo đơn hàng từ giỏ hàng
     @PostMapping("/create-from-cart")
-    public String createOrderFromCart(@RequestParam Long userId, @RequestParam String address) {
+    public String createOrderFromCart(@RequestParam Long userId, @RequestParam Long methodId) {
         try {
-            orderDetailService.createOrderFromCart(userId, address);
+            orderDetailService.createOrderFromCart(userId, methodId);
             return "Đơn hàng đã được tạo thành công từ giỏ hàng.";
         } catch (RuntimeException e) {
             return "Không thể tạo đơn hàng: " + e.getMessage();
