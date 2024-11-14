@@ -1,0 +1,43 @@
+<div class="sidebar-menu" th:fragment="sidebar">
+  <div class="sidebar-header" >
+    <div class="logo">
+      <a href="#"><h1>Fruit World</h1></a>
+    </div>
+  </div>
+  <div class="main-menu">
+    <div class="menu-inner">
+      <nav>
+        <ul class="metismenu" id="menu">
+          <li class="active">
+            <a href="javascript:void(0)" aria-expanded="true"><i class="ti-dashboard"></i><span>dashboard</span></a>
+
+          </li>
+          <li>
+            <a href="javascript:void(0)" aria-expanded="true"><i class="ti-layout-sidebar-left"></i><span>Quản Lý
+                                    </span></a>
+            <ul class="collapse">
+              <li><a th:href="@{/products}">Quản lý sản phẩm</a></li>
+              <li><a th:href="@{/inventorys/select-product}">Quản lý lô hàng</a></li>
+              <li><a th:href="@{/categories/test}">Quản Lý Danh Mục</a></li>
+              <li><a th:href="@{/user/test}">Quản Lý Tài Khoản</a></li>
+              <li><a th:href="@{/orders/test}">Quản Lý Đơn Hàng</a></li>
+              <li><a href="#">Phân Quyền</a></li>
+            </ul>
+          </li>
+          <li>
+            <a href="javascript:void(0)" aria-expanded="true"><i class="ti-pie-chart"></i><span>Thống Kê</span></a>
+            <ul class="collapse">
+              <li><a href="#">Thống Kê Theo Sản Phẩm</a></li>
+              <li><a href="#">Thống Kê Theo Tháng</a></li>
+
+            </ul>
+          </li>
+
+          <li><a href="maps.html"><i class="ti-map-alt"></i> <span>maps</span></a></li>
+
+
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>

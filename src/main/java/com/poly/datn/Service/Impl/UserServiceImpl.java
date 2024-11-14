@@ -7,9 +7,14 @@ import com.poly.datn.Entity.User.User;
 import com.poly.datn.Repository.AccountRepository;
 import com.poly.datn.Repository.RoleRepository;
 import com.poly.datn.Repository.UserRepository;
+import com.poly.datn.Service.AccountService;
+import com.poly.datn.Service.RoleService;
 import com.poly.datn.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -24,6 +29,17 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private AccountRepository accountRepository;
+
+    @Autowired
+    @Lazy
+    private UserService userService;
+
+    @Autowired
+    private RoleService  roleService;
+
+    @Autowired
+    private AccountService accountService;
+
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
@@ -61,7 +77,7 @@ public class UserServiceImpl implements UserService {
         // Tìm người dùng hiện có theo ID
         return userRepository.findById(id).map(user -> {
             // Cập nhật các thuộc tính từ đối tượng updatedUser
-            user.setFullName(updatedUser.getFullName());
+            user.setFullname(updatedUser.getFullname());
             user.setEmail(updatedUser.getEmail());
             user.setAddress(updatedUser.getAddress());
             user.setPhone(updatedUser.getPhone());
@@ -70,6 +86,35 @@ public class UserServiceImpl implements UserService {
             // Lưu người dùng đã cập nhật
             return userRepository.save(user);
         });
+    }
+
+    @Override
+    public User save(User entity) {
+        return userRepository.save(entity);
+    }
+
+    @Override
+    public User findByUsernameUser(String username) {
+        return userRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
+    }
+
+
+    @Override
+    @Transactional
+    public void registerUser(User user) {
+
+        user.setAvata("123");
+        User saveUser = userService.save(user);
+
+
+        Role role = roleService.findById("CUST").orElse(new Role("CUST","Customer", null));
+
+
+        Account account = new Account();
+        account.setUser(saveUser);
+        account.setRole(role);
+        accountService.save(account);
     }
 }
 

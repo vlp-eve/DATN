@@ -138,6 +138,10 @@ public class InventoryServiceImpl implements InventoryService {
         }
     }
 
+    @Override
+    public List<Inventory> getInventoryByProductId(Long productId) {
+        return inventoryRepository.findByProduct_IdAndIsDeletedFalse(productId);
+    }
 
 
     // bên controller nhớ set product trong invetory

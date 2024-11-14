@@ -4,12 +4,13 @@ import com.poly.datn.Entity.Product.Category;
 import com.poly.datn.Service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
-@RequestMapping("/rest/categories")
+@Controller
+@RequestMapping("/categories")
 public class CategoryController {
 
     @Autowired
@@ -18,6 +19,12 @@ public class CategoryController {
     @GetMapping
     public List<Category> getAllCategories() {
         return categoryService.getAllCategories();
+    }
+
+
+    @GetMapping("/test")
+    public String test(){
+        return "assets/form/listCategory";
     }
 
     @PostMapping

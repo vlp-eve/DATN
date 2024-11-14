@@ -12,4 +12,10 @@ public interface UserService {
     public Optional<User> getUserById(Long id);
     public void deleteUser(Long id);
     public Optional<User> updateUser(Long id, User updatedUser);
+
+    User save(User entity);
+
+    User findByUsernameUser(String username);
+
+    void registerUser(User user);
 }

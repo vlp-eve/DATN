@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{assets/layout/index :: dynamic(~{::main})}">
+
+
+<main>
+
+<h1>Danh sách sản phẩm</h1>
+    <div class="add-product">
+        <a href="qlsp2.html">Thêm sản phẩm mới</a>
+    </div>
+<table>
+    <thead>
+    <tr>
+        <th>Mã SP</th>
+        <th>Tên SP</th>
+        <th>Giá bán</th>
+        <th>Danh mục</th>
+        <th>Số lượng</th>
+        <th>Ngày tạo</th>
+        <th>Ngày cập nhật</th>
+        <th>Mô tả</th>
+        <th>Đơn vị tính</th>
+        <th>Có sẵn</th>
+        <th>Hình ảnh</th>
+        <th>Hành động</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- Lặp qua danh sách sản phẩm với Thymeleaf -->
+    <tr th:each="product : ${products}">
+        <td th:text="${product.id}">001</td>
+        <td th:text="${product.name}">Sản phẩm A</td>
+        <td th:text="${product.price}">500,000 VND</td>
+        <td th:text="${product.category.name}">Điện tử</td>
+        <td th:text="${product.totalQuantity}">50</td>
+        <td th:text="${product.createdAt}">2024-10-01</td>
+        <td th:text="${product.updateAt}">2024-12-01</td>
+        <td th:text="${product.description}" style="max-width: 200px; word-wrap: break-word; white-space: normal; overflow-wrap: break-word;">Máy tính xách tay</td>
+        <td th:text="${product.unit.name}">kg</td>
+        <td class="checkbox-container">
+            <input type="checkbox" th:checked="${product.available}">
+        </td>
+        <td>
+            <img th:src="${product.imgBannerPath}" alt="Product Image">
+        </td>
+        <td>
+            <div class="actions">
+                <a th:href="@{/product/edit/{id}(id=${product.id})}" class="btn btn-primary">
+                    <i class="fas fa-edit"></i>
+                </a>
+                <a th:href="@{/product/delete/{id}(id=${product.id})}" class="btn btn-danger">
+                    <i class="fas fa-trash"></i>
+                </a>
+            </div>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</main>
+</html>
+

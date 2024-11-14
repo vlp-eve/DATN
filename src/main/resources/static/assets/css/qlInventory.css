@@ -1,0 +1,51 @@
+   body {
+            background-color: #f7f9fc;
+        }
+        .card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .table-responsive {
+            border-radius: 15px;
+        }
+        .btn-primary {
+            background-color: #28a745;
+            border: none;
+        }
+        .btn-primary:hover {
+            background-color: #218838;
+        }
+
+      .badge {
+          padding: 5px 10px;
+          font-size: 0.9rem;
+          border-radius: 5px;
+          color: #fff;
+      }
+
+      .bg-dark {
+          background-color: #343a40;
+          color: white;
+      }
+
+      .bg-warning {
+          background-color: #ffc107;
+          color: #212529;
+      }
+
+      .bg-info {
+          background-color: #17a2b8;
+      }
+
+      .bg-primary {
+          background-color: #007bff;
+      }
+
+      .bg-danger {
+          background-color: #dc3545;
+      }
+
+      .bg-secondary {
+          background-color: #6c757d;
+      }

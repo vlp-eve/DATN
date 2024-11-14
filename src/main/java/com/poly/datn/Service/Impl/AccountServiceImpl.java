@@ -44,7 +44,10 @@ public class AccountServiceImpl implements AccountService {
         account.setRole(accountDetails.getRole());
         return account;
     }
-
+    @Override
+    public Account  save(Account entity) {
+        return accountRepository.save(entity);
+    }
 
 }
 

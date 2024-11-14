@@ -13,4 +13,5 @@ public interface AccountService {
 
     public void deleteAccount(Long id);
     public Account updateAccount(Long accountId, Account accountDetails);
+    Account save(Account entity);
 }

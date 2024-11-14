@@ -38,7 +38,7 @@ public class UserRestController {
     @PostMapping
     public ResponseEntity<User> addUser(@RequestBody User userRequest) {
         User user = new User();
-        user.setFullName(userRequest.getFullName());
+        user.setFullname(userRequest.getFullname());
         user.setEmail(userRequest.getEmail());
         user.setAddress(userRequest.getAddress());
         user.setPhone(userRequest.getPhone());

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{assets/layout/index :: dynamic(~{::main})}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<main>
+    <body>
+
+    <h1>Danh sách tài khoản đã đăng ký</h1>
+
+    <div class="container">
+        <table>
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Tài khoản</th>
+                <th>Họ và Tên</th>
+                <th>Email</th>
+                <th>Số điện thoại</th>
+                <th>Địa chỉ</th>
+                <th>Hành động</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- Dữ liệu mẫu -->
+            <tr>
+                <td>1</td>
+                <td>nguyenvana</td>
+                <td>Nguyễn Văn A</td>
+                <td>vana@example.com</td>
+                <td>0123456789</td>
+                <td>123 Đường ABC, Quận 1, TP. HCM</td>
+                <td>
+                    <div class="actions">
+                        <a href="#" class="btn btn-primary">
+                            <i class="fas fa-edit"></i>  <!-- Biểu tượng bút chỉnh sửa -->
+                        </a>
+                        <a href="#" class="btn btn-danger">
+                            <i class="fas fa-trash-alt"></i>  <!-- Biểu tượng thùng rác xóa -->
+                        </a>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>tranthib</td>
+                <td>Trần Thị B</td>
+                <td>thib@example.com</td>
+                <td>0987654321</td>
+                <td>456 Đường XYZ, Quận 2, TP. HCM</td>
+                <td>
+                    <div class="actions">
+                        <a href="#" class="btn btn-primary">
+                            <i class="fas fa-edit"></i>  <!-- Biểu tượng bút chỉnh sửa -->
+                        </a>
+                        <a href="#" class="btn btn-danger">
+                            <i class="fas fa-trash-alt"></i>  <!-- Biểu tượng thùng rác xóa -->
+                        </a>
+                    </div>
+                </td>
+            </tr>
+            <!-- Có thể thêm nhiều dòng tài khoản khác tại đây -->
+            </tbody>
+        </table>
+    </div>
+
+    </body>
+</main>
+</html>

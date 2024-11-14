@@ -1,0 +1,103 @@
+body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f7f7f7;
+            margin: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            font-size: 32px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            font-size: 14px;
+            color: #555;
+        }
+        th {
+            background-color: #343a40;
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+            transition: background-color 0.3s ease-in-out;
+        }
+        .actions {
+            display: flex;
+            gap: 12px;
+        }
+        .btn {
+            padding: 8px 12px;
+            font-size: 16px;
+            color: white;
+            background-color: #007bff;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+        .btn-danger {
+            background-color: #dc3545;
+        }
+        .btn-danger:hover {
+            background-color: #c82333;
+        }
+        .btn i {
+            font-size: 18px;
+        }
+        .btn-primary, .btn-danger {
+            width: 36px;
+            height: 36px;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .checkbox-container {
+            text-align: center;
+        }
+        .checkbox-container input {
+            cursor: pointer;
+            width: 20px;
+            height: 20px;
+        }
+        img {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+        }
+
+        .add-product {
+            display: flex;
+            justify-content: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .add-product a {
+            padding: 10px 20px;
+            font-size: 16px;
+            color: white;
+            background-color: #28a745; /* Màu xanh cho nút */
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .add-product a:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }

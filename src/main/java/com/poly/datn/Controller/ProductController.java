@@ -34,8 +34,11 @@ public class ProductController {
     public String listProducts(Model model) {
         List<Product> products = product1Service.getAllProducts();
         model.addAttribute("products", products);
-        return "product/list";
+        model.addAttribute("css","/assets/css/qlsp.css");
+        model.addAttribute("nameForm", "Quản lý sản phẩm");
+        return "assets/form/listSP";
     }
+
 
     @GetMapping("/add")
     public String showAddProductForm(Model model) {

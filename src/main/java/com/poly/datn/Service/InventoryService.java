@@ -15,5 +15,6 @@ public interface InventoryService {
     public void deleteInventory(Long inventoryId);
     public void updateInventory(Inventory inventory);
 
+    public List<Inventory> getInventoryByProductId(Long productId);
 
 }

@@ -1,31 +1,28 @@
 package com.poly.datn.Entity.User;
 
-import com.poly.datn.Entity.User.Role;
-import com.poly.datn.Entity.User.User;
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+import lombok.Data;
 
 @Entity
-@Table(name = "account")
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
+@Table(name = "accounts")
 public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Long id;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "role_id", nullable = false, referencedColumnName = "id")
+    @ManyToOne
+    @JoinColumn(name = "role_id", nullable = false)
     private Role role;
 
-    @OneToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 }
-
-

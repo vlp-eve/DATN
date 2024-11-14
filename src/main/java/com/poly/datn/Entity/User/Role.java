@@ -10,22 +10,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "role")
 @Data
-@NoArgsConstructor
+@Table(name = "roles")
 @AllArgsConstructor
+@NoArgsConstructor
 public class Role {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private String id;
 
-    private Long id;
-
-    @Column(name = "role", nullable = false, unique = true)
+    @Column(name = "name", nullable = false, columnDefinition = "nvarchar(255)")
     private String roleName;
 
     @OneToMany(mappedBy = "role", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Account> accounts = new ArrayList<>();
 }
-
-

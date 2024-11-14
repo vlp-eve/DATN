@@ -1,0 +1,78 @@
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f7f7f7;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin: 20px 0;
+            font-size: 32px;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            font-size: 14px;
+            color: #555;
+        }
+        th {
+            background-color: #343a40;  /* Màu tối cho header */
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+            transition: background-color 0.3s ease-in-out;
+        }
+        .actions {
+            display: flex;
+            gap: 12px;
+        }
+        .btn {
+            padding: 8px 12px;
+            font-size: 16px;
+            color: white;
+            background-color: #007bff;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+        .btn-danger {
+            background-color: #dc3545;
+        }
+        .btn-danger:hover {
+            background-color: #c82333;
+        }
+        .btn i {
+            font-size: 18px;
+        }
+        .btn-primary, .btn-danger {
+            width: 36px;
+            height: 36px;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }

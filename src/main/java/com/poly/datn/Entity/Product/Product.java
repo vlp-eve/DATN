@@ -5,14 +5,16 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.poly.datn.Entity.IsDelete;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDate;
 import java.util.List;
 
 
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "product")
 @NoArgsConstructor

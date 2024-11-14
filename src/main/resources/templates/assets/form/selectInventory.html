@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{assets/layout/index :: dynamic(~{::main})}">
+<head>
+    <link rel="stylesheet" th:href="@{/assets/css/selectInventory.css}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Selection Form</title>
+    <link rel="stylesheet" href="sp.css">
+</head>
+<body>
+<main>
+<div class="container">
+    <h2>Chọn Sản Phẩm</h2>
+    <div class="product-grid">
+
+        <div th:each="product : ${products}" class="product">
+            <a th:href="@{/inventorys/{productId}(productId=${product.id})}" class="product-card">
+
+                <img th:src="@{${product.imgBannerPath}}" alt="product image" class="img-fluid" />
+                <h5 th:text="${product.name}"></h5>
+            </a>
+        </div>
+    </div>
+</div>
+
+</main>
+</body>
+</html>
