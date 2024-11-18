@@ -33,15 +33,17 @@
             <td data-label="Địa chỉ" class="address">123 Nguyễn Trãi, Hà Nội</td>
             <td data-label="Ngày Đặt" th:text="${order.createDate}">10/10/2024</td>
             <td th:text="${order.status}"
-                th:classappend="${order.status == 'PENDING' ? 'badge bg-dark' :
-                     order.status == 'CONFIRMED' ? 'badge bg-warning' :
-                     order.status == ' PICKING' ? 'badge bg-info' :
-                     order.status == 'SHIPPED' ? 'badge bg-primary' :
-                     order.status == 'DELIVERED' ? 'badge bg-danger' :
-                      order.status == 'UNSUCCESSFUL' ? 'badge bg-danger' :
-                      order.status == 'CANCELED' ? 'badge bg-danger' :'badge bg-info'}">
+                th:class="${order.status == 'PENDING' ? 'badge bg-dark' :
+             order.status == 'CONFIRMED' ? 'badge bg-warning' :
+             order.status == 'PICKING' ? 'badge bg-info' :
+             order.status == 'SHIPPED' ? 'badge bg-primary' :
+             order.status == 'DELIVERED' ? 'badge bg-success' :
+             order.status == 'UNSUCCESSFUL' ? 'badge bg-danger' :
+             order.status == 'CANCELED' ? 'badge bg-danger' :
+             'badge bg-secondary'}">
                 Trạng Thái
             </td>
+
             <td data-label="Hành Động">
                 <div class="actions">
                     <a href="#" class="btn-primary">Xem chi tiết</a>

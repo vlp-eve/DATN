@@ -1,6 +1,7 @@
 package com.poly.datn.Entity.User;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.poly.datn.Entity.IsDelete;
 import com.poly.datn.Entity.Order.Order;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -39,6 +40,9 @@ public class User {
     private LocalDate updateAt;
     @Column(name = "createat", nullable = false)
     private LocalDate createAt;
+
+    @Column(name = "is_deleted")
+    private int isDeleted = IsDelete.ACTIVE.getValue();
 
     @OneToMany(mappedBy = "user",fetch = FetchType.EAGER)
     @JsonIgnore

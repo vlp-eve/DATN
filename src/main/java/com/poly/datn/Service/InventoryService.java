@@ -17,4 +17,6 @@ public interface InventoryService {
 
     public List<Inventory> getInventoryByProductId(Long productId);
 
+    public Long getInventoryCount(Long productId);
+
 }

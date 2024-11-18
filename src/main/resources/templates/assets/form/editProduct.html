@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{assets/layout/index :: dynamic(~{::main})}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý sản phẩm - Web bán trái cây</title>
+
+</head>
+<main>
+
+
+
+<h1>Quản lý sản phẩm trái cây</h1>
+    <form th:action="@{${product.id != null} ? '/products/edit/' + ${product.id} : '/products/add'}"
+          th:object="${product}" method="post" enctype="multipart/form-data">
+    <div class="container">
+        <div class="row">
+            <!-- Left Panel: Upload Image -->
+            <div class="col-md-4">
+                <img id="preview" class="preview-img"
+                     th:src="${product.imgBannerPath != null ? product.imgBannerPath : 'https://via.placeholder.com/300'}"
+                     alt="Image Preview">
+                <input type="file" id="file" name="file" class="form-control" accept="image/*">
+            </div>
+
+
+
+
+            <!-- Right Panel: Product Info -->
+            <div class="col-md-8">
+                <div class="form-group">
+                    <input th:field="*{id}" type="hidden">
+                    <label for="productName">Tên sản phẩm</label> <input type="text"
+                                                                         class="form-control" id="productName" th:field="*{name}"
+                                                                         placeholder="Nhập tên sản phẩm">
+                </div>
+
+                <!-- Group: Giá bán và Danh mục -->
+                <div class="form-group row">
+                    <div class="col-md-6">
+                        <label for="productPrice">Giá bán</label> <input type="number"
+                                                                         class="form-control" id="productPrice" th:field="*{price}"
+                                                                         placeholder="Nhập giá bán" step="0.01">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="productCategory">Danh mục</label> <select
+                            class="form-control" id="productCategory" th:field="*{category.id}">
+                        <option th:each="c : ${categories}" th:value="${c.id}"
+                                th:text="${c.name}"></option>
+                    </select>
+                    </div>
+                </div>
+
+                <!-- Group: Số lượng và Đơn vị tính -->
+                <div class="form-group row">
+                    <div class="col-md-6">
+                        <label for="unit">Đơn vị tính</label> <select
+                            class="form-control" id="productUnit" th:field="*{unit.id}">
+                        <option th:each="u : ${units}" th:value="${u.id}"
+                                th:text="${u.name}"></option>
+                    </select>
+                    </div>
+                    <div class="col-md-6 form-group d-flex align-items-center" style="height: 38px;">
+                        <label for="inStock" style="margin: 0; white-space: nowrap; padding-right: 10px;">Có sẵn hàng</label>
+                        <input type="checkbox" id="inStock" th:field="*{available}">
+                    </div>
+                </div>
+
+                <!-- Mô tả sản phẩm -->
+                <div class="form-group">
+                    <label for="productDescription">Mô tả</label>
+                    <textarea class="form-control" id="productDescription" rows="5" th:field="*{description}"
+                              placeholder="Nhập mô tả sản phẩm"></textarea>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="buttons">
+                    <button type="submit" class="btn btn-primary" th:if="${product.id == null}">Thêm</button>
+                    <button type="submit"  class="btn btn-warning" th:if="${product.id != null}">Cập nhật</button>
+                    <a class="btn btn-danger"
+                       th:href="@{/products/delete/{id}(id=${product.id})}"
+                       th:if="${product.id != null}">Xóa</a>
+
+
+                    <a class="btn btn-secondary" th:href="@{/products}">Danh sách sản phẩm</a>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</form>
+
+
+    <script>
+    // Lắng nghe sự kiện thay đổi của input file
+    document.getElementById('file').addEventListener('change', function (event) {
+        const file = event.target.files[0];
+        const preview = document.getElementById('preview');
+
+        // Kiểm tra nếu người dùng chọn một file và file đó là ảnh
+        if (file && file.type.startsWith('image/')) {
+            const reader = new FileReader();
+
+            // Khi file được đọc xong, cập nhật src của ảnh preview
+            reader.onload = function (e) {
+                preview.src = e.target.result;
+            };
+
+            // Đọc nội dung file dưới dạng URL
+            reader.readAsDataURL(file);
+        }
+    });
+</script>
+
+
+</main>
+</html>

@@ -32,7 +32,7 @@ public class ProductController {
 
     @GetMapping
     public String listProducts(Model model) {
-        List<Product> products = product1Service.getAllProducts();
+        List<Product> products = product1Service.getNonDeletedProducts();
         model.addAttribute("products", products);
         model.addAttribute("css","/assets/css/qlsp.css");
         model.addAttribute("nameForm", "Quản lý sản phẩm");
@@ -49,8 +49,8 @@ public class ProductController {
         List<Unit> units = unitService.getAllUnit();
         model.addAttribute("categories", categories);
         model.addAttribute("units", units);
-
-        return "product/add";
+        model.addAttribute("css", "/assets/css/editProduct.css");
+        return "assets/form/editProduct";
     }
 
     @PostMapping("/add")
@@ -69,13 +69,13 @@ public class ProductController {
         List<Unit> units = unitService.getAllUnit();
         model.addAttribute("categories", categories);
         model.addAttribute("units", units);
-
-        return "product/edit";
+        model.addAttribute("css", "/assets/css/editProduct.css");
+        return "assets/form/editProduct";
     }
 
     @PostMapping("/edit/{id}")
     public String updateProduct(@PathVariable("id") Long id, @ModelAttribute Product product,
-                                @RequestParam("file") MultipartFile file) {
+                                @RequestParam(value = "file", required = false) MultipartFile file) {
         product1Service.updateProducts(id, product, file);
         return "redirect:/products";
     }

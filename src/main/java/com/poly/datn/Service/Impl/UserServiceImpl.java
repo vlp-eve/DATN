@@ -116,5 +116,10 @@ public class UserServiceImpl implements UserService {
         account.setRole(role);
         accountService.save(account);
     }
+
+    @Override
+    public List<User> findUserWithNonDelete() {
+        return userRepository.findByIsDeletedFalse();
+    }
 }
 

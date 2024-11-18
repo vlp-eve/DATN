@@ -1,16 +1,18 @@
-        body {
+.list-account-body {
             font-family: 'Arial', sans-serif;
             background-color: #f7f7f7;
             margin: 0;
             padding: 0;
         }
-        h1 {
+
+        .list-account-header {
             text-align: center;
             color: #333;
             margin: 20px 0;
             font-size: 32px;
         }
-        .container {
+
+        .list-account-container {
             width: 80%;
             margin: 0 auto;
             background-color: #fff;
@@ -18,35 +20,43 @@
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             padding: 20px;
         }
-        table {
+
+        .list-account-table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 20px;
         }
-        th, td {
+
+        .list-account-header-cell,
+        .list-account-cell {
             padding: 12px;
             text-align: left;
             font-size: 14px;
             color: #555;
         }
-        th {
-            background-color: #343a40;  /* Màu tối cho header */
+
+        .list-account-header-cell {
+            background-color: #343a40;
             color: white;
             text-transform: uppercase;
             letter-spacing: 0.05em;
         }
-        tr:nth-child(even) {
+
+        .list-account-row:nth-child(even) {
             background-color: #f9f9f9;
         }
-        tr:hover {
+
+        .list-account-row:hover {
             background-color: #f1f1f1;
             transition: background-color 0.3s ease-in-out;
         }
-        .actions {
+
+        .list-account-actions {
             display: flex;
             gap: 12px;
         }
-        .btn {
+
+        .list-account-btn {
             padding: 8px 12px;
             font-size: 16px;
             color: white;
@@ -55,24 +65,20 @@
             cursor: pointer;
             transition: transform 0.3s, box-shadow 0.3s;
         }
-        .btn:hover {
+
+        .list-account-btn:hover {
             transform: scale(1.1);
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
         }
-        .btn-danger {
+
+        .list-account-btn-danger {
             background-color: #dc3545;
         }
-        .btn-danger:hover {
+
+        .list-account-btn-danger:hover {
             background-color: #c82333;
         }
-        .btn i {
+
+        .list-account-btn i {
             font-size: 18px;
-        }
-        .btn-primary, .btn-danger {
-            width: 36px;
-            height: 36px;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
         }

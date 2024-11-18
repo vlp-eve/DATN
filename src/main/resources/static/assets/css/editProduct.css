@@ -1,0 +1,129 @@
+/* Thiết lập chung cho main */
+main {
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* Tiêu đề */
+main h1 {
+    text-align: center;
+    color: #4CAF50; /* Màu xanh lá cây */
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+/* Hình ảnh xem trước */
+main .preview-img {
+    width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+    border-radius: 15px;
+    border: 2px solid #ddd;
+    transition: transform 0.3s ease-in-out;
+}
+
+main .preview-img:hover {
+    transform: scale(1.05);
+}
+
+/* Nhãn và input */
+main label {
+    font-weight: bold;
+    color: #333;
+}
+
+main .form-control {
+    border-radius: 10px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+main .form-control:focus {
+    border-color: #4CAF50;
+    box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+}
+
+/* Các nút bấm */
+main .buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+}
+
+main .btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 8px;
+}
+
+main .btn-primary {
+    background-color: #4CAF50;
+    border-color: #4CAF50;
+}
+
+main .btn-primary:hover {
+    background-color: #45a049;
+}
+
+main .btn-warning {
+    background-color: #f39c12;
+    border-color: #e67e22;
+}
+
+main .btn-warning:hover {
+    background-color: #e67e22;
+}
+
+main .btn-danger {
+    background-color: #e74c3c;
+    border-color: #c0392b;
+}
+
+main .btn-danger:hover {
+    background-color: #c0392b;
+}
+
+main .btn-secondary {
+    background-color: #95a5a6;
+    border-color: #7f8c8d;
+}
+
+main .btn-secondary:hover {
+    background-color: #7f8c8d;
+}
+
+/* Checkbox */
+main #inStock {
+    width: 20px;
+    height: 20px;
+    accent-color: #4CAF50;
+}
+
+/* Nhóm form */
+main .form-group {
+    margin-bottom: 20px;
+}
+
+/* Căn chỉnh nhóm hàng ngang */
+main .form-group.row {
+    display: flex;
+    gap: 15px;
+}
+
+/* Nhãn cho input file */
+main input[type="file"] {
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+}
+.preview-img {
+            width: 500px; /* Hoặc chiều rộng cố định như 300px */
+            height: 200px; /* Cố định chiều cao */
+            object-fit: cover; /* Giữ hình ảnh cân đối trong khung */
+            border-radius: 10px;
+            margin-bottom: 20px;
+            transition: 0.3s ease;
+        }
+
+

@@ -6,66 +6,43 @@
     <title>Title</title>
 </head>
 <main>
-    <body>
-
-    <h1>Danh sách tài khoản đã đăng ký</h1>
-
-    <div class="container">
-        <table>
-            <thead>
-            <tr>
-                <th>ID</th>
-                <th>Tài khoản</th>
-                <th>Họ và Tên</th>
-                <th>Email</th>
-                <th>Số điện thoại</th>
-                <th>Địa chỉ</th>
-                <th>Hành động</th>
-            </tr>
-            </thead>
-            <tbody>
-            <!-- Dữ liệu mẫu -->
-            <tr>
-                <td>1</td>
-                <td>nguyenvana</td>
-                <td>Nguyễn Văn A</td>
-                <td>vana@example.com</td>
-                <td>0123456789</td>
-                <td>123 Đường ABC, Quận 1, TP. HCM</td>
-                <td>
-                    <div class="actions">
-                        <a href="#" class="btn btn-primary">
-                            <i class="fas fa-edit"></i>  <!-- Biểu tượng bút chỉnh sửa -->
-                        </a>
-                        <a href="#" class="btn btn-danger">
-                            <i class="fas fa-trash-alt"></i>  <!-- Biểu tượng thùng rác xóa -->
-                        </a>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>tranthib</td>
-                <td>Trần Thị B</td>
-                <td>thib@example.com</td>
-                <td>0987654321</td>
-                <td>456 Đường XYZ, Quận 2, TP. HCM</td>
-                <td>
-                    <div class="actions">
-                        <a href="#" class="btn btn-primary">
-                            <i class="fas fa-edit"></i>  <!-- Biểu tượng bút chỉnh sửa -->
-                        </a>
-                        <a href="#" class="btn btn-danger">
-                            <i class="fas fa-trash-alt"></i>  <!-- Biểu tượng thùng rác xóa -->
-                        </a>
-                    </div>
-                </td>
-            </tr>
-            <!-- Có thể thêm nhiều dòng tài khoản khác tại đây -->
-            </tbody>
-        </table>
+    <div class="list-account-body">
+        <div class="list-account-container">
+            <h1 class="list-account-header">Danh Sách Tài Khoản</h1>
+            <table class="list-account-table">
+                <thead>
+                <tr class="list-account-row">
+                    <th class="list-account-header-cell">ID</th>
+                    <th class="list-account-header-cell">Tên Đăng Nhập</th>
+                    <th class="list-account-header-cell">Họ Tên</th>
+                    <th class="list-account-header-cell">Email</th>
+                    <th class="list-account-header-cell">Số Điện Thoại</th>
+                    <th class="list-account-header-cell">Địa Chỉ</th>
+                    <th class="list-account-header-cell">Hành Động</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="list-account-row" th:each="user : ${users}">
+                    <td class="list-account-cell" th:text="${user.id}">1</td>
+                    <td class="list-account-cell" th:text="${user.username}">nguyenvana</td>
+                    <td class="list-account-cell" th:text="${user.fullname}">Nguyễn Văn A</td>
+                    <td class="list-account-cell" th:text="${user.email}">vana@example.com</td>
+                    <td class="list-account-cell" th:text="${user.phone}">0123456789</td>
+                    <td class="list-account-cell" th:text="${user.address}">123 Đường ABC, Quận 1, TP. HCM</td>
+                    <td class="list-account-cell">
+                        <div class="list-account-actions">
+                            <a href="#" class="list-account-btn list-account-btn-primary">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <a href="#" class="list-account-btn list-account-btn-danger">
+                                <i class="fas fa-trash-alt"></i>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
-
-    </body>
 </main>
 </html>

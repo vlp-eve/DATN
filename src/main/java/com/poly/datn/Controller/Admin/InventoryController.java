@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/inventorys")
@@ -31,6 +33,14 @@ public class InventoryController {
     @GetMapping("/select-product")
     public String selectProduct(Model model) {
         List<Product> products = product1Service.getNonDeletedProducts();
+
+        Map<Long, Long> inventoryCounts = new HashMap<>();
+
+        for (Product product : products) {
+            Long count = inventoryService.getInventoryCount(product.getId());
+            inventoryCounts.put(product.getId(), count);
+        }
+        model.addAttribute("inventoryCounts",inventoryCounts);
         model.addAttribute("products", products);
         model.addAttribute("css", "/assets/css/selectInventory.css");
         return "assets/form/selectInventory";

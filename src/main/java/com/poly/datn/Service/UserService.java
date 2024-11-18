@@ -18,4 +18,6 @@ public interface UserService {
     User findByUsernameUser(String username);
 
     void registerUser(User user);
+
+    List<User> findUserWithNonDelete();
 }
