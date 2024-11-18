@@ -29,7 +29,7 @@ public class Shipping {
     private String note;
 
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "order_id", nullable = false, referencedColumnName = "id")
     private Order order;
 }

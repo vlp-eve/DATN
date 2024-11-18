@@ -1,11 +1,6 @@
 <!DOCTYPE html>
 <html lang="vi" xmlns:th="http://www.thymeleaf.org"
       th:replace="~{assets/layout/index :: dynamic(~{::main})}">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <link rel="stylesheet" th:href="@{/assets/css/qlOrder.css}">
-</head>
 <main>
     <body>
 
@@ -16,7 +11,6 @@
         <tr>
             <th>Mã Đơn</th>
             <th>Người Mua</th>
-
             <th>Tổng Tiền</th>
             <th>Địa chỉ</th>
             <th>Ngày Đặt</th>
@@ -25,41 +19,34 @@
         </tr>
         </thead>
         <tbody>
-        <!-- Dữ liệu mẫu -->
         <tr th:each="order : ${orders}">
             <td data-label="Mã Đơn" th:text="${order.id}">DH001</td>
-            <td data-label="Người Mua" th:text="${order.user.fullname}">Nguyễn Văn A</td>
+            <td data-label="Người Mua" th:text="${order.user.fullname}"></td>
             <td data-label="Tổng Tiền" th:text="${order.totalAmount}">6,000,000 VND</td>
-            <td data-label="Địa chỉ" class="address">123 Nguyễn Trãi, Hà Nội</td>
+            <td data-label="Địa chỉ" class="address" th:text="${order.shipping != null ? order.shipping.address : 'Không có địa chỉ'}">123 Nguyễn Trãi, Hà Nội</td>
             <td data-label="Ngày Đặt" th:text="${order.createDate}">10/10/2024</td>
             <td th:text="${order.status}"
-                th:class="${order.status == 'PENDING' ? 'badge bg-dark' :
-             order.status == 'CONFIRMED' ? 'badge bg-warning' :
-             order.status == 'PICKING' ? 'badge bg-info' :
-             order.status == 'SHIPPED' ? 'badge bg-primary' :
-             order.status == 'DELIVERED' ? 'badge bg-success' :
-             order.status == 'UNSUCCESSFUL' ? 'badge bg-danger' :
-             order.status == 'CANCELED' ? 'badge bg-danger' :
-             'badge bg-secondary'}">
+                th:classappend="${order.status.name == 'PENDING' ? 'status-pending' :
+                                 order.status.name == 'CONFIRMED' ? 'status-shipped' :
+                                 order.status.name == 'PICKING' ? 'status-shipped' :
+                                 order.status.name == 'SHIPPED' ? 'status-shipped' :
+                                 order.status.name == 'DELIVERED' ? 'status-delivered' :
+                                 order.status.name == 'UNSUCCESSFUL' ? 'status-cancelled' :
+                                 order.status.name == 'CANCELED' ? 'status-cancelled' : ''}">
                 Trạng Thái
             </td>
 
             <td data-label="Hành Động">
                 <div class="actions">
-                    <a href="#" class="btn-primary">Xem chi tiết</a>
+                    <a th:href="@{/orderDetail/{id}(id=${order.id})}" class="btn-primary">Xem chi tiết</a>
                     <a href="#" class="btn-warning">Cập nhật trạng thái</a>
                     <a href="#" class="btn-danger">Hủy đơn</a>
                 </div>
             </td>
         </tr>
-        <!-- Thêm dữ liệu mẫu khác nếu cần -->
         </tbody>
     </table>
 
     </body>
-
-
-
-
 </main>
 </html>

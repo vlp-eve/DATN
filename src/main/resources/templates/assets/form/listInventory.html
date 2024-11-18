@@ -37,10 +37,10 @@
                                 <td th:text="${inventory.expiryDate}"></td>
                                 <td th:text="${inventory.status.status}"
                                     th:classappend="${inventory.status.status == 'Hỏng' ? 'badge bg-dark' :
-                     inventory.status.status == 'Sắp Hỏng' ? 'badge bg-warning' :
+                     inventory.status.status == 'Sắp hỏng' ? 'badge bg-warning' :
                      inventory.status.status == 'Chín' ? 'badge bg-info' :
-                     inventory.status.status == 'Mới Nhập Hàng' ? 'badge bg-primary' :
-                     inventory.status.status == 'Hết Hàng' ? 'badge bg-danger' : 'badge bg-secondary'}">
+                     inventory.status.status == 'Mới nhập hàng' ? 'badge bg-primary' :
+                     inventory.status.status == 'Hết hàng' ? 'badge bg-danger' : 'badge bg-secondary'}">
                                     Trạng Thái
                                 </td>
 

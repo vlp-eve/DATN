@@ -33,6 +33,7 @@
                     <label for="productName">Tên sản phẩm</label> <input type="text"
                                                                          class="form-control" id="productName" th:field="*{name}"
                                                                          placeholder="Nhập tên sản phẩm">
+                    <div class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
                 </div>
 
                 <!-- Group: Giá bán và Danh mục -->
@@ -41,6 +42,7 @@
                         <label for="productPrice">Giá bán</label> <input type="number"
                                                                          class="form-control" id="productPrice" th:field="*{price}"
                                                                          placeholder="Nhập giá bán" step="0.01">
+                        <div class="text-danger" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></div>
                     </div>
                     <div class="col-md-6">
                         <label for="productCategory">Danh mục</label> <select
@@ -71,6 +73,7 @@
                     <label for="productDescription">Mô tả</label>
                     <textarea class="form-control" id="productDescription" rows="5" th:field="*{description}"
                               placeholder="Nhập mô tả sản phẩm"></textarea>
+                    <div class="text-danger" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></div>
                 </div>
 
                 <!-- Action Buttons -->

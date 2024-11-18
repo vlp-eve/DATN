@@ -39,8 +39,9 @@
         <td th:text="${product.description}" style="max-width: 200px; word-wrap: break-word; white-space: normal; overflow-wrap: break-word;">Máy tính xách tay</td>
         <td th:text="${product.unit.name}">kg</td>
         <td class="checkbox-container">
-            <input type="checkbox" th:checked="${product.available}">
+            <input type="checkbox" th:checked="${product.available}" disabled>
         </td>
+
         <td>
             <img th:src="${product.imgBannerPath}" alt="Product Image">
         </td>

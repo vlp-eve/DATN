@@ -16,8 +16,9 @@ main h1 {
 
 /* Hình ảnh xem trước */
 main .preview-img {
-    width: 100%;
-    height: auto;
+    width: 400px;
+    height: 300px;
+    object-fit:cover;
     margin-bottom: 20px;
     border-radius: 15px;
     border: 2px solid #ddd;
@@ -118,12 +119,24 @@ main input[type="file"] {
     border: 1px solid #ddd;
 }
 .preview-img {
-            width: 500px; /* Hoặc chiều rộng cố định như 300px */
-            height: 200px; /* Cố định chiều cao */
-            object-fit: cover; /* Giữ hình ảnh cân đối trong khung */
+            width: 500px;
+            height: 200px;
+            object-fit: cover;
             border-radius: 10px;
             margin-bottom: 20px;
             transition: 0.3s ease;
         }
 
+.alert {
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.alert-success {
+    color: #155724;
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+}
 

@@ -25,4 +25,5 @@ public class OrderController {
         model.addAttribute("css","/assets/css/qlOrder.css");
         return "assets/form/listOrder";
     }
+
 }

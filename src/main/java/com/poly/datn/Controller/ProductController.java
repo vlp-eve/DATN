@@ -2,16 +2,15 @@ package com.poly.datn.Controller;
 
 import com.poly.datn.Entity.Product.Category;
 import com.poly.datn.Entity.Product.Product;
-
-
 import com.poly.datn.Entity.Product.Unit;
-
 import com.poly.datn.Service.CategoryService;
 import com.poly.datn.Service.Product1Service;
 import com.poly.datn.Service.UnitService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -59,6 +58,7 @@ public class ProductController {
         return "redirect:/products";
     }
 
+
     @GetMapping("/edit/{id}")
     public String showEditProductForm(@PathVariable("id") Long id, Model model) {
         Product product = product1Service.getById(id);
@@ -74,11 +74,56 @@ public class ProductController {
     }
 
     @PostMapping("/edit/{id}")
-    public String updateProduct(@PathVariable("id") Long id, @ModelAttribute Product product,
-                                @RequestParam(value = "file", required = false) MultipartFile file) {
+    public String updateProduct(@PathVariable("id") Long id,
+                                @Valid @ModelAttribute Product product,
+                                BindingResult result,
+                                @RequestParam(value = "file", required = false) MultipartFile file,
+                                Model model) {
+
+        if (result.hasErrors()) {
+            // Khi có lỗi, lấy danh mục và đơn vị tính để hiển thị lại trong form
+            List<Category> categories = categoryService.getAllCategories();
+            List<Unit> units = unitService.getAllUnit();
+            model.addAttribute("categories", categories);
+            model.addAttribute("units", units);
+
+
+            if (product.getImgBannerPath() == null && id != null) {
+                Product existingProduct = product1Service.getById(id);
+                product.setImgBannerPath(existingProduct.getImgBannerPath());
+            }
+
+            model.addAttribute("product", product);
+            model.addAttribute("css", "/assets/css/editProduct.css");
+            return "assets/form/editProduct";
+        }
+
+        // Nếu không có lỗi, cập nhật sản phẩm và ảnh
         product1Service.updateProducts(id, product, file);
         return "redirect:/products";
     }
+
+//    @PostMapping("/edit/{id}")
+//    public String updateProduct(@PathVariable("id") Long id,
+//                                @Valid @ModelAttribute Product product,
+//                                BindingResult result,
+//                                @RequestParam(value = "file", required = false) MultipartFile file,
+//                                Model model) {
+//
+//        if (result.hasErrors()) {
+//            List<Category> categories = categoryService.getAllCategories();
+//            List<Unit> units = unitService.getAllUnit();
+//            model.addAttribute("categories", categories);
+//            model.addAttribute("units", units);
+//            model.addAttribute("css", "/assets/css/editProduct.css");
+//            System.out.println(file);
+//            return "assets/form/editProduct";
+//        }
+//
+//        product1Service.updateProducts(id, product, file);
+//        return "redirect:/products";
+//    }
+
 
     @GetMapping("/delete/{id}")
     public String deleteProduct(@PathVariable("id") Long id) {

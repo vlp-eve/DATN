@@ -25,10 +25,6 @@ public class InventoryController {
     @Autowired
     private InventoryService inventoryService;
 
-    @GetMapping("/test")
-    public String test(){
-        return "assets/form/listInventory";
-    }
 
     @GetMapping("/select-product")
     public String selectProduct(Model model) {

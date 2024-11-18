@@ -2,6 +2,7 @@ package com.poly.datn.Entity.Order;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.poly.datn.Entity.Payment.Method;
+import com.poly.datn.Entity.Payment.Shipping;
 import com.poly.datn.Entity.StatusOrder;
 import com.poly.datn.Entity.User.User;
 import jakarta.persistence.*;
@@ -32,7 +33,7 @@ public class Order {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
-    private StatusOrder status;
+    private StatusOrder status = StatusOrder.PENDING;
 
 
     @ManyToOne
@@ -43,4 +44,9 @@ public class Order {
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     @JsonBackReference
     private User user;
+
+    @OneToOne(mappedBy = "order", fetch = FetchType.LAZY)
+    private Shipping shipping;
+
+
 }

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org" th:replace="~{assets/layout/index :: dynamic(~{::main})}">
+<main>
+  <body>
+
+  <div class="order-page">
+    <h1>Chi tiết đơn hàng</h1>
+
+    <!-- Thông tin giao hàng -->
+    <section class="shipping-info">
+      <h2>Thông tin giao hàng</h2>
+      <table>
+        <tr>
+          <th>Mã Khách Hàng</th>
+          <td th:text="${order.user.id != null ? order.user.id : 'Khong co ten khach hang'}">123 Nguyễn Trãi, Hà Nội</td>
+        </tr>
+        <tr>
+          <th>Khách hàng</th>
+          <td th:text="${order.user.fullname != null ? order.user.fullname : 'Khong co ten khach hang'}">123 Nguyễn Trãi, Hà Nội</td>
+        </tr>
+        <tr>
+          <th>Địa chỉ</th>
+          <td th:text="${order.shipping != null ? order.shipping.address : 'Không có địa chỉ'}">123 Nguyễn Trãi, Hà Nội</td>
+        </tr>
+        <tr>
+          <th>Số điện thoại</th>
+          <td th:text="${order.shipping != null ? order.shipping.phone : 'Không có số điện thoại'}">0123456789</td>
+        </tr>
+        <tr>
+          <th>Ghi chú</th>
+          <td th:text="${order.shipping != null ? order.shipping.note : 'Không có ghi chú'}">Giao hàng trong giờ hành chính</td>
+        </tr>
+      </table>
+    </section>
+
+    <!-- Chi tiết sản phẩm -->
+    <section class="order-details">
+      <h2>Chi tiết sản phẩm</h2>
+      <table>
+        <thead>
+        <tr>
+          <th>Tên sản phẩm</th>
+          <th>Số lượng</th>
+          <th>Đơn giá</th>
+          <th>Thành tiền</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="detail : ${orderDetails}">
+          <td th:text="${detail.store.product.name}">Sản phẩm A</td>
+          <td th:text="${detail.quantity}">2</td>
+          <td th:text="${detail.price}">300,000 VND</td>
+          <td th:text="${detail.price * detail.quantity}">600,000 VND</td>
+        </tr>
+        </tbody>
+        <tfoot>
+        <tr>
+          <th colspan="3">Tổng cộng</th>
+          <th th:text="${order.totalAmount}">6,000,000 VND</th>
+        </tr>
+        </tfoot>
+      </table>
+    </section>
+
+    <div class="actions">
+      <a th:href="@{/orders/test}" class="btn-primary">Quay lại</a>
+      <a href="#" class="btn-danger">Hủy đơn</a>
+    </div>
+  </div>
+
+  </body>
+</main>
+</html>

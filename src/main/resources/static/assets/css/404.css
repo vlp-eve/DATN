@@ -1,0 +1,50 @@
+/* Styles for 404 page */
+.container{
+width:1200px;
+background-color: red;
+}
+
+.error-code {
+  font-size: 8rem;
+  color: #ff6347;
+  text-align: center;
+  margin-top: 100px;
+  animation: bounce 1s infinite;
+}
+
+.error-message {
+  font-size: 1.5rem;
+  margin: 20px 0;
+  color: #2b2117;
+  text-align: center;
+}
+
+.back-home {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 1.2rem;
+  color: #fff;
+  background-color: #409400;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: background-color 0.3s;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.back-home:hover {
+  background-color: #103502;
+}
+
+/* Bouncing animation for error code */
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-30px);
+  }
+  60% {
+    transform: translateY(-15px);
+  }
+}
