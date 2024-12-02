@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+    <!DOCTYPE html>
 <html lang="vi" xmlns:th="http://www.thymeleaf.org"
       th:replace="~{assets/layout/index :: dynamic(~{::main})}">
 
@@ -7,7 +7,7 @@
 
 <h1>Danh sách sản phẩm</h1>
     <div class="add-product">
-        <a th:href="@{/products/add}">Thêm sản phẩm mới</a>
+        <a th:href="@{/admin/product/add}">Thêm sản phẩm mới</a>
     </div>
 <table>
     <thead>
@@ -47,10 +47,10 @@
         </td>
         <td>
             <div class="actions">
-                <a th:href="@{/products/edit/{id}(id=${product.id})}" class="btn btn-primary">
+                <a th:href="@{/admin/product/edit/{id}(id=${product.id})}" class="btn btn-primary">
                     <i class="fas fa-edit"></i>
                 </a>
-                <a th:href="@{/products/delete/{id}(id=${product.id})}" class="btn btn-danger">
+                <a th:href="@{/admin/product/delete/{id}(id=${product.id})}" class="btn btn-danger">
                     <i class="fas fa-trash"></i>
                 </a>
             </div>

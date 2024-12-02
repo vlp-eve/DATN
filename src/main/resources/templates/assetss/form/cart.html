@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{assetss/layout/index :: dynamic(~{::main})}">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Giỏ hàng - Cửa hàng trái cây tươi</title>
+  <link rel="stylesheet" th:href="@{/assetss/css/cart.css}">
+</head>
+<body>
+
+<main>
+  <div class="container">
+    <article>
+      <h2>Giỏ hàng của bạn</h2>
+
+      <!-- Hiển thị thông báo nếu có message -->
+      <div th:if="${message != null}" class="alert alert-success">
+        <span th:text="${message}"></span>
+      </div>
+
+      <table class="cart-table">
+        <thead>
+        <tr>
+          <th>Sản phẩm</th>
+          <th>Hình ảnh</th>
+          <th>Giá</th>
+          <th>Đơn vị tính</th>
+          <th>Số lượng</th>
+          <th>Giảm giá</th>
+          <th>Tổng</th>
+          <th>Hành động</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Duyệt qua danh sách cartDetailList -->
+        <tr th:each="cartDetail : ${cartDetailList}">
+          <td class="product-name" th:text="${cartDetail.store.product.name}">Tên sản phẩm</td>
+          <td>
+            <img class="product-image" th:src="@{${cartDetail.store.product.imgBannerPath}}"
+                 th:alt="${cartDetail.store.product.name}">
+          </td>
+          <td th:text="${#numbers.formatDecimal(cartDetail.store.product.price, 1, 2)} + ' VNĐ'">Giá</td>
+          <td th:text="${cartDetail.store.product.unit.name}">Đơn vị</td>
+          <td>
+            <input class="input-quantity" type="number" th:value="${cartDetail.quantity}" min="1">
+          </td>
+          <td th:text="${cartDetail.store.discount != null ? '-' + cartDetail.store.discount.discountPercentage + '%' : 'Không có'}">Giảm giá</td>
+          <td th:text="${#numbers.formatDecimal(cartDetail.quantity * cartDetail.price, 1, 2)} + ' VNĐ'">Tổng</td>
+          <td>
+            <form action="/cart/delete" method="post">
+              <input type="hidden" name="cartDetailId" th:value="${cartDetail.id}" />
+              <button type="submit" class="btn-remove">Xóa</button>
+            </form>
+
+
+          </td>
+        </tr>
+        </tbody>
+      </table>
+
+      <div class="summary-container">
+        <div class="button-group">
+          <a class="btn" th:href="@{/store}">Tiếp tục mua hàng</a>
+          <form action="/cart/deleteAll" method="post">
+            <button type="submit" class="btn">Xóa tất cả sản phẩm</button>
+          </form>
+
+          <a class="btn-order" th:href="@{/cart/checkout}">Đặt hàng</a>
+        </div>
+        <span th:if="${cart != null and cart.totalPrice != null}" th:text="'Tổng cộng: ' + ${#numbers.formatDecimal(cart.totalPrice, 1, 2)} + ' VNĐ'">Tổng cộng</span>
+        <span th:if="${cart == null or cart.totalPrice == null}" th:text="'Tổng cộng: 0 VNĐ'">Tổng </span>
+      </div>
+    </article>
+  </div>
+</main>
+
+</body>
+</html>

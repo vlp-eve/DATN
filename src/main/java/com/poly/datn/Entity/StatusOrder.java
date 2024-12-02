@@ -1,6 +1,9 @@
 package com.poly.datn.Entity;
 
     public enum StatusOrder {
+
+
+        WAITPAY,
         PENDING,
         CONFIRMED,
         PICKING,

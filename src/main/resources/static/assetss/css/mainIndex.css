@@ -1,0 +1,542 @@
+@charset "UTF-8";
+@import url("https://fonts.googleapis.com/css2?family=Edu+AU+VIC+WA+NT+Guides:wght@400..700&family=Fredoka:wght@300..700&family=Pacifico&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+
+
+.slideshow-container {
+	font-family: "Pacifico", cursive;
+  font-weight: 400;
+  font-style: normal;
+	padding-top: 85px;
+  /* max-width: 100vw;
+  height: 80vh; */
+  margin: auto;
+  position: relative;
+}
+
+.mySlides {
+  max-width: 100vw;
+  height: 70vh;
+  position: relative;
+}
+
+.mySlides::before {
+  content: "";
+}
+
+.slider_item_one {
+  background-image: url('/assetss/images/banner1.jpeg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.slider_item_two {
+  background-image: url('/assetss/images/Banner_2.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.slider_item_three {
+  background-image: url('/assetss/images/banner3.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.wrapper {
+  max-width: 1400px;
+  width: 100%;
+  margin: auto;
+  position: relative;
+}
+.slider-item-text {
+  position: absolute;
+  top: 50%;
+  right: 2%;
+  transform: translateY(20%);
+}
+.slider-item-text p {
+  font-weight: bold;
+  font-size: 50px;
+  color: #0b4605;
+  text-align: center;
+}
+.slider-item-text-inner {
+  text-align: center;
+}
+.hidden_text_slide {
+  opacity: 0;
+  transition: all 2s;
+  filter: blur(5px);
+  transform: translateX(-100%);
+}
+
+.show_text_slide {
+  opacity: 1;
+  filter: blur(0px);
+  transform: translateX(0);
+}
+
+/* slide 3 */
+.slider-item-text_slide_3 {
+  position: absolute;
+  top: 50%;
+  left: 2%;
+  transform: translateY(30%);
+}
+.slider-item-text_slide_3 p {
+  font-weight: bold;
+  font-size: 40px;
+  color: #ffc107;
+  text-align: center;
+}
+.hidden_text_slide_3 {
+  opacity: 0;
+  transition: all 2s;
+  filter: blur(5px);
+  transform: translateY(20%);
+}
+
+.show_text_slide_3 {
+  opacity: 1;
+  filter: blur(0px);
+  transform: translateY(30%);
+}
+
+/* Next & previous buttons */
+.prev,
+.next {
+  cursor: pointer;
+  position: absolute;
+  top: 45%;
+  width: auto;
+  margin-top: -22px;
+  padding: 16px;
+  color: rgb(43, 202, 37);
+  font-weight: bold;
+  font-size: 40px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+}
+
+/* Position the "next button" to the right */
+.next {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover,
+.next:hover {
+  background-color: rgba(153, 222, 116, 0.79);
+}
+
+/* The dots/bullets/indicators */
+.dots {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%); /* Đảm bảo các dot nằm giữa slide */
+  display: flex; /* Căn các dot thành hàng ngang */
+  justify-content: center;
+}
+.dot {
+  cursor: pointer;
+  height: 7px;
+  width: 30px;
+  margin: 0 6px;
+  background-color: #ffffff;
+  border-radius: 20%;
+  display: inline-block;
+  transition: background-color 0.4s ease;
+}
+
+.active,
+.dot:hover {
+  background-color: #079e14;
+}
+
+/* Fading animation */
+.fade {
+  animation-name: fade;
+  animation-duration: 5.5s;
+}
+
+@keyframes fade {
+  from {
+    opacity: 0.4;
+  }
+  to {
+    opacity: 1;
+  }
+}
+/* @media only screen and (max-width: 480px) {
+  .mySlides {
+    height: 40vh;
+  }
+
+  .slider-item-text {
+    top: 35%;
+  }
+
+  .slider-item-text p {
+    font-size: 24px;
+  }
+
+  .prev, .next {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .dot {
+    height: 8px;
+    width: 8px;
+  }
+} */
+
+html, body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    width: 100%;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+h1{
+    text-align: center;
+    background-color: #079e14;
+    width: 700px;
+    color: white;
+    border-radius: 10px; /* Bo góc */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Đổ bóng */
+  }
+  .button-container {
+      align-items: center; /* Căn giữa các nút */
+    position: absolute; /* Đặt button-container tuyệt đối */
+    top: 50%; /* Đẩy xuống giữa card */
+    left: 50%; /* Đẩy sang trái giữa card */
+    transform: translate(-50%, -50%); /* Điều chỉnh vị trí về giữa */
+    opacity: 0; /* Ẩn button ban đầu */
+    transition: opacity 1.0s ease; /* Hiệu ứng chuyển động mượt mà */
+    background-color: rgba(255, 255, 255, 0.8); /* Nền trắng trong suốt */
+    border-radius: 8px; /* Bo góc cho nền */
+    padding: 93px; /* Thêm khoảng cách bên trong */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Bóng đổ nhẹ */
+    height: 310px;
+  }
+  .card{
+    border: 2px solid #079e14;
+    border-radius: 10px;
+    padding: 20px;
+    width: 320px;
+   margin: 25px ;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Đổ bóng nhẹ */
+  }
+  .card:hover .button-container {
+    opacity: 1; /* Hiện button khi hover */
+  }
+  .card .btn-success{
+    width: 150px;
+  }
+  /* Thay đổi màu sắc và kích thước nút khi hover */
+  .card:hover .btn-success {
+    width: 150px;
+    background-color: #28a745; /* Thay đổi màu nền */
+    color: white; /* Đổi màu chữ */
+    transform: scale(1.1); /* Phóng to nút */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Hiệu ứng chuyển động cho màu sắc và kích thước */
+  }
+
+  /* Thêm bóng đổ cho nút */
+  .card:hover .btn-success {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Bóng đổ nhẹ */
+  }
+
+  /* Cũng có thể thêm một số kiểu dáng cho nút "Xem chi tiết" */
+  .card:hover .btn-info {
+    background-color: #17a2b8; /* Thay đổi màu nền cho nút "Xem chi tiết" */
+    color: white; /* Đổi màu chữ */
+    transform: scale(1.1); /* Phóng to nút */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Hiệu ứng chuyển động cho màu sắc và kích thước */
+  }
+
+  .card:hover .btn-info {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Bóng đổ nhẹ */
+  }
+
+
+  .sanphamnoibat h3{
+  font-size: 18px;
+  font-weight: bold;
+  color: #079e14;
+  }
+
+  .sanphamnoibat{
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .sanphamnoibat img{
+    height: 180px;
+    width: 100%;
+  }
+
+
+
+
+
+
+  .product {
+    text-align: center; /* Căn giữa sản phẩm */
+  }
+
+  .product img {
+    width: 100%; /* Ảnh chiếm toàn bộ chiều rộng khung */
+    border-radius: 10px; /* Bo góc ảnh */
+  }
+
+  .product-title {font-size: 1.5em; /* Kích thước chữ tiêu đề sản phẩm */
+    margin: 10px 0; /* Khoảng cách trên và dưới */
+  }
+
+  .product-price {
+    font-size: 1.2em; /* Kích thước chữ giá */
+    color:#fd5949; /* Màu chữ giá */
+    font-weight: bold; /* Đậm chữ giá */
+    /* animation: shake 0.5s infinite; Áp dụng hiệu ứng lắc */
+  }
+
+  .btn-primary {
+    background-color: #079e14; /* Màu nền nút */
+    border: none; /* Không có viền */
+    border-radius: 5px; /* Bo góc nút */
+    color: white; /* Màu chữ nút */
+    padding: 10px 20px; /* Khoảng cách bên trong nút */
+    cursor: pointer; /* Con trỏ khi hover */
+    transition: background-color 0.3s ease; /* Hiệu ứng chuyển màu */
+  }
+
+  .btn-primary:hover {
+    background-color: #e64a19; /* Màu nền khi hover */
+  }
+
+  .giamgia{
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: 100px;
+
+  }
+  /*nguon gốc*/
+  .nguongoc {
+    display: flex; /* Sử dụng Flexbox để tạo hai cột */
+    justify-content: space-between; /* Tạo khoảng cách giữa các cột */
+    margin-top: 20px; /* Khoảng cách phía trên */
+
+  }
+  .column {
+    width: 48%; /* Đặt chiều rộng của mỗi cột */
+    padding: 10px; /* Khoảng cách bên trong cột */
+    background-color: #f7f6f4; /* Màu nền cho các cột */
+    border-radius: 5px; /* Bo góc cho cột */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Đổ bóng cho cột */
+  }
+  .nguongoc .column h2{
+
+    font-size: 1.8rem;
+    color: #079e14; /* Màu cam nổi bật cho tiêu đề */
+    margin-top: 20px;
+    margin-bottom: 10px;
+    border-left: 5px solid #079e14; /* Đường kẻ bên trái tiêu đề */
+    padding-left: 10px;
+  }
+  .nguongoc .column p{
+    font-size: 1.9rem;
+    line-height: 1.8; /* Tăng khoảng cách giữa các dòng */
+    color: #333; /* Màu chữ dễ đọc */
+    margin-bottom: 15px;
+  }
+  .nguongoc .column strong{
+    color: #079e14; /* Nhấn mạnh tên trang web */
+    font-weight: bold;
+  }
+  .nguongoc .column .cta{
+    text-align: center;
+    font-size: 1.9rem;
+    font-style: italic; /* Tạo kiểu chữ nghiêng cho phần kêu gọi hành động */
+    color: #079e14;
+    margin-top: 30px;
+  }
+  .nguongoc .column:hover{
+    background-color: #eef6ed; /* Thay đổi màu nền khi hover */
+    transition: background-color 0.3s ease; /* Hiệu ứng chuyển đổi mượt mà */
+
+  }
+  .nguongoc .column img{
+    border-radius: 10px; /* Bo góc cho ảnh */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Tạo đổ bóng cho ảnh */
+    width: 100%;
+    height: 400px;
+  }
+
+  figure {
+    text-align: center;
+  }
+
+  figcaption {
+    margin-top: 10px;
+    font-style: italic; /* Làm chữ nghiêng cho chú thích */
+    font-size: 1rem;
+    color: #555; /* Màu chữ chú thích nhẹ hơn */
+  }
+
+  .space-decorator {
+    color: #333;
+    font-size: 1.5rem;
+    font-style: italic;
+    text-align: center;
+  }
+
+  .column {width: 48%;
+    padding: 10px;
+    background-color: #f4f7f6;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+    transform: translateY(50px);
+    transition: transform 0.5s ease-out, opacity 0.5s ease-out;
+  }
+
+  .show {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .fade1 {
+    animation-name: fade;
+    animation-duration: 1.5s;
+  }
+
+  @keyframes fade {
+    from {
+      opacity: 0.4;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  /* Mobile: with <740px */
+@media only screen and (max-width: 740px) {
+  .hotline img {
+    display: none;
+  }
+
+  .hotline .hotline1 {
+    display: none;
+  }
+  .img .img2 {
+    display: none;
+  }
+  .navbar .logo a img {
+    width: 175px;
+  }
+  .img {
+    flex-direction: column;
+    /* Xếp dọc khi màn hình nhỏ */
+    align-items: flex-start;
+    /* Căn các phần tử về phía trái */
+    gap: 10px;
+    /* Thu nhỏ khoảng cách giữa các phần tử */
+    padding: 10px;
+    /* Thêm khoảng cách xung quanh */
+  }
+  .img img {
+    width: 40px;
+    /* Thu nhỏ kích thước hình ảnh */
+  }
+  .nav-link h4 {
+    font-size: 16px;
+    /* Giảm kích thước chữ */
+    margin: 0;
+    /* Bỏ khoảng cách mặc định */
+  }
+
+  .img1 img {
+    width: 40px;
+    /* Thu nhỏ ảnh bên phải */
+  }
+
+
+  .icon{
+
+    width: 50px;
+    height: 50px;
+  }
+  .nguongoc {
+    display: flex; /* Sử dụng Flexbox để tạo hai cột */
+   flex-direction: column; /* Tạo khoảng cách giữa các cột */
+  }
+  .column {
+    width: 100%; /* Đặt chiều rộng của mỗi cột */
+  }
+  h1{
+    width: 450px;
+  }
+}
+/* Table: with >=740px and with < 1024px */
+@media only screen and (min-width: 740px) and (max-width: 1024px) {
+  .img .img2 {
+    display: none;
+  }
+
+  .hotline img {
+    display: none;
+  }
+
+  .hotline .hotline1 {
+    display: none;
+  }
+
+  h1{
+    width: 450px;
+  }
+  .column {
+    width: 100%; /* Đặt chiều rộng của mỗi cột */
+  }
+}
+
+ .price {
+  font-size: 2.5rem; /* Kích thước chữ chính cho giá giảm hoặc không giảm */
+  color: var(--pink); /* Màu nổi bật cho giá chính */
+  font-weight: bolder; /* Nhấn mạnh giá trị chính */
+  padding-top: 1rem; /* Khoảng cách trên */
+}
+
+/* Giá gốc (nếu có giảm giá) */
+ .price .original-price {
+  font-size: 1.8rem; /* Kích thước nhỏ hơn giá chính */
+  color: #999; /* Màu xám để giảm độ nổi bật */
+  font-weight: lighter; /* Font nhẹ hơn */
+  text-decoration: line-through; /* Gạch ngang để thể hiện giá cũ */
+  display: inline-block; /* Đảm bảo giữ cùng dòng nếu cần */
+  margin-right: 0.5rem; /* Khoảng cách với đơn vị */
+}
+
+/* Đơn vị tính (unit) */
+ .price .unit {
+  font-size: 1.5rem; /* Kích thước nhỏ hơn giá */
+  color: #666; /* Màu nhấn nhẹ cho đơn vị */
+  font-weight: normal; /* Font thông thường */
+  margin-left: 0.5rem; /* Khoảng cách giữa giá và đơn vị */
+  display: inline-block; /* Đảm bảo đơn vị luôn nằm cạnh giá */
+}
+
+/* Giá khi không có giảm giá */
+ .price span {
+  font-size: 2rem; /* Cân đối với giá có giảm giá */
+  color: var(--pink); /* Màu chính cho giá */
+  font-weight: bolder; /* Giữ nhấn mạnh */
+}

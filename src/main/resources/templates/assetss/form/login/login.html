@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Đăng nhập - Cửa hàng trái cây</title>
+<style>
+/* CSS Tổng quát */
+body {
+	font-family: Arial, sans-serif;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+	background-image: url('/assetss/images/bgtraicay.jpg');
+	/* Thay bằng URL ảnh nền */
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+/* Phần container chính của form */
+.login-container {
+	background-color: rgba(255, 255, 255, 0.9);
+	/* Màu trắng với độ trong suốt nhẹ */
+	width: 350px;
+	padding: 20px;
+	border-radius: 10px;
+	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+	text-align: center;
+}
+
+.login-container h2 {
+	margin-bottom: 20px;
+	color: #FF6347; /* Màu cam đỏ nhẹ, đại diện cho trái cây tươi */
+}
+
+/* Ô nhập liệu */
+.login-container input[type="text"], .login-container input[type="password"]
+	{
+	width: 100%;
+	padding: 10px;
+	margin: 10px 0;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	box-sizing: border-box;
+}
+
+/* Nút đăng nhập */
+.login-container button {
+	width: 100%;
+	padding: 12px;
+	background-color: #32CD32;
+	/* Màu xanh lá tươi, gợi cảm giác tự nhiên, sức sống */
+	color: white;
+	border: none;
+	border-radius: 5px;
+	font-size: 16px;
+	cursor: pointer;
+}
+
+.login-container button:hover {
+	background-color: #2E8B57; /* Màu xanh đậm hơn khi hover */
+}
+
+/* Liên kết quên mật khẩu */
+.login-container a {
+	color: #FF6347;
+	display: block;
+	margin-top: 15px;
+	text-decoration: none;
+}
+
+.login-container a:hover {
+	text-decoration: underline;
+}
+
+/* Style logo trái cây */
+.logo {
+	margin-bottom: 20px;
+}
+
+.logo img {
+	width: 100px;
+	height: auto;
+}
+
+/* Phần lời mời đăng ký */
+.register {
+	margin-top: 20px;
+	font-size: 14px;
+	text-align: center;
+}
+
+.register p, .register a {
+	display: inline-block;
+	/* Đặt cả đoạn văn và liên kết trên cùng một dòng */
+	margin: 0;
+}
+
+.register p {
+	color: #000; /* Màu chữ cho đoạn văn */
+}
+
+.register a {
+	color: #32CD32; /* Màu xanh lá tươi */
+	text-decoration: none;
+	font-weight: bold;
+	margin-left: 5px; /* Tạo khoảng cách nhỏ giữa đoạn văn và liên kết */
+}
+
+.register a:hover {
+	text-decoration: underline;
+}
+</style>
+</head>
+<body>
+	<div class="login-container">
+		<div class="logo">
+			<img src="/assetss/images/logotraicay.jpg" alt="Logo Cửa hàng trái cây">
+		</div>
+		<h2>Đăng nhập</h2>
+		<form th:action="@{/security/login}" method="post">
+			<input type="text" name="username" placeholder="Tên đăng nhập"
+				required> <input type="password" name="password"
+				placeholder="Mật khẩu" required>
+			<button type="submit">Đăng nhập</button>
+			<div class="alert alert-secondary">
+				<strong th:text="${message}"></strong>
+			</div>
+		</form>
+		<div class="register">
+			<p>Bạn chưa có tài khoản?</p>
+			<a th:href="@{/register/form}">Đăng ký ngay</a>
+		</div>
+	</div>
+</body>
+</html>

@@ -82,7 +82,7 @@ public class OrderServiceImpl implements OrderService {
                 Order order = new Order();
                 order.setTotalAmount(orderOld.getTotalAmount());
                 order.setUser(orderOld.getUser());
-                order.setStatus(StatusOrder.PENDING);
+                order.setStatus(StatusOrder.WAITPAY);
                 order.setCreateDate(LocalDate.now());
 
 
@@ -109,6 +109,8 @@ public class OrderServiceImpl implements OrderService {
 
 
 //Hủy đơn hàng
+    @Transactional
+    @Override
     public void canceledOrder(Long orderId) {
         try {
             Order order = getOrderById(orderId);
@@ -117,8 +119,7 @@ public class OrderServiceImpl implements OrderService {
             }
             String status = order.getStatus().name();
             if (status.equals(StatusOrder.PENDING.name()) ||
-                    status.equals(StatusOrder.CONFIRMED.name()) ||
-                    status.equals(StatusOrder.PICKING.name())) {
+                    status.equals(StatusOrder.WAITPAY.name())) {
 
                 // Đặt trạng thái đơn hàng là CANCELED
                 order.setStatus(StatusOrder.CANCELED);
@@ -265,6 +266,11 @@ public class OrderServiceImpl implements OrderService {
         }catch (Exception e){
             throw new RuntimeException("có lỗi bất ngờ xảy ra: "+e.getMessage(), e);
         }
+    }
+
+    @Override
+    public Order save(Order entity) {
+        return orderRepository.save(entity);
     }
 
 

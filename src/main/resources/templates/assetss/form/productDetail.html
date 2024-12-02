@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{assetss/layout/index :: dynamic(~{::main})}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chi tiết sản phẩm</title>
+    <style>
+
+    </style>
+</head>
+<main>
+<body>
+
+<div class="chitietsanpham">
+    <!-- Hình ảnh sản phẩm -->
+    <div class="spp-img">
+        <img id="mainImage" th:src="@{${store.product.imgBannerPath}}" alt="Sản phẩm" class="main-img">
+<!--        <div class="thumb-gallery">-->
+<!--            <img th:each="image : ${product.gallery}" th:src="@{${image}}" alt="Thumb" onclick="changeImage(this)">-->
+<!--        </div>-->
+    </div>
+    <!-- Thông tin sản phẩm -->
+    <div class="spp-info">
+        <h1 th:text="${store.product.name}">Tên sản phẩm</h1>
+        <div class="price">
+            <!-- Giá có giảm giá -->
+            <div th:if="${store.discount != null}">
+                <span th:text="${store.product.price - (store.product.price * store.discount.discountPercentage / 100)} + ' VND'"></span>
+                <span class="unit" th:text="' / ' + ${store.product.unit.name}"></span>
+            </div>
+
+            <!-- Giá gốc nếu không có giảm giá -->
+            <div th:if="${store.discount == null}">
+                <span th:text="${store.product.price} + ' VND'"></span>
+                <span class="unit" th:text="' / ' + ${store.product.unit.name}"></span>
+            </div>
+
+            <!-- Hiển thị giá gốc nếu có giảm giá -->
+            <span th:if="${store.discount != null}" th:text="${store.product.price} + ' VND'" class="original-price"></span>
+            <span th:if="${store.discount != null}" class="unit original-price-unit" th:text="' / ' + ${store.product.unit.name}"></span>
+        </div>
+        <div class="details">
+            <p>Đơn vị: <span th:text="${store.product.unit.name}">kg</span></p>
+
+            <p>Số lượng tồn: <span th:text="${store.inventory.quantity}">100</span></p>
+        </div>
+        <form action="/cart/detail/add" method="post" style="display: inline;">
+            <input type="hidden" name="storeId" th:value="${store.id}" />
+            <label >Nhập số lượng:</label>
+            <!-- Input số lượng với id "quantity" khi đơn vị là 'kg' -->
+            <input type="number" id="quantity" name="quantity" min="1"
+                   th:value="1"
+                   th:step="${store.product.unit.name == 'Ký' ? 0.1 : 1}"
+                   th:if="${store.product.unit.name == 'Ký'}" />
+
+            <!-- Phần hiển thị số lượng và nút tăng/giảm khi đơn vị không phải 'kg' -->
+            <div th:if="${store.product.unit.name != 'Ký'}">
+                <button type="button" onclick="decreaseQuantity()">-</button>
+                <span id="quantityDisplay">1</span>
+                <button type="button" onclick="increaseQuantity()">+</button>
+            </div>
+
+            <!-- Thông báo lỗi -->
+            <div id="error-message" style="color: red; display: none;">
+                Vui lòng nhập số lượng hợp lệ (số lượng phải là số dương và lớn hơn 0).
+            </div>
+
+            <!-- Nút Thêm vào giỏ hàng -->
+            <button type="submit" class="btn-add-cart" onclick="addToCart()">
+                Thêm vào giỏ hàng
+            </button>
+        </form>
+        <div th:if="${message != null}">
+            <p th:text="${message}"></p>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    function increaseQuantity() {
+        var quantityDisplay = document.getElementById('quantityDisplay');
+        var currentQuantity = parseInt(quantityDisplay.innerText);
+        quantityDisplay.innerText = currentQuantity + 1;
+    }
+
+    // Hàm giảm số lượng khi đơn vị không phải là 'kg'
+    function decreaseQuantity() {
+        var quantityDisplay = document.getElementById('quantityDisplay');
+        var currentQuantity = parseInt(quantityDisplay.innerText);
+
+        if (currentQuantity > 1) {
+            quantityDisplay.innerText = currentQuantity - 1;
+        }
+    }
+
+    // Hàm kiểm tra và thêm vào giỏ hàng
+    function addToCart() {
+        var quantityInput = document.getElementById('quantity');
+        var quantity = 0;
+
+        // Kiểm tra nếu đơn vị là 'kg'
+        if (quantityInput) {
+            quantity = parseFloat(quantityInput.value);
+        } else {
+            quantity = parseInt(document.getElementById('quantityDisplay').innerText);
+        }
+
+        // Kiểm tra nếu người dùng chưa nhập số lượng hoặc số lượng không hợp lệ
+        if (isNaN(quantity) || quantity <= 0) {
+            document.getElementById('error-message').style.display = 'block';
+        } else {
+            document.getElementById('error-message').style.display = 'none';
+
+            // Nếu số lượng hợp lệ, tiếp tục gửi form
+            var form = document.createElement('form');
+            form.method = 'POST';
+            form.action = '/cart/add';
+
+            var inputStoreId = document.createElement('input');
+            inputStoreId.type = 'hidden';
+            inputStoreId.name = 'storeId';
+            inputStoreId.value = document.querySelector('input[name="storeId"]').value;
+            form.appendChild(inputStoreId);
+
+            var inputQuantity = document.createElement('input');
+            inputQuantity.type = 'hidden';
+            inputQuantity.name = 'quantity';
+            inputQuantity.value = quantity;
+            form.appendChild(inputQuantity);
+
+            // Gửi form để thêm vào giỏ hàng
+            document.body.appendChild(form);
+            form.submit();
+        }
+    }
+</script>
+</body>
+</main>
+</html>

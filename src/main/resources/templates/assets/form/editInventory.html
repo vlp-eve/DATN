@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{assets/layout/index :: dynamic(~{::main})}">
+<main>
+  <body>
+  <div class="container my-5">
+    <div class="row">
+      <div class="col-12">
+        <h2 class="text-center mb-4" th:text="${inventory.quantity != null ? 'Sửa lô hàng' : 'Thêm lô hàng'}"></h2>
+
+        <!-- Hiển thị thông báo thành công -->
+        <div th:if="${message}" class="alert alert-success" role="alert">
+          <span th:text="${message}"></span>
+        </div>
+        <div th:if="${error}" class="alert alert-error" role="alert">
+          <span th:text="${error}"></span>
+        </div>
+        <div class="card p-4">
+          <form th:action="@{${inventory.id != null} ? '/admin/inventorys/edit/' + ${inventory.id} : '/admin/inventorys/save'}"
+                th:object="${inventory}" method="post">
+
+          <!-- Các trường nhập liệu khác của inventory -->
+            <div class="mb-3">
+              <input th:field="*{product.id}" type="hidden">
+            </div>
+            <!-- Mã Lô -->
+            <div class="mb-3">
+              <input th:field="*{id}" type="hidden">
+            </div>
+
+            <!-- Tên Sản Phẩm -->
+            <div class="mb-3">
+              <label for="productName" class="form-label">Tên Sản Phẩm</label>
+              <input type="text" class="form-control" id="productName" th:field="*{product.name}" readonly>
+            </div>
+
+            <!-- Số Lượng -->
+            <div class="mb-3" th:if="${inventory != null}">
+              <label for="quantity" class="form-label">Số Lượng</label>
+              <input type="number" class="form-control" id="quantity" th:field="*{quantity}"  required>
+            </div>
+
+
+            <!-- Ngày Nhập -->
+            <div class="mb-3" th:if="${inventory.receivedDate != null}">
+              <label for="receivedDate" class="form-label">Ngày Nhập</label>
+              <input type="date" class="form-control" id="receivedDate" th:field="*{receivedDate}" required>
+            </div>
+
+            <div class="mb-3" >
+              <label for="expiryDate" class="form-label">Ngày Hết Hạn</label>
+              <input type="date" class="form-control" id="expiryDate" th:field="*{expiryDate}" required>
+            </div>
+
+
+
+
+
+            <!-- Button Save -->
+            <button type="submit" class="btn btn-primary w-100">Lưu</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  </body>
+</main>
+</html>

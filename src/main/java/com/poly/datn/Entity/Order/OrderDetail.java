@@ -2,7 +2,6 @@ package com.poly.datn.Entity.Order;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.poly.datn.Entity.Cart.Cart;
 import com.poly.datn.Entity.Product.Store;
 import com.poly.datn.Entity.Product.Unit;
 import jakarta.persistence.*;
@@ -23,7 +22,7 @@ public class OrderDetail {
     private Long id;
 
     @Column(name="quantity", nullable = true)
-    private int quantity;
+    private Double quantity;
 
     @Column(name="price")
     private Double price;

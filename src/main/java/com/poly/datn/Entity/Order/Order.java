@@ -33,7 +33,7 @@ public class Order {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
-    private StatusOrder status = StatusOrder.PENDING;
+    private StatusOrder status = StatusOrder.WAITPAY;
 
 
     @ManyToOne

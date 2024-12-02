@@ -1,8 +1,73 @@
 <!DOCTYPE html>
-<html lang="vi" xmlns:th="http://www.thymeleaf.org"
-      th:replace="~{assets/layout/index :: dynamic(~{::main})}">
+<html lang="vi" xmlns:th="http://www.thymeleaf.org" th:replace="~{assets/layout/index :: dynamic(~{::main})}">
 <main>
+    <div class="list-category-container">
+        <!-- Thanh tìm kiếm -->
+        <form action="/admin/category/list" method="get" class="search-bar-container">
+            <input type="text" id="search-bar" class="search-bar"
+                   placeholder="Tìm kiếm danh mục sản phẩm" name="keyword" th:value="${keyword}">
+            <button class="search-btn" type="submit">Tìm kiếm</button>
+        </form>
 
-hello
+        <!-- Danh sách danh mục -->
+        <table class="list-category-table">
+            <thead>
+            <tr class="list-category-row">
+                <th class="list-category-header-cell">Mã danh mục</th>
+                <th class="list-category-header-cell">Tên danh mục</th>
+                <th class="list-category-header-cell">Trạng thái</th>
+                <th class="list-category-header-cell">Hành động</th>
+            </tr>
+            </thead>
+            <tbody id="category-table-body">
+            <!-- Các danh mục sẽ được hiển thị ở đây -->
+            <tr th:each="ctr : ${categories.content}">
+                <td th:text="${ctr.id}"></td>
+                <td th:text="${ctr.name}"></td>
+                <td>
+                    <span th:if="${ctr.isDeleted == 0}" class="status-active">Hoạt động</span>
+                    <span th:if="${ctr.isDeleted == 1}" class="status-deleted">Đã xóa</span>
+                </td>
+                <td>
+                    <a class="list-category-btn list-category-btn-primary"
+                       th:href="@{/admin/category/form/{id}(id=${ctr.id})}">
+                        <i class="fas fa-edit"></i>
+                    </a>
+                    <form th:action="@{/admin/category/delete/{id}(id=${ctr.id})}" method="post" style="display: inline;">
+                        <button type="submit" class="list-category-btn list-category-btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa danh mục này?');">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+                    </form>
+
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <!-- Phân trang -->
+        <ul class="pagination">
+            <li th:if="${currentPage > 1}" class="page-item">
+                <a class="page-link"
+                   th:href="@{/admin/category/list(keyword=${keyword}, pageNo=${currentPage - 1})}">Previous</a>
+            </li>
+            <li th:each="i : ${#numbers.sequence(1, totalPage)}"
+                th:classappend="${currentPage == i ? 'active' : ''}">
+                <a class="page-link"
+                   th:href="@{/admin/category/list(keyword=${keyword}, pageNo=${i})}"
+                   th:text="${i}"></a>
+            </li>
+            <li th:if="${currentPage < totalPage}" class="page-item">
+                <a class="page-link"
+                   th:href="@{/admin/category/list(keyword=${keyword}, pageNo=${currentPage + 1})}">Next</a>
+            </li>
+        </ul>
+
+        <!-- Nút thêm mới -->
+        <div class="action-bar">
+            <a class="btn btn-primary" href="/admin/category/form">
+                <i class="fas fa-plus"></i> Thêm mới danh mục
+            </a>
+        </div>
+    </div>
 </main>
 </html>

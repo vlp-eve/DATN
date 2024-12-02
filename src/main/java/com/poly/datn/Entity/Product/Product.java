@@ -43,7 +43,7 @@ public class Product {
     private String imgBannerPath;
 
     @Column(name = "total_quantity", nullable = false)
-    private int totalQuantity;
+    private Double totalQuantity;
 
     @Column(name = "available", nullable = false)
     private boolean available;

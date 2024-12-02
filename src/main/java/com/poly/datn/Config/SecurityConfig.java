@@ -1,5 +1,6 @@
 package com.poly.datn.Config;
 
+import com.poly.datn.Entity.IsDelete;
 import com.poly.datn.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -29,7 +30,7 @@ public class SecurityConfig {
     public UserDetailsService userDetailsService() {
         return username -> {
             com.poly.datn.Entity.User.User user = userService.findByUsernameUser(username);
-            if (user == null) {
+            if (user == null || user.getIsDeleted() == IsDelete.DELETED.ordinal()) {
                 throw new UsernameNotFoundException(username + " not found!");
             }
             String password = "{noop}" + user.getPassword(); // Thêm {noop} trước mật khẩu

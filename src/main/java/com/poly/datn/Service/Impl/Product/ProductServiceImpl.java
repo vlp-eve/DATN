@@ -2,7 +2,6 @@ package com.poly.datn.Service.Impl.Product;
 
 import com.poly.datn.Entity.IsDelete;
 import com.poly.datn.Entity.Product.Product;
-
 import com.poly.datn.Repository.DiscountRepository;
 import com.poly.datn.Repository.InventoryRepository;
 import com.poly.datn.Repository.Product1Repository;
@@ -41,7 +40,7 @@ public class ProductServiceImpl implements Product1Service {
         try {
             product.setCreatedAt(today);
             product.setUpdateAt(today);
-            product.setTotalQuantity(0);
+            product.setTotalQuantity(0.0);
 
             // Xử lý file ảnh và lưu đường dẫn file
             String fileName = StringUtils.cleanPath(file.getOriginalFilename());
@@ -51,10 +50,9 @@ public class ProductServiceImpl implements Product1Service {
 
             // Đường dẫn thư mục lưu file
             ClassLoader classLoader = getClass().getClassLoader();
-            File uploadDir = new File(classLoader.getResource("static/img/img_product/").getFile()); // lấy từ thư mục trong target
+            File uploadDir = new File(classLoader.getResource("static/img/img_product/").getFile());
             Path filePath = Paths.get(String.valueOf(uploadDir), fileName);
 
-            // Tạo thư mục nếu chưa tồn tại và sao chép file
             try {
                 Files.createDirectories(filePath.getParent());
                 Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
@@ -77,6 +75,7 @@ public class ProductServiceImpl implements Product1Service {
 
 
 
+
     // tìm tất cả product cho dù bị xóa mềm
     public List<Product> getAllProducts() {
         return product1Repository.findAll();
@@ -96,7 +95,11 @@ public class ProductServiceImpl implements Product1Service {
         product1.setName(product.getName());
         product1.setDescription(product.getDescription());
         product1.setPrice(product.getPrice());
-
+        if(product.isAvailable()){
+            product1.setAvailable(true);
+        }else {
+            product1.setAvailable(false);
+        }
         // Xử lý việc lưu trữ file
         if (file != null && !file.isEmpty()) {
             String fileName = StringUtils.cleanPath(file.getOriginalFilename());

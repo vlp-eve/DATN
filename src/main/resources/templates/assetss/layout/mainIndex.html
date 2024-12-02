@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{assetss/layout/index :: dynamic(~{::main})}">
+
+<main>
+  <div class="slideshow-container">
+    <div class="mySlides fade slider_item_one">
+      <div class="wrapper">
+        <div class="slider-item-text hidden_text_slide">
+          <p>Bạn muốn</p>
+          <p>Trái cây sạch</p>
+          <div class="slider-item-text-inner">
+            <h2>Hãy liên hệ với chúng tôi</h2>
+            <button>Xem ngay</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mySlides fade slider_item_two">
+      <div class="wrapper"></div>
+    </div>
+
+    <div class="mySlides fade slider_item_three">
+      <div class="wrapper">
+        <div class="slider-item-text_slide_3 hidden_text_slide_3">
+          <p>Vị ngọt tự nhiên</p>
+          <hr />
+          <p>Tươi mát mỗi ngày</p>
+        </div>
+      </div>
+    </div>
+
+    <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+    <a class="next" onclick="plusSlides(1)">&#10095;</a>
+
+    <div class="dots">
+      <span class="dot" onclick="currentSlide(1)"></span>
+      <span class="dot" onclick="currentSlide(2)"></span>
+      <span class="dot" onclick="currentSlide(3)"></span>
+    </div>
+  </div>
+  <br/>
+
+
+  <section class="section2 mt-3">
+    <h1>Sản phầm nổi bật</h1>
+    <div class="sanphamnoibat">
+      <div class="row">
+        <div th:each="store: ${stores}" class="col-sm-3">
+          <div class="card">
+            <img th:src="@{${store.product.imgBannerPath}}" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h3 th:text="${store.product.name}" class="card-title"></h3>
+              <div class="price">
+                <!-- Giá có giảm giá -->
+                <div th:if="${store.discount != null}">
+                  <span th:text="${store.product.price - (store.product.price * store.discount.discountPercentage / 100)} + ' VND'"></span>
+                  <span class="unit" th:text="' / ' + ${store.product.unit.name}"></span>
+                </div>
+
+                <!-- Giá gốc nếu không có giảm giá -->
+                <div th:if="${store.discount == null}">
+                  <span th:text="${store.product.price} + ' VND'"></span>
+                  <span class="unit" th:text="' / ' + ${store.product.unit.name}"></span>
+                </div>
+
+                <!-- Hiển thị giá gốc nếu có giảm giá -->
+                <span th:if="${store.discount != null}" th:text="${store.product.price} + ' VND'" class="original-price"></span>
+                <span th:if="${store.discount != null}" class="unit original-price-unit" th:text="' / ' + ${store.product.unit.name}"></span>
+              </div>
+
+              <div class="button-container">
+                <form action="/cart/add" method="post" style="display: inline;">
+                  <input type="hidden" name="storeId" th:value="${store.storeId}" />
+                  <input type="hidden" name="quantity" value="1.0" /> <!-- Mặc định số lượng là 1 -->
+                  <button type="submit" class="cart-btn">Thêm giỏ hàng</button>
+                </form>
+                <a th:href="@{/store/{id}(id=${store.storeId})}" class="btn btn-success ">Chi tiết</a>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+  <section class="section4">
+    <h1>Nguồn gốc sản phẩm</h1>
+    <div class="nguongoc">
+      <div class="column">
+        <img src="/assetss/images/noicungcap2.jpg" alt="">
+        <h2>Giới thiệu về nguồn gốc trái cây</h2>
+        <p>
+          Tại <strong>Fruit Word</strong>, chúng tôi tự hào mang đến cho
+          khách hàng những loại trái cây tươi ngon nhất, được nhập khẩu từ
+          những vùng đất nổi tiếng với nông sản chất lượng hàng đầu. Chúng
+          tôi tin rằng trái cây không chỉ là món ăn bổ dưỡng mà còn là sản
+          phẩm từ thiên nhiên, chứa đựng hương vị và giá trị dinh dưỡng tuyệt
+          vời.
+        </p>
+        <h2>Nguồn gốc rõ ràng</h2>
+        <p>Trái cây của chúng tôi được chọn lọc từ những vườn cây trồng
+          hữu cơ, tuân thủ nghiêm ngặt các tiêu chuẩn an toàn thực phẩm.
+          Chúng tôi hợp tác với những nông trại uy tín ở các vùng nhiệt đới
+          và ôn đới, nơi có khí hậu lý tưởng để sản xuất trái cây ngon. Mỗi
+          loại trái cây đều được theo dõi từ khâu trồng trọt, thu hoạch cho
+          đến khi đến tay khách hàng.</p>
+        <h2>Đảm bảo chất lượng</h2>
+        <p>Chúng tôi cam kết cung cấp trái cây tươi mới, không chứa hóa
+          chất độc hại, đảm bảo an toàn cho sức khỏe của bạn và gia đình. Mỗi
+          mẻ trái cây đều được kiểm tra chất lượng nghiêm ngặt trước khi xuất
+          kho, giúp khách hàng yên tâm hơn khi sử dụng sản phẩm của chúng
+          tôi.</p>
+        <h2>Đa dạng sản phẩm</h2>
+        <p>
+          Tại <strong>Fruit Word</strong>, bạn sẽ tìm thấy một danh mục đa
+          dạng các loại trái cây, từ trái cây nhiệt đới như xoài, dứa, đến
+          các loại trái cây ôn đới như táo, lê. Chúng tôi liên tục cập nhật
+          các sản phẩm mới, nhằm đáp ứng nhu cầu và sở thích của khách hàng.
+        </p>
+        <p class="cta">
+          Hãy đến với <strong>Fruit Word</strong> để trải nghiệm những hương
+          vị tự nhiên tuyệt vời và cùng chúng tôi lan tỏa tình yêu với trái
+          cây sạch và an toàn!
+        </p>
+
+      </div>
+      <div class="column">
+        <figure>
+          <img src="/assetss/images/noicungcap1.jpg" alt="">
+          <figcaption>Nông trại Bí Ngô</figcaption>
+        </figure>
+
+        <figure>
+          <img src="/assetss/images/noicungcap3.jpg" alt="">
+          <figcaption>Vườn Táo</figcaption>
+        </figure>
+        <figure>
+          <img src="/assetss/images/noicungcap4.jpg" alt="">
+          <figcaption>Vườn Nho</figcaption>
+        </figure>
+        <div class="space-decorator">
+          <p>Chúng tôi cam kết mang đến cho bạn trái cây tươi sạch từ
+            những vùng đất tốt nhất!</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <script th:src="@{assetss/js/slide.js}"></script>
+</main>
+</html>

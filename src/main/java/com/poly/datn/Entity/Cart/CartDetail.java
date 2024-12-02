@@ -18,7 +18,7 @@ public class CartDetail {
     private Long id;
 
     @Column(name="quantity", nullable = true)
-    private int quantity;
+    private Double quantity;
 
     @Column(name="price")
     private Double price;

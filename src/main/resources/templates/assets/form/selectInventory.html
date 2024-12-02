@@ -11,7 +11,7 @@
     <div class="product-grid">
 
         <div th:each="product : ${products}" class="product">
-            <a th:href="@{/inventorys/{productId}(productId=${product.id})}" class="product-card">
+            <a th:href="@{/admin/inventorys/{productId}(productId=${product.id})}" class="product-card">
 
                 <img th:src="@{${product.imgBannerPath}}" alt="product image" class="img-fluid" />
                 <h5 th:text="${product.name}"></h5>

@@ -24,6 +24,8 @@ public interface OrderService {
 
     public void unsuccessfulOrder(Long orderId);
 
+
     public List<Product> getTop5LowSeller();
     public List<Product> getTop5BestSeller();
+    Order save(Order entity);
 }

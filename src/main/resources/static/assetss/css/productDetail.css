@@ -1,0 +1,144 @@
+.chitietsanpham {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    background-color: white;
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 1000px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+.spp-img {
+    flex: 1 1 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.spp-img .main-img {
+    width: 100%;
+    max-width: 400px;
+    border-radius: 10px;
+    object-fit: contain;
+}
+
+.spp-info {
+    flex: 1 1 50%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.spp-info h1 {
+    font-size: 26px;
+    font-weight: bold;
+    color: #222;
+    margin-bottom: 15px;
+}
+
+.spp-info .price {
+    font-size: 28px;
+    color: #ff4d4f;
+    font-weight: bold;
+    margin: 20px 0;
+    display: flex;
+    align-items: baseline;
+}
+
+.spp-info .price .original-price {
+    text-decoration: line-through;
+    color: #888;
+    margin-left: 10px;
+}
+
+.spp-info .unit {
+    font-size: 16px;
+    color: #555;
+}
+
+.spp-info .details {
+    margin-bottom: 20px;
+    font-size: 16px;
+    line-height: 1.6;
+    color: #555;
+}
+
+.spp-info .quantity {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    font-size: 16px;
+}
+
+.spp-info .quantity input[type="number"] {
+    width: 60px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    text-align: center;
+    display: block;
+}
+
+.spp-info .quantity .quantity-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.spp-info .quantity .quantity-buttons button {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f5f5f5;
+    cursor: pointer;
+}
+
+.spp-info .quantity .quantity-buttons button:hover {
+    background-color: #e0e0e0;
+}
+
+.spp-info button {
+    padding: 10px 20px;
+    background-color: #ff6f61;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 20px;
+}
+
+.spp-info button:hover {
+    background-color: #ff4d4f;
+}
+
+.spp-info .error-message {
+    color: red;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+.spp-info .cart-btn {
+    padding: 12px 25px;
+    background-color: #ff6f61;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    margin-top: 20px;
+}
+
+.spp-info .cart-btn:hover {
+    background-color: #ff4d4f;
+
+}

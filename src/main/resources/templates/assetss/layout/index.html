@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment = "dynamic(main)">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/@zmdi/css/material-design-iconic-font.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <title>Trang chủ</title>
+    <link rel="stylesheet" th:href="@{/assetss/css/nav.css}">
+    <link rel="stylesheet" th:href="${css}">
+    <link rel="stylesheet" th:href="@{/assetss/css/index.css}">
+    <link rel="stylesheet" th:href="@{/assetss/css/footer.css}">
+</head>
+
+<body>
+<div class="header-navbar">
+    <div th:replace="~{assetss/layout/nav :: nav}"></div>
+</div>
+
+<div id="main-content">
+    <div th:replace="${main}"></div>
+
+</div>
+    <div th:replace="~{/assetss/layout/footer :: footer}"></div>
+<div>
+
+</div>
+</body>
+
+</html>

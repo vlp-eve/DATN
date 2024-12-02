@@ -3,6 +3,15 @@
       th:replace="~{assets/layout/index :: dynamic(~{::main})}">
 <main>
     <body>
+    <!-- Hiển thị thông báo thành công -->
+    <div th:if="${successMessage}" class="alert alert-success">
+        <span th:text="${successMessage}"></span>
+    </div>
+
+    <!-- Hiển thị thông báo lỗi -->
+    <div th:if="${errorMessage}" class="alert alert-danger">
+        <span th:text="${errorMessage}"></span>
+    </div>
 
     <h1>Quản lý đơn hàng</h1>
 
@@ -25,22 +34,48 @@
             <td data-label="Tổng Tiền" th:text="${order.totalAmount}">6,000,000 VND</td>
             <td data-label="Địa chỉ" class="address" th:text="${order.shipping != null ? order.shipping.address : 'Không có địa chỉ'}">123 Nguyễn Trãi, Hà Nội</td>
             <td data-label="Ngày Đặt" th:text="${order.createDate}">10/10/2024</td>
-            <td th:text="${order.status}"
-                th:classappend="${order.status.name == 'PENDING' ? 'status-pending' :
-                                 order.status.name == 'CONFIRMED' ? 'status-shipped' :
-                                 order.status.name == 'PICKING' ? 'status-shipped' :
-                                 order.status.name == 'SHIPPED' ? 'status-shipped' :
-                                 order.status.name == 'DELIVERED' ? 'status-delivered' :
-                                 order.status.name == 'UNSUCCESSFUL' ? 'status-cancelled' :
-                                 order.status.name == 'CANCELED' ? 'status-cancelled' : ''}">
+            <td th:text="${order.status.name}"
+                th:classappend="${order.status.name == 'WAITPAY' ? 'status-waitpay' :
+                     order.status.name == 'PENDING' ? 'status-pending' :
+                     order.status.name == 'CONFIRMED' ? 'status-confirmed' :
+                     order.status.name == 'PICKING' ? 'status-picking' :
+                     order.status.name == 'SHIPPED' ? 'status-shipped' :
+                     order.status.name == 'DELIVERED' ? 'status-delivered' :
+                     order.status.name == 'UNSUCCESSFUL' ? 'status-unsuccessful' :
+                     'status-cancelled'}">
                 Trạng Thái
             </td>
 
+
+
             <td data-label="Hành Động">
                 <div class="actions">
-                    <a th:href="@{/orderDetail/{id}(id=${order.id})}" class="btn-primary">Xem chi tiết</a>
-                    <a href="#" class="btn-warning">Cập nhật trạng thái</a>
-                    <a href="#" class="btn-danger">Hủy đơn</a>
+                    <a th:href="@{/admin/orderDetail/{id}(id=${order.id})}" class="btn-primary">Xem chi tiết</a>
+                    <a href="#" class="btn-warning" id="updateStatusButton">Cập nhật trạng thái</a>
+
+                    <div id="popupForm" class="popup" style="display: none;">
+                        <div class="popup-content">
+                            <span class="close">&times;</span>
+                            <form th:action="@{/admin/orders/updateStatus}" method="post">
+                                <input type="hidden" th:name="id" th:value="${order.id}" />
+                                <select th:name="status">
+                                    <option th:each="status : ${T(com.poly.datn.Entity.StatusOrder).values()}"
+                                            th:value="${status.name()}"
+                                            th:text="${status.name()}"
+                                            th:selected="${order.status.name() == status.name()}">
+                                    </option>
+                                </select>
+                                <button type="submit" class="btn-warning">Cập nhật trạng thái</button>
+                            </form>
+                        </div>
+                    </div>
+                    <form th:action="@{/admin/orders/cancel}" method="post" style="display: inline;">
+                        <input type="hidden" name="orderId" th:value="${order.id}" />
+                        <button type="submit" class="btn-danger" onclick="return confirm('Bạn có chắc chắn muốn hủy đơn hàng này?');">
+                            Hủy đơn
+                        </button>
+                    </form>
+
                 </div>
             </td>
         </tr>
@@ -48,5 +83,35 @@
     </table>
 
     </body>
+    <script>
+
+   document.getElementById('updateStatusButton').addEventListener('click', function(event) {
+        event.preventDefault(); // Ngăn chặn hành động mặc định (chuyển trang)
+        const form = document.getElementById('updateStatusForm');
+        form.style.display = 'block'; // Hiển thị form
+    });
+    // Lấy các phần tử trong giao diện
+    const popup = document.getElementById('popupForm');
+    const openButton = document.getElementById('updateStatusButton');
+    const closeButton = document.querySelector('.close');
+
+    // Mở popup khi nhấn nút
+    openButton.addEventListener('click', function(event) {
+        event.preventDefault(); // Ngăn chuyển trang
+        popup.style.display = 'flex'; // Hiển thị popup
+    });
+
+    // Đóng popup khi nhấn nút "x"
+    closeButton.addEventListener('click', function() {
+        popup.style.display = 'none'; // Ẩn popup
+    });
+
+    // Đóng popup khi nhấn ra ngoài
+    window.addEventListener('click', function(event) {
+        if (event.target === popup) {
+            popup.style.display = 'none'; // Ẩn popup
+        }
+    });
+</script>
 </main>
 </html>

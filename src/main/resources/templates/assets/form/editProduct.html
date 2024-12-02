@@ -11,7 +11,7 @@
 
 
 <h1>Quản lý sản phẩm trái cây</h1>
-    <form th:action="@{${product.id != null} ? '/products/edit/' + ${product.id} : '/products/add'}"
+    <form th:action="@{${product.id != null} ? '/admin/product/edit/' + ${product.id} : '/admin/product/add'}"
           th:object="${product}" method="post" enctype="multipart/form-data">
     <div class="container">
         <div class="row">
@@ -29,7 +29,7 @@
             <!-- Right Panel: Product Info -->
             <div class="col-md-8">
                 <div class="form-group">
-                    <input th:field="*{id}" type="hidden">
+                        <input th:field="*{id}" type="hidden">
                     <label for="productName">Tên sản phẩm</label> <input type="text"
                                                                          class="form-control" id="productName" th:field="*{name}"
                                                                          placeholder="Nhập tên sản phẩm">
@@ -81,11 +81,11 @@
                     <button type="submit" class="btn btn-primary" th:if="${product.id == null}">Thêm</button>
                     <button type="submit"  class="btn btn-warning" th:if="${product.id != null}">Cập nhật</button>
                     <a class="btn btn-danger"
-                       th:href="@{/products/delete/{id}(id=${product.id})}"
+                       th:href="@{/admin/product/delete/{id}(id=${product.id})}"
                        th:if="${product.id != null}">Xóa</a>
 
 
-                    <a class="btn btn-secondary" th:href="@{/products}">Danh sách sản phẩm</a>
+                    <a class="btn btn-secondary" th:href="@{/admin/product}">Danh sách sản phẩm</a>
 
                 </div>
 

@@ -1,0 +1,88 @@
+ /* Toàn bộ thẻ body */
+    body {
+      background-color: #f7f7f7; /* Màu nền đơn giản cho toàn bộ body */
+      font-family: 'Poppins', sans-serif;
+      color: #333;
+    }
+
+    /* Phần chứa thành công, áp dụng hình nền */
+    .success-container {
+      background-image: url('images/bgtraicay.jpg'); /* Hình nền trái cây */
+      background-size: cover;
+      background-position: center;
+      padding-top: 50px; /* Khoảng cách từ trên cùng */
+      padding-bottom: 50px; /* Khoảng cách từ dưới */
+      min-height: 100vh; /* Đảm bảo container chiếm ít nhất toàn bộ chiều cao của màn hình */
+    }
+
+    .success-card {
+      background: rgba(255, 255, 255, 0.95); /* Nền trong suốt nhẹ */
+      border: none;
+      border-radius: 20px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .success-header {
+      background: linear-gradient(90deg, #28a745, #a8e063);
+      color: white;
+      padding: 30px;
+      border-top-left-radius: 20px;
+      border-top-right-radius: 20px;
+    }
+
+    .success-icon {
+      background: white;
+      color: #28a745;
+      width: 100px;
+      height: 100px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      margin: 0 auto;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      font-size: 50px;
+    }
+
+    .success-body {
+      padding: 40px;
+      text-align: center;
+    }
+
+    .success-body img {
+      max-width: 100px;
+      margin-bottom: 20px;
+      border-radius: 10px;
+    }
+
+    .btn-custom {
+      background-color: #ff7f50;
+      color: #fff;
+      font-size: 1.2rem;
+      font-weight: 600;
+      border-radius: 30px;
+      padding: 10px 30px;
+    }
+
+    .btn-custom:hover {
+      background-color: #e5673e;
+    }
+
+    .btn-outline-custom {
+      border-color: #28a745;
+      color: #28a745;
+      font-weight: 600;
+      border-radius: 30px;
+      padding: 10px 30px;
+    }
+
+    .btn-outline-custom:hover {
+      background-color: #28a745;
+      color: #fff;
+    }
+
+    .footer-note {
+      margin-top: 30px;
+      color: #6c757d;
+      font-size: 0.9rem;
+    }

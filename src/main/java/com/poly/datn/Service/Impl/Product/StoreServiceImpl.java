@@ -1,11 +1,9 @@
 package com.poly.datn.Service.Impl.Product;
 
-import com.poly.datn.Entity.DTO.StoreDTO;
 import com.poly.datn.Entity.IsDelete;
 import com.poly.datn.Entity.Product.Discount;
 import com.poly.datn.Entity.Product.Inventory;
 import com.poly.datn.Entity.Product.Product;
-
 import com.poly.datn.Entity.Product.Store;
 import com.poly.datn.Repository.DiscountRepository;
 import com.poly.datn.Repository.InventoryRepository;
@@ -13,6 +11,7 @@ import com.poly.datn.Repository.Product1Repository;
 import com.poly.datn.Repository.StoreRepository;
 import com.poly.datn.Service.StoreService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -76,6 +75,16 @@ public class StoreServiceImpl implements StoreService {
     public List<Object[]> getProductsWithUpcomingExpiry() {
         LocalDate currentDate = LocalDate.now();
         return storeRepository.findStoresWithValidInventory(currentDate);
+    }
+
+    @Override
+    public List<Object[]> getProductsWithUpcomingExpiryAndCategory(Long categoryId) {
+        LocalDate currentDate = LocalDate.now();
+        return storeRepository.findStoresWithValidInventoryAndCategory(currentDate, categoryId);
+    }
+
+    public Store getStoreById(Long id){
+        return storeRepository.getById(id);
     }
 
 }

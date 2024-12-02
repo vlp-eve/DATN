@@ -1,6 +1,7 @@
 package com.poly.datn.Service.Impl;
 
 
+import com.poly.datn.Entity.IsDelete;
 import com.poly.datn.Entity.User.Account;
 import com.poly.datn.Entity.User.Role;
 import com.poly.datn.Entity.User.User;
@@ -12,6 +13,9 @@ import com.poly.datn.Service.RoleService;
 import com.poly.datn.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.data.domain.*;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -40,6 +44,11 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private AccountService accountService;
 
+    @Override
+    public Page<User> findAllUserCust(Integer pageNo) {
+        Pageable pageable = PageRequest.of(pageNo-1, 2);
+        return userRepository.findUsersByRoleNameCust(pageable);
+    }
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
@@ -120,6 +129,96 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> findUserWithNonDelete() {
         return userRepository.findByIsDeletedFalse();
+    }
+
+    @Override
+    public String getRoleName() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName(); // Lấy username từ authentication
+
+        Optional<User> optionalUser = userRepository.findByUsername(username);
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            if (!user.getAccounts().isEmpty()) {
+                Account account = user.getAccounts().get(0); // Lấy account đầu tiên
+                return account.getRole().getRoleName(); // Lấy tên vai trò từ Role
+            }
+        }
+        return "Chưa có vai trò"; // Nếu không tìm thấy vai trò
+    }
+
+    @Override
+    public boolean existsByEmail(String email) {
+        User probe = new User();
+        probe.setEmail(email);
+        Example<User> example = Example.of(probe);
+        return userRepository.exists(example);
+    }
+
+    @Override
+    public Page<User> findAll(Integer pageNo) {
+        Pageable pageable = PageRequest.of(pageNo-1, 2);
+        return userRepository.findAll(pageable);
+    }
+    @Override
+    public boolean existsByPhone(String phone) {
+        User probe = new User();
+        probe.setPhone(phone);
+        Example<User> example = Example.of(probe);
+        return userRepository.exists(example);
+    }
+
+    // Kiểm tra trùng lặp username
+    @Override
+    public boolean existsByUsername(String username) {
+        User probe = new User();
+        probe.setUsername(username);
+        Example<User> example = Example.of(probe);
+        return userRepository.exists(example);
+    }
+
+    @Override
+    public Page<User> searchUser(String keyword, Integer pageNo) {
+        List<User> list = this.searchUserFullName(keyword);
+
+        Pageable pageable = PageRequest.of(pageNo-1, 2);
+
+        Integer start = (int) pageable.getOffset();
+
+        Integer end = (int) ((pageable.getOffset()+pageable.getPageSize()) > list.size() ? list.size() : pageable.getOffset() + pageable.getPageSize());
+
+        list = list.subList(start, end);
+        return new PageImpl<User>(list, pageable, searchUserFullName(keyword).size());
+    }
+    @Override
+    public Page<User> searchUserCust(String keyword, Integer pageNo) {
+        List<User> list = this.findUsersByFullnameAndRoleCUST(keyword);
+
+        Pageable pageable = PageRequest.of(pageNo-1, 2);
+
+        Integer start = (int) pageable.getOffset();
+
+        Integer end = (int) ((pageable.getOffset()+pageable.getPageSize()) > list.size() ? list.size() : pageable.getOffset() + pageable.getPageSize());
+
+        list = list.subList(start, end);
+        return new PageImpl<User>(list, pageable, searchUserFullName(keyword).size());
+    }
+    @Override
+    public List<User> searchUserFullName(String keyword) {
+        // TODO Auto-generated method stub
+        return userRepository.searchUserFullname(keyword);
+    }
+
+    @Override
+    public List<User> findUsersByFullnameAndRoleCUST(String keyword) {
+        return userRepository.findUsersByFullnameAndRoleCUST(keyword);
+    }
+
+    @Override
+    public void softDeleteUser(Long userId) {
+        User user = userRepository.findUserById(userId);
+        user.setIsDeleted(IsDelete.DELETED.getValue());
+        userRepository.save(user);
     }
 }
 

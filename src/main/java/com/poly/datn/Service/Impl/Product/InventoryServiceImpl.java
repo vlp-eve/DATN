@@ -47,51 +47,76 @@ public class InventoryServiceImpl implements InventoryService {
         }
 
         //Lưu lô hàng mới
-    public void saveInventory(Inventory inventory) {
-        try {
-            LocalDate expireDate = inventory.getExpiryDate();
-            long daysUntilExpiry = expireDate.toEpochDay() - today.toEpochDay();
+        public void saveInventory(Inventory inventory) {
+            try {
+                // Kiểm tra xem inventory có null không
+                if (inventory == null) {
+                    throw new NullPointerException("Inventory không thể là null");
+                }
 
-            // Thiết lập trạng thái cho inventory
-            if (daysUntilExpiry <= 0) {
-                inventory.setStatus(statusRepository.getReferenceById(1L));
-            } else if (daysUntilExpiry <= 5) {
-                inventory.setStatus(statusRepository.getReferenceById(2L));
-            } else if (daysUntilExpiry <= 10) {
-                inventory.setStatus(statusRepository.getReferenceById(3L));
-            } else if (inventory.getQuantity() == 0) {
-                inventory.setStatus(statusRepository.getReferenceById(5L));
-            } else {
-                inventory.setStatus(statusRepository.getReferenceById(4L));
+                // Kiểm tra product trong inventory
+                if (inventory.getProduct() == null) {
+                    throw new NullPointerException("Sản phẩm trong inventory không thể là null");
+                }
+
+                LocalDate expireDate = inventory.getExpiryDate();
+                // Kiểm tra ngày hết hạn có null không
+                if (expireDate == null) {
+                    throw new NullPointerException("Ngày hết hạn không thể là null");
+                }
+
+                long daysUntilExpiry = expireDate.toEpochDay() - today.toEpochDay();
+
+                // Kiểm tra quantity có null không
+                if (inventory.getQuantity() == null) {
+                    throw new NullPointerException("Số lượng không thể là null");
+                }
+
+                // Thiết lập trạng thái cho inventory
+                if (daysUntilExpiry <= 0) {
+                    inventory.setStatus(statusRepository.getReferenceById(1L));
+                } else if (daysUntilExpiry <= 5) {
+                    inventory.setStatus(statusRepository.getReferenceById(2L));
+                } else if (daysUntilExpiry <= 10) {
+                    inventory.setStatus(statusRepository.getReferenceById(3L));
+                } else if (inventory.getQuantity() == 0) {
+                    inventory.setStatus(statusRepository.getReferenceById(5L));
+                } else {
+                    inventory.setStatus(statusRepository.getReferenceById(4L));
+                }
+
+                inventory.setReceivedDate(today);
+
+                // Lưu tổng sản phẩm
+                Product product1 = product1Repository.findProductById(inventory.getProduct().getId());
+                if (product1 == null) {
+                    throw new NullPointerException("Sản phẩm không tồn tại trong cơ sở dữ liệu");
+                }
+
+                product1.setTotalQuantity(inventory.getQuantity() + product1.getTotalQuantity());
+                product1Repository.save(product1);
+
+                // Lưu inventory
+                Inventory savedInventory = inventoryRepository.save(inventory);
+
+                // Tạo và thiết lập Store
+                Store store = new Store();
+                store.setProduct(product1);
+                store.setInventory(savedInventory);
+                store.setDiscount(null);
+
+                // Lưu Store
+                storeRepository.save(store);
+
+            } catch (NullPointerException e) {
+                throw new RuntimeException("Lỗi: " + e.getMessage(), e); // In chi tiết lỗi NullPointerException
+            } catch (DataAccessException e) {
+                throw new RuntimeException("Lỗi truy xuất cơ sở dữ liệu", e);
+            } catch (Exception e) {
+                throw new RuntimeException("Đã xảy ra lỗi không xác định", e);
             }
-
-            inventory.setReceivedDate(today);
-
-            // Lưu tổng sản phẩm
-            Product product1 = product1Repository.findProductById(inventory.getProduct().getId());
-            product1.setTotalQuantity(inventory.getQuantity() + product1.getTotalQuantity());
-            product1Repository.save(product1);
-
-            // Lưu inventory
-            Inventory savedInventory = inventoryRepository.save(inventory);
-
-            // Tạo và thiết lập Store
-            Store store = new Store();
-            store.setProduct(product1);
-            store.setInventory(savedInventory);
-            store.setDiscount(null);
-
-            // Lưu Store
-            storeRepository.save(store);
-        } catch (NullPointerException e) {
-            throw new RuntimeException("Lỗi: có null trong quá trình xử lý", e);
-        } catch (DataAccessException e) {
-            throw new RuntimeException("Lỗi truy xuất cơ sở dữ liệu", e);
-        } catch (Exception e) {
-            throw new RuntimeException("Đã xảy ra lỗi không xác định", e);
         }
-//    khi viết controller nhớ thêm setdiscount từ store qua
-    }
+
 
 
 
@@ -193,11 +218,11 @@ public class InventoryServiceImpl implements InventoryService {
         List<Inventory> inventories = inventoryRepository.findAll();
         LocalDate currentDate = LocalDate.now();
         // Đặt lại totalQuantity về 0 trước khi tính toán lại
-        Map<Long, Integer> productQuantityMap = new HashMap<>();
+        Map<Long, Double> productQuantityMap = new HashMap<>();
 
         List<Product> products = product1Repository.findAll();
         for (Product product : products) {
-            product.setTotalQuantity(0);
+            product.setTotalQuantity(0.0);
             product1Repository.save(product);
         }
         for (Inventory inventory : inventories) {
@@ -220,13 +245,13 @@ public class InventoryServiceImpl implements InventoryService {
             if (inventory.getStatus().getId() != 1 && inventory.getIsDeleted()== IsDelete.ACTIVE.getValue() ) {
                 Long productId = inventory.getProduct().getId();
                 productQuantityMap.put(productId,
-                        productQuantityMap.getOrDefault(productId, 0) + inventory.getQuantity());
+                        productQuantityMap.getOrDefault(productId, 0.0) + inventory.getQuantity());
             }
             inventoryRepository.save(inventory);
         }
 
         // Cập nhật totalQuantity cho các sản phẩm
-        for (Map.Entry<Long, Integer> entry : productQuantityMap.entrySet()) {
+        for (Map.Entry<Long, Double> entry : productQuantityMap.entrySet()) {
             Product product1 = product1Repository.findProductById(entry.getKey());
             product1.setTotalQuantity(entry.getValue());
             product1Repository.save(product1);

@@ -1,0 +1,152 @@
+/* Không áp dụng bất kỳ CSS nào cho body, giữ nguyên trạng thái mặc định của body */
+
+/* Bố cục chính */
+.content-wrapper {
+    background-color: rgba(255, 255, 255, 0.9); /* Chỉ áp dụng nền trắng cho khối chính */
+    margin: 50px auto;
+    max-width: 1200px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+    color: #FF5733; /* Màu cam tươi sáng giống màu trái cây */
+    margin-bottom: 30px;
+    font-size: 36px;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Trạng thái đơn hàng */
+.status-waitpay {
+    background-color: #f0ad4e; /* Màu vàng chanh */
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.status-pending {
+    background-color: #ff6f61; /* Màu đỏ cam */
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.status-confirmed {
+    background-color: #28a745; /* Màu xanh lá cây */
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.status-picking {
+    background-color: #17a2b8; /* Màu xanh dương */
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.status-shipped {
+    background-color: #007bff; /* Màu xanh dương đậm */
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.status-delivered {
+    background-color: #6610f2; /* Màu tím */
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.status-unsuccessful {
+    background-color: #dc3545; /* Màu đỏ */
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.status-cancelled {
+    background-color: #6c757d; /* Màu xám */
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+
+th, td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Khi hover trên bảng */
+tr:hover {
+    background-color: #f1f1f1;
+    transition: background-color 0.3s ease-in-out;
+}
+
+/* Nút chi tiết */
+.btn-primary {
+    padding: 10px 15px;
+    background-color: #FF5733; /* Màu cam giống với trái cây */
+    color: white;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 14px;
+    display: inline-block;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(255, 87, 51, 0.4);
+}
+
+.btn-primary:hover {
+    background-color: #e04f2f;
+    box-shadow: 0 6px 15px rgba(255, 87, 51, 0.6);
+}
+
+/* Bảng */
+.table-container {
+    overflow-x: auto;
+    margin-top: 30px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+
+th {
+    background-color: #28a745; /* Màu xanh lá cây */
+    color: white;
+    text-transform: uppercase;
+}
+
+td {
+    font-size: 14px;
+    color: #555;
+}
+
+tr:hover {
+    background-color: #f1f1f1;
+    transition: background-color 0.3s ease-in-out;
+}
+
+
+
+    box-shadow: 0 4px 8px rgba(255, 87, 51,

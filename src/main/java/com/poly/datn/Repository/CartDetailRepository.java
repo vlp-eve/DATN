@@ -12,7 +12,7 @@ public interface CartDetailRepository extends JpaRepository<CartDetail, Long> {
     Optional<CartDetail> findByCart_IdAndStore_Id(Long cartId, Long storeId);
 
     List<CartDetail> findByCartId(Long cartId);
-    Optional<CartDetail> findByCart_IdAndId(Long cartId, Long id);
+    CartDetail findByCart_IdAndId(Long cartId, Long id);
 
 
 }

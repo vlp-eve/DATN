@@ -1,19 +1,17 @@
 <!DOCTYPE html>
 <html lang="vi" xmlns:th="http://www.thymeleaf.org"
       th:replace="~{assets/layout/index :: dynamic(~{::main})}">
-
-
-
 <main>
     <body>
     <div class="container my-5">
         <div class="row">
-            <div class="col-12">
+            <div class="col-12" >
                 <h2 class="text-center mb-4">Quản Lý Lô Hàng</h2>
                 <div class="card p-4">
                     <div class="d-flex justify-content-between align-items-center mb-3">
                         <h4 class="mb-0">Danh Sách Lô Hàng</h4>
-                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addBatchModal">Thêm Lô Hàng Mới</button>
+                        <a th:href="@{'/admin/inventorys/add?productId=' + ${inventories[0].product.id}}"
+                           class="btn btn-primary">Thêm Lô Hàng Mới</a>
                     </div>
                     <div class="table-responsive">
                         <table class="table table-striped">
@@ -31,21 +29,16 @@
                             <tbody>
                             <tr th:each="inventory : ${inventories}">
                                 <td th:text="${inventory.id}">LO001</td>
-                                <td th:text="${inventory.product.name} ">Xoài Cát Hòa Lộc</td>
+                                <td th:text="${inventory.product.name}">Xoài Cát Hòa Lộc</td>
                                 <td th:text="${inventory.quantity}">200</td>
                                 <td th:text="${inventory.receivedDate}"></td>
                                 <td th:text="${inventory.expiryDate}"></td>
                                 <td th:text="${inventory.status.status}"
-                                    th:classappend="${inventory.status.status == 'Hỏng' ? 'badge bg-dark' :
-                     inventory.status.status == 'Sắp hỏng' ? 'badge bg-warning' :
-                     inventory.status.status == 'Chín' ? 'badge bg-info' :
-                     inventory.status.status == 'Mới nhập hàng' ? 'badge bg-primary' :
-                     inventory.status.status == 'Hết hàng' ? 'badge bg-danger' : 'badge bg-secondary'}">
+                                    th:classappend="${inventory.status.status == 'Hỏng' ? 'badge bg-dark' : 'badge bg-secondary'}">
                                     Trạng Thái
                                 </td>
-
                                 <td>
-                                    <button class="btn btn-warning btn-sm">Sửa</button>
+                                    <a th:href="'/admin/inventorys/edit/' + ${inventory.id}" class="btn btn-warning btn-sm">Sửa</a>
                                     <button class="btn btn-danger btn-sm">Xóa</button>
                                 </td>
                             </tr>
@@ -56,55 +49,7 @@
             </div>
         </div>
     </div>
-
-    <!-- Modal Thêm Lô Hàng Mới -->
-    <div class="modal fade" id="addBatchModal" tabindex="-1" aria-labelledby="addBatchModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="addBatchModalLabel">Thêm Lô Hàng Mới</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <div class="mb-3">
-                            <label for="batchId" class="form-label">Mã Lô Hàng</label>
-                            <input type="text" class="form-control" id="batchId" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="productName" class="form-label">Tên Sản Phẩm</label>
-                            <input type="text" class="form-control" id="productName" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="quantity" class="form-label">Số Lượng</label>
-                            <input type="number" class="form-control" id="quantity" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="entryDate" class="form-label">Ngày Nhập</label>
-                            <input type="date" class="form-control" id="entryDate" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="expiryDate" class="form-label">Ngày Hết Hạn</label>
-                            <input type="date" class="form-control" id="expiryDate" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="status" class="form-label">Trạng Thái</label>
-                            <select class="form-select" id="status" required>
-                                <option value="Còn Hàng">Còn Hàng</option>
-                                <option value="Hết Hàng">Hết Hàng</option>
-                            </select>
-                        </div>
-                        <button type="submit" class="btn btn-primary w-100">Lưu Lô Hàng</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     </body>
-
-
 </main>
 </html>

@@ -1,0 +1,81 @@
+
+<div class="grid wide" th:fragment="nav">
+    <div class="row">
+        <header class="header m-12">
+            <nav class="header-navbar">
+                <a class="header-name" th:href="@{/}">FRUITWORLD</a>
+
+                <!-- Header options -->
+
+                <div class="header-options hide-on-mobile-table">
+                    <div class="header-options-choose text-hover header-options-home">
+                        <a th:href="@{/}">Trang chủ</a>	</div>
+                    <div class="header-options-choose header-options-shop">
+                        <a href="#" th:href="@{/store}" class="text-decoration-none">
+                            Sản phẩm
+                            <i class="bi bi-chevron-down"></i>
+                        </a>
+                        <div class="header-options-shop-product">
+                            <div th:each="category : ${category}">
+                                <a th:href="@{/store/category/{categoryId}(categoryId=${category.id})}">
+                                    <div class="product-body-name" th:text="${category.name}">Trái cây cận nhiệt đới</div>
+                                </a>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                    <div class="header-options-choose text-hover header-options-pages">
+                        <a href="/about">Giới thiệu</a>
+                    </div>
+                    <div class="header-options-choose text-hover header-options-pages">
+                        <a href="/contact">Liên hệ</a>
+                    </div>
+
+                    <div
+                            class="header-options-choose text-hover header-options-contact">
+                    </div>
+                </div>
+                <div class="header-icon">
+                    <!-- Icon cart -->
+                    <a class="action-item" th:href="@{/cart}">
+                        <i class="bi bi-cart-plus"></i>
+                        <span class="cart-quantity" th:text="${cartQuantity}">5</span>
+
+                    </a>
+
+                    <!-- Icon user -->
+                    <div class="user-dropdown">
+                        <a class="action-item"> <span
+                                th:text="${username != null ? username : 'USER'}"></span>
+                        </a>
+                        <!-- Dropdown menu -->
+                        <div class="user-menu">
+                            <th:block th:if="${request.remoteUser != null}">
+                                <a class="user-menu-item" th:href="@{/security/logoff}">Đăng
+                                    xuất</a>
+
+
+                                <a
+                                        th:if="${request.isUserInRole('ADM')} or ${request.isUserInRole('STAF')}"
+                                        class="user-menu-item" th:href="@{/admin/product}">Quản
+                                    lý</a>
+                                <a
+                                        th:if="${request.isUserInRole('ADM')}"
+                                        class="user-menu-item" th:href="@{/admin/phanquyen}">Phân quyền</a>
+                                <a class="user-menu-item" th:href="@{/order/user/orders}">Xem đơn hàng</a>
+                            </th:block>
+                            <th:block th:if="${request.remoteUser ==null}">
+                                <a class="user-menu-item" th:href="@{/security/login/form}">Đăng
+                                    nhập</a>
+                                <a class="user-menu-item" th:href="@{/register/form}">Đăng ký</a>
+                            </th:block>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </header>
+    </div>
+</div>
+

@@ -1,0 +1,163 @@
+.container {
+            font-family: 'Arial', sans-serif;
+            max-width: 900px;
+            margin-top: 50px;
+            padding: 30px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        .payment-method {
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            padding: 20px;
+            background-color: #fafafa;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .payment-option {
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            background-color: #ffffff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .payment-option:hover {
+            background-color: #f1f1f1;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .qr-img {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .method-name {
+            font-size: 1.1em;
+            font-weight: 600;
+        }
+
+        .total-price {
+            font-size: 1.3em;
+            font-weight: bold;
+            padding: 12px 25px;
+            background-color: #e9f7ef;
+            border-radius: 10px;
+            border: 1px solid #ddd;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+
+        .total-price.high {
+            color: #dc3545;
+        }
+
+        .btn-custom {
+            padding: 12px 25px;
+            font-size: 16px;
+            border-radius: 30px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-cancel {
+            background-color: #dc3545;
+            border: none;
+            color: white;
+        }
+
+        .btn-confirm {
+            background-color: #28a745;
+            border: none;
+            color: white;
+        }
+
+        .btn-custom:hover {
+            opacity: 0.9;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            border-radius: 10px;
+            padding: 12px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+            width: 100%;
+        }
+
+        .form-group label {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        /* Responsive */
+        @media (max-width: 767px) {
+            .checkout-form {
+                flex-direction: column;
+            }
+
+            .payment-method {
+                max-width: 100%;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            .btn-custom {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+        }
+
+        /* Cải thiện bảng sản phẩm */
+        .cart-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+         .cart-table th, .cart-table td {
+            padding: 15px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+
+        .cart-table th {
+            background-color: #f0f0f0;
+            font-weight: bold;
+        }
+
+        .cart-table td {
+            background-color: #ffffff;
+        }
+
+        .cart-table img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .product-name {
+            font-weight: bold;
+            color: #333;
+        }
+
+        /* Đặt nút bên cạnh nhau */
+        .button-group {
+            margin-top: 20px;
+            display: flex;
+            justify-content: flex-end;
+            gap: 20px;
+        }
+
+        /* Cải thiện cách bố trí tổng cộng */
+        .total-section {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px solid #ddd;
+        }

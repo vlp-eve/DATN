@@ -5,44 +5,79 @@
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
+<body>
 <main>
-    <div class="list-account-body">
-        <div class="list-account-container">
-            <h1 class="list-account-header">Danh Sách Tài Khoản</h1>
-            <table class="list-account-table">
-                <thead>
-                <tr class="list-account-row">
-                    <th class="list-account-header-cell">ID</th>
-                    <th class="list-account-header-cell">Tên Đăng Nhập</th>
-                    <th class="list-account-header-cell">Họ Tên</th>
-                    <th class="list-account-header-cell">Email</th>
-                    <th class="list-account-header-cell">Số Điện Thoại</th>
-                    <th class="list-account-header-cell">Địa Chỉ</th>
-                    <th class="list-account-header-cell">Hành Động</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr class="list-account-row" th:each="user : ${users}">
-                    <td class="list-account-cell" th:text="${user.id}">1</td>
-                    <td class="list-account-cell" th:text="${user.username}">nguyenvana</td>
-                    <td class="list-account-cell" th:text="${user.fullname}">Nguyễn Văn A</td>
-                    <td class="list-account-cell" th:text="${user.email}">vana@example.com</td>
-                    <td class="list-account-cell" th:text="${user.phone}">0123456789</td>
-                    <td class="list-account-cell" th:text="${user.address}">123 Đường ABC, Quận 1, TP. HCM</td>
-                    <td class="list-account-cell">
-                        <div class="list-account-actions">
-                            <a href="#" class="list-account-btn list-account-btn-primary">
-                                <i class="fas fa-edit"></i>
-                            </a>
-                            <a href="#" class="list-account-btn list-account-btn-danger">
-                                <i class="fas fa-trash-alt"></i>
-                            </a>
-                        </div>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
+    <div class="list-account-container">
+        <h1 class="list-account-header">Danh Sách Tài Khoản</h1>
+        <form action="">
+            <!-- Thanh tìm kiếm -->
+            <div class="search-bar-container">
+
+                <input type="text" id="search-bar" class="search-bar"
+                       placeholder="Tìm kiếm tài khoản username..." name="keyword">
+                <button class="search-btn" type="submit">Tìm kiếm</button>
+
+            </div>
+        </form>
+        <table class="list-account-table">
+            <thead>
+            <tr class="list-account-row">
+                <th class="list-account-header-cell">ID</th>
+                <th class="list-account-header-cell">Địa chỉ</th>
+                <th class="list-account-header-cell">Họ và Tên</th>
+                <th class="list-account-header-cell">Ngày tạo</th>
+                <th class="list-account-header-cell">Tên tài khoản</th>
+                <th class="list-account-header-cell">Password</th>
+                <th class="list-account-header-cell">Email</th>
+                <th class="list-account-header-cell">Số điện thoại</th>
+                <th class="list-account-header-cell">Giới tính</th>
+                <th class="list-account-header-cell">Trạng thái</th>
+                <th class="list-account-header-cell">Hoạt động</th>
+            </tr>
+            </thead>
+            <tbody id="account-table-body">
+            <!-- Dữ liệu mẫu -->
+            <tr th:each="u : ${userList}">
+                <td class="list-account-cell" th:text="${u.id}"></td>
+                <td class="list-account-cell" th:text="${u.address}"></td>
+                <td class="list-account-cell" th:text="${u.fullname}"></td>
+                <td class="list-account-cell" th:text="${u.createAt}"></td>
+                <td class="list-account-cell" th:text="${u.username}"></td>
+                <td class="list-account-cell" th:text="${u.password}"></td>
+                <td class="list-account-cell" th:text="${u.email}"></td>
+                <td class="list-account-cell" th:text="${u.phone}"></td>
+                <td class="list-account-cell" th:text="${u.gender ? 'Nam' : 'Nữ'}"></td>
+                <td class="list-account-cell"
+                    th:text="${u.isDeleted == 0 ? 'Hoạt động' : 'Đã xóa'}"></td>
+                <td>
+                    <div class="list-account-actions">
+                        <a th:href="@{/staff/user/form/{id}(id=${u.id})}"
+                           class="list-account-btn list-account-btn-primary"><i
+                                class="fas fa-edit"></i></a> <a
+                            th:href="@{/staff/user/delete/{id}(id=${u.id})}"
+                            class="list-account-btn list-account-btn-danger"> <i
+                            class="fas fa-trash-alt"></i></a>
+                    </div>
+                </td>
+            </tr>
+
+            <!-- Có thể thêm nhiều dòng tài khoản khác tại đây -->
+            </tbody>
+        </table>
+        <ul class="pagination">
+            <li th:if="${currentPage>1}" class="page-item"><a
+                    class="page-link"
+                    th:href="@{${keyword != null && keyword!=''? '?keyword='+keyword+'&':'?'}+'pageNo='+${currentPage-1}}">Previous</a></li>
+            <li th:each="i:${#numbers.sequence(1,totalPage)}"
+                th:classappend="${currentPage == i ? 'active' : ''}"><a
+                    class="page-link"
+                    th:href="@{${keyword != null && keyword!=''? '?keyword='+keyword+'&':'?'}+'pageNo='+${i}}"
+                    th:text="${i}"></a></li>
+            <li th:if="${currentPage<totalPage}" class="page-item"><a
+                    class="page-link"
+                    th:href="@{${keyword != null && keyword!=''? '?keyword='+keyword+'&':'?'}+'pageNo='+${currentPage+1}}">Next</a></li>
+        </ul>
     </div>
 </main>
+</body>
 </html>

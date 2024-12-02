@@ -14,14 +14,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.List;
 
 @Controller
-@RequestMapping("/orderDetail")
+@RequestMapping("admin/orderDetail")
 public class OrderDetailController {
 
     @Autowired
     private OrderDetailService orderDetailService;
 
     @Autowired
-    private OrderService orderService;  // Dịch vụ để lấy thông tin đơn hàng
+    private OrderService orderService;
 
     @GetMapping("/{id}")
     public String getOrderDetails(@PathVariable Long id, Model model) {
@@ -40,9 +40,7 @@ public class OrderDetailController {
             return "assets/form/listOrderDetail";
         }
 
-        // Nếu không tìm thấy đơn hàng
-
-
         return "error";
     }
+
 }

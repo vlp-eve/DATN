@@ -63,8 +63,13 @@
     </section>
 
     <div class="actions">
-      <a th:href="@{/orders/test}" class="btn-primary">Quay lại</a>
-      <a href="#" class="btn-danger">Hủy đơn</a>
+      <a th:href="@{/admin/orders}" class="btn-primary">Quay lại</a>
+      <form th:action="@{/admin/orders/cancel}" method="post" style="display: inline;">
+        <input type="hidden" name="orderId" th:value="${order.id}" />
+        <button type="submit" class="btn-danger" onclick="return confirm('Bạn có chắc chắn muốn hủy đơn hàng này?');">
+          Hủy đơn
+        </button>
+      </form>
     </div>
   </div>
 

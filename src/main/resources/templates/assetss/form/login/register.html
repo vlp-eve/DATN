@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng ký - Cửa hàng trái cây</title>
+    <style>
+       body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-image: url('/assetss/images/bgtraicay.jpg'); /* Thay bằng URL ảnh nền */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        /* Phần container chính của form */
+        .register-container {
+            background-color: rgba(255, 255, 255, 0.9); /* Màu trắng với độ trong suốt nhẹ */
+            width: 350px;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .register-container h2 {
+            margin-bottom: 20px;
+            color: #FF6347; /* Màu cam đỏ nhẹ, đại diện cho trái cây tươi */
+        }
+
+        /* Ô nhập liệu */
+        .register-container input[type="text"],
+        .register-container input[type="email"],
+        .register-container input[type="password"],
+        .register-container input[type="tel"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        /* Nút đăng ký */
+        .register-container button {
+            width: 100%;
+            padding: 12px;
+            background-color: #32CD32; /* Màu xanh lá tươi */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .register-container button:hover {
+            background-color: #2E8B57; /* Màu xanh đậm hơn khi hover */
+        }
+
+        /* Liên kết quay lại đăng nhập */
+        .register-container a {
+            color: #FF6347;
+            display: block;
+            margin-top: 15px;
+            text-decoration: none;
+        }
+
+        .register-container a:hover {
+            text-decoration: underline;
+        }
+
+        /* Style logo trái cây */
+        .logo {
+            margin-bottom: 20px;
+        }
+
+        .logo img {
+            width: 100px;
+            height: auto;
+        }
+
+        /* Phần mời đăng nhập nếu đã có tài khoản */
+        .login {
+            margin-top: 20px;
+            font-size: 14px;
+        }
+
+        .login p,
+        .login a {
+            display: inline-block; /* Đặt chúng trên cùng một hàng */
+            margin: 0;
+        }
+
+        .login a {
+            color: #32CD32; /* Màu xanh lá tươi */
+            text-decoration: none;
+            font-weight: bold;
+            margin-left: 5px; /* Tạo khoảng cách nhỏ giữa chữ */
+        }
+
+        .login a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+<div class="dangkyform">
+    <div class="register-container">
+        <div class="logo">
+            <img src="/assetss/images/logotraicay.jpg" alt="Logo Cửa hàng trái cây">
+        </div>
+        <h2>Đăng ký</h2>
+        <form th:action="@{/register/submit}" th:object="${user}"
+              method="post">
+            <input type="text" th:field="*{fullname}" placeholder="Họ và tên">
+            <div th:if="${#fields.hasErrors('fullname')}" th:errors="*{fullname}"></div>
+            <input type="text" th:field="*{username}" placeholder="Tên đăng nhập">
+            <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div>
+            <span th:if="${usernameError != null}" th:text="${usernameError}"
+                  class="text-danger"></span> <input type="email" th:field="*{email}"
+                                                     placeholder="Email">
+            <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+            <span th:if="${emailError != null}" th:text="${emailError}"
+                  class="text-danger"></span> <input type="text" th:field="*{phone}"
+                                                     placeholder="Số điện thoại">
+            <div th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></div>
+            <span th:if="${phoneError != null}" th:text="${phoneError}"
+                  class="text-danger"></span> <input type="password"
+                                                     th:field="*{password}" placeholder="Mật khẩu">
+            <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+            <input type="text" th:field="*{address}" placeholder="Địa chỉ">
+            <div th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></div>
+            <div class="gender-container">
+
+                <label><input type="radio" th:field="*{gender}" value="True">
+                    Nam</label> <label><input type="radio" th:field="*{gender}"
+                                              value="False"> Nữ</label>
+            </div>
+            <div th:if="${#fields.hasErrors('gender')}" th:errors="*{gender}"></div>
+            <button type="submit">Đăng ký</button>
+        </form>
+<!--        <a>Quên mật khẩu?</a>-->
+        <div class="login">
+            <p>Đã có tài khoản?</p>
+            <a th:href = "@{/security/login/form}">Đăng nhập ngay</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

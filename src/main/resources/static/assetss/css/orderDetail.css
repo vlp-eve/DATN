@@ -1,0 +1,56 @@
+   .donhanguser {
+      font-family: 'Arial', sans-serif;
+      background-color: #f5f8f3;
+      padding: 20px 0;
+    }
+
+    .card-header {
+      background-color: #8bc34a; /* Màu xanh lá tươi */
+      color: #ffffff;
+      font-weight: bold;
+    }
+
+    .card {
+      border: none;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn-custom {
+      background-color: #4caf50; /* Màu xanh đậm hơn */
+      color: white;
+      border: none;
+      border-radius: 25px;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .btn-custom:hover {
+      background-color: #388e3c;
+      transform: scale(1.05);
+    }
+
+    .btn-secondary {
+      border-radius: 25px;
+    }
+
+    th, td {
+      vertical-align: middle;
+    }
+
+    table {
+      background-color: #ffffff;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .table thead {
+      background-color: #81c784; /* Màu xanh nhạt hơn */
+      color: white;
+    }
+
+    .table tfoot {
+      background-color: #dcedc8;
+      color: #33691e;
+      font-weight: bold;
+    }

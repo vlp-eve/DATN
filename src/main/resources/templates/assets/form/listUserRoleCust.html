@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{assets/layout/index :: dynamic(~{::main})}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<main>
+    <div class="list-account-body">
+        <div class="list-account-container">
+            <h1 class="list-account-header">Danh Sách Tài Khoản</h1>
+            <table class="list-account-table">
+                <thead>
+                <tr class="list-account-row">
+                    <<th class="list-account-header-cell">ID</th>
+                    <th class="list-account-header-cell">Địa chỉ</th>
+                    <th class="list-account-header-cell">Họ và Tên</th>
+                    <th class="list-account-header-cell">Ngày tạo</th>
+                    <th class="list-account-header-cell">Tên tài khoản</th>
+                    <th class="list-account-header-cell">Password</th>
+                    <th class="list-account-header-cell">Email</th>
+                    <th class="list-account-header-cell">Số điện thoại</th>
+                    <th class="list-account-header-cell">Giới tính</th>
+                    <th class="list-account-header-cell">Trạng thái</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="uc : ${userCust}">
+                    <td th:text="${uc.id}"></td>
+                    <td th:text="${uc.address}"></td>
+                    <td th:text="${uc.fullname}"></td>
+                    <td th:text="${uc.createAt}"></td>
+                    <td th:text="${uc.username}"></td>
+                    <td th:text="${uc.password}"></td>
+                    <td th:text="${uc.email}"></td>
+                    <td th:text="${uc.phone}"></td>
+                    <td th:text="${uc.gender ? 'Nam' : 'Nữ'}"></td>
+                    <td th:text="${uc.isDeleted == 0 ? 'Hoạt động' : 'Đã xóa'}"></td>
+                    <td>
+                        <div class="list-account-actions">
+                            <a th:href="@{/staff/user/form/{id}(id=${uc.id})}"
+                               class="list-account-btn list-account-btn-primary"><i
+                                    class="fas fa-edit"></i></a>
+
+                            <a
+                                th:href="@{/staff/user/delete/{id}(id=${uc.id})}"
+                                class="list-account-btn list-account-btn-danger"> <i
+                                class="fas fa-trash-alt"></i></a>
+                        </div>
+                    </td>
+                </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</main>
+</html>

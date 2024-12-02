@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{assetss/layout/index :: dynamic(~{::main})}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý đơn hàng - Trái Cây Tươi</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<main class="content-wrapper">
+    <h1>Đơn hàng của bạn</h1>
+    <div th:if="${noOrdersMessage}" class="alert alert-info">
+        <span th:text="${noOrdersMessage}"></span>
+    </div>
+    <div class="table-container">
+        <table>
+            <thead>
+            <tr>
+                <th>Mã Đơn</th>
+                <th>Ngày Tạo</th>
+                <th>Tổng Tiền</th>
+                <th>Trạng Thái</th>
+                <th>Hành Động</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="order : ${orders}">
+                <td th:text="${order.id}">DH001</td>
+                <td th:text="${order.createDate}">10/10/2024</td>
+                <td th:text="${order.totalAmount} + ' VND'">6,000,000 VND</td>
+                <td th:text="${order.status.name == 'WAITPAY' ? 'Chờ thanh toán' :
+                 order.status.name == 'PENDING' ? 'Đang chờ xử lý' :
+                 order.status.name == 'CONFIRMED' ? 'Đã xác nhận' :
+                 order.status.name == 'PICKING' ? 'Đang lấy hàng' :
+                 order.status.name == 'SHIPPED' ? 'Đang giao hàng' :
+                 order.status.name == 'DELIVERED' ? 'Đã giao' :
+                 order.status.name == 'UNSUCCESSFUL' ? 'Không thành công' :
+                 'Đã hủy'}"
+                    th:classappend="${order.status.name == 'WAITPAY' ? 'status-waitpay' :
+                         order.status.name == 'PENDING' ? 'status-pending' :
+                         order.status.name == 'CONFIRMED' ? 'status-confirmed' :
+                         order.status.name == 'PICKING' ? 'status-picking' :
+                         order.status.name == 'SHIPPED' ? 'status-shipped' :
+                         order.status.name == 'DELIVERED' ? 'status-delivered' :
+                         order.status.name == 'UNSUCCESSFUL' ? 'status-unsuccessful' :
+                         'status-cancelled'}">
+                    Trạng Thái
+                </td>
+                <td>
+                    <a th:href="@{'/orderDetail/' + ${order.id}}" class="btn-primary">Xem chi tiết</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</main>
+</body>
+</html>

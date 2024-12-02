@@ -1,0 +1,339 @@
+/* CSS cho phần chính */
+.mainsp {
+  font-family: 'Arial', sans-serif;
+  background-color: #f4f4f9;
+  display: flex;
+  min-height: 100vh;
+  padding: 20px;
+  gap: 20px; /* Khoảng cách giữa sidebar và nội dung */
+  box-sizing: border-box;
+}
+
+:root {
+  --pink: #1be952;
+}
+
+
+
+html {
+  font-size: 62.5%;
+  scroll-behavior: smooth;
+  scroll-padding-top: 6rem;
+  overflow-x: hidden;
+}
+
+/* Toàn bộ sidebar */
+.sidebar {
+  width: 300px;
+  background-color: #f8f9fa;
+  padding: 25px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Tiêu đề sidebar */
+.sidebar h2 {
+  font-size: 22px;
+  font-weight: bold;
+  color: #333;
+  text-align: center;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+}
+
+/* Style chung cho bộ lọc */
+.category-filter {
+    margin: 20px 0;
+    font-family: Arial, sans-serif;
+    color: #333;
+}
+
+.category-filter h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+/* Style dropdown button */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-btn {
+    background-color: white;
+    color: #333;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 200px; /* Có thể chỉnh lại tùy ý */
+    text-align: left;
+}
+
+.dropdown-btn:hover {
+    background-color: #ccc;
+    color: #333;
+}
+
+/* Style nội dung dropdown */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: white;
+    min-width: 200px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.dropdown-content a {
+    color: #333;
+    padding: 10px 15px;
+    text-decoration: none;
+    display: block;
+    font-size: 14px;
+}
+
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+    color: #007bff;
+}
+
+/* Hiển thị dropdown khi hover */
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+
+/* Bộ lọc giá */
+.filter-section {
+  padding: 15px;
+  background-color: #ffffff;
+  border: 1px solid #e6e6e6;
+  border-radius: 8px;
+}
+
+.filter-section h3 {
+  font-size: 18px;
+  font-weight: bold;
+  color: #444;
+  margin-bottom: 15px;
+}
+
+.filter-section label {
+  display: block;
+  font-size: 16px;
+  color: #555;
+  margin-bottom: 10px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.filter-section label:hover {
+  color: #007bff;
+}
+
+.filter-section input[type="radio"] {
+  margin-right: 10px;
+  accent-color: #007bff;
+  width: 18px;
+  height: 18px;
+}
+
+
+
+.main-content {
+  flex-grow: 1; /* Giúp chiếm toàn bộ chiều rộng còn lại */
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Sản phẩm */
+.products .box-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* Chia thành 4 cột */
+  gap: 30px; /* Khoảng cách giữa các sản phẩm */
+}
+
+.products .box-container .box {
+  box-shadow: 0 .5rem 1.5rem rgba(0, 0, 0, .1);
+  border-radius: .5rem;
+  border: .1rem solid rgba(0, 0, 0, .1);
+  position: relative;
+  background-color: #fff;
+  transition: transform .3s ease, box-shadow .3s ease;
+}
+
+.products .box-container .box .content h3 {
+  font-size: 2.5rem;
+  color: #1e90ff;
+  font-weight: bold;
+  text-transform: capitalize;
+  transition: color 0.3s ease;
+
+}
+.products .box-container .box .content h3 a{
+    text-decoration: none;
+}
+.products .box-container .box .content h3:hover {
+  color: #ff4500;
+  text-decoration: underline;
+}
+
+.products .box-container .box:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 20px rgba(30, 144, 255, 0.4);
+}
+
+
+.products .box-container .box .discount {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  padding: .7rem 1rem;
+  font-size: 2rem;
+  color: var(--pink);
+  background: rgba(51, 255, 78, 0.5);
+  z-index: 1;
+  border-radius: .5rem;
+}
+
+.products .box-container .box .image img {
+  width: 100%; /* Giữ chiều rộng bằng 100% của phần tử chứa */
+  height: 250px; /* Đặt chiều cao cố định */
+  object-fit: cover; /* Giữ tỷ lệ ảnh, cắt bớt nếu cần */
+}
+
+.products .box-container .box .image {
+  position: relative;
+  text-align: center;
+  overflow: hidden;
+  height: 250px; /* Đặt chiều cao cố định */
+}
+
+.products .box-container .box:hover .image img {
+  transform: scale(1.1);
+}
+
+.products .box-container .box .image .icons {
+  position: absolute;
+  bottom: -7rem;
+  left: 0;
+  right: 0;
+  display: flex;
+  opacity: 0;
+  transition: .3s ease-in-out;
+}
+
+.products .box-container .box:hover .image .icons {
+  bottom: 0;
+  opacity: 1;
+}
+
+.products .box-container .box .image .icons a {
+  height: 5rem;
+  line-height: 5rem;
+  font-size: 2rem;
+  width: 50%;
+  background: var(--pink);
+  color: #fff;
+}
+/* Chỉnh sửa nút thêm giỏ hàng */
+.products .box-container .box .image .icons .cart-btn {
+  background-color: var(--pink);
+  color: #fff;
+  font-size: 1.5rem;
+  padding: 1rem;
+  width: 100%;
+  text-align: center;
+  border-radius: .5rem;
+  cursor: pointer;
+  transition: background-color .3s ease, transform .3s ease;
+  border: none;
+}
+
+.products .box-container .box .image .icons .cart-btn:hover {
+  background-color: #333;
+  transform: scale(1.05);
+}
+
+.products .box-container .box .image .icons .cart-btn:active {
+  transform: scale(0.98); /* Hiệu ứng khi nhấn */
+}
+
+.products .box-container .box .image .icons .cart-btn:focus {
+  outline: none; /* Loại bỏ viền focus */
+}
+
+.products .box-container .box .image .icons a:hover {
+  background: #333;
+}
+
+.products .box-container .box .content {
+  padding: 2rem;
+  text-align: center;
+}
+
+.products .box-container .box .content h3 {
+  font-size: 2.5rem;
+  color: #333;
+}
+/* Tổng thể phần giá */
+.products .box-container .box .content .price {
+  font-size: 2.5rem; /* Kích thước chữ chính cho giá giảm hoặc không giảm */
+  color: var(--pink); /* Màu nổi bật cho giá chính */
+  font-weight: bolder; /* Nhấn mạnh giá trị chính */
+  padding-top: 1rem; /* Khoảng cách trên */
+}
+
+/* Giá gốc (nếu có giảm giá) */
+.products .box-container .box .content .price .original-price {
+  font-size: 1.8rem; /* Kích thước nhỏ hơn giá chính */
+  color: #999; /* Màu xám để giảm độ nổi bật */
+  font-weight: lighter; /* Font nhẹ hơn */
+  text-decoration: line-through; /* Gạch ngang để thể hiện giá cũ */
+  display: inline-block; /* Đảm bảo giữ cùng dòng nếu cần */
+  margin-right: 0.5rem; /* Khoảng cách với đơn vị */
+}
+
+/* Đơn vị tính (unit) */
+.products .box-container .box .content .price .unit {
+  font-size: 1.5rem; /* Kích thước nhỏ hơn giá */
+  color: #666; /* Màu nhấn nhẹ cho đơn vị */
+  font-weight: normal; /* Font thông thường */
+  margin-left: 0.5rem; /* Khoảng cách giữa giá và đơn vị */
+  display: inline-block; /* Đảm bảo đơn vị luôn nằm cạnh giá */
+}
+
+/* Giá khi không có giảm giá */
+.products .box-container .box .content .price span {
+  font-size: 2rem; /* Cân đối với giá có giảm giá */
+  color: var(--pink); /* Màu chính cho giá */
+  font-weight: bolder; /* Giữ nhấn mạnh */
+}
+
+
+
+/* Responsive */
+@media (max-width: 1200px) {
+  .products .box-container {
+    grid-template-columns: repeat(3, 1fr); /* Chia thành 3 cột */
+  }
+}
+
+@media (max-width: 992px) {
+  .products .box-container {
+    grid-template-columns: repeat(2, 1fr); /* Chia thành 2 cột */
+  }
+}
+
+@media (max-width: 768px) {
+  .products .box-container {
+    grid-template-columns: 1fr; /* Chia thành 1 cột */
+  }
+}

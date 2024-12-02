@@ -1,0 +1,144 @@
+.list-account-body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f7f7f7;
+            margin: 0;
+            padding: 0;
+        }
+
+        .list-account-header {
+            text-align: center;
+            color: #333;
+            margin: 20px 0;
+            font-size: 32px;
+        }
+
+        .list-account-container {
+            width: 80%;
+            margin: 0 auto;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        .list-account-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .list-account-header-cell,
+        .list-account-cell {
+            padding: 12px;
+            text-align: left;
+            font-size: 14px;
+            color: #555;
+        }
+
+        .list-account-header-cell {
+            background-color: #343a40;
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .list-account-row:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .list-account-row:hover {
+            background-color: #f1f1f1;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        .list-account-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .list-account-btn {
+            padding: 8px 12px;
+            font-size: 16px;
+            color: white;
+            background-color: #007bff;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .list-account-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .list-account-btn-danger {
+            background-color: #dc3545;
+        }
+
+        .list-account-btn-danger:hover {
+            background-color: #c82333;
+        }
+
+        .list-account-btn i {
+            font-size: 18px;
+        }
+
+.search-bar-container {
+    display: flex;
+    justify-content: center; /* Căn giữa */
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.search-bar {
+    max-width: 250px; /* Đảm bảo không quá lớn */
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.search-btn {
+    padding: 10px 16px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.search-btn:hover {
+    background-color: #0056b3;
+}
+
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            list-style: none;
+            padding: 0;
+        }
+
+        .pagination li {
+            margin: 0 5px;
+        }
+
+        .pagination a {
+            display: block;
+            padding: 8px 12px;text-decoration: none;
+                                          background-color: #007bff;
+                                          color: white;
+                                          border-radius: 4px;
+                                      }
+
+                                      .pagination a:hover {
+                                          background-color: #0056b3;
+                                      }
+
+                                      .pagination .active {
+                                          background-color: #343a40;
+                                      }

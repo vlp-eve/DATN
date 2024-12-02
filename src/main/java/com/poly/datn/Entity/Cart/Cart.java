@@ -30,7 +30,7 @@ public class Cart {
     @Column(name = "create_date")
     private LocalDate createDate;
 
-    @OneToMany(mappedBy = "cart", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "cart", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<CartDetail> cartDetails;
 
 }
